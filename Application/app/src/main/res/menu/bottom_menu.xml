@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+    android:id="@+id/books"
+    android:icon="@drawable/ic_local_library_black_24dp"
+    android:title="@string/my_books_title"
+    app:showAsAction="ifRoom" />
+
+  <item
+    android:id="@+id/bookReviews"
+    android:icon="@drawable/ic_book_black_24dp"
+    android:title="@string/book_reviews"
+    app:showAsAction="ifRoom" />
+
+  <item
+    android:id="@+id/readingList"
+    android:icon="@drawable/ic_library_books_black_24dp"
+    android:title="@string/reading_list"
+    app:showAsAction="ifRoom" />
+</menu>

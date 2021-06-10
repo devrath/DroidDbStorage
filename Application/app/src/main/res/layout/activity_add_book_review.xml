@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <androidx.appcompat.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    app:title="@string/add_review_title"
+    app:titleTextColor="@color/white" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginTop="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/default_margin"
+    android:layout_marginBottom="@dimen/half_margin"
+    android:text="@string/book_picker_hint"
+    android:textSize="@dimen/title_text_size"
+    android:textStyle="bold" />
+
+  <Spinner
+    android:id="@+id/bookOption"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/default_margin" />
+
+  <EditText
+    android:id="@+id/bookImageUrl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginTop="@dimen/half_margin"
+    android:layout_marginEnd="@dimen/default_margin"
+    android:hint="@string/book_image_url_input_hint"
+    android:importantForAutofill="no"
+    android:inputType="textUri" />
+
+  <RatingBar
+    android:id="@+id/reviewRating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="@dimen/default_margin"
+    android:max="5"
+    android:stepSize="1" />
+
+  <EditText
+    android:id="@+id/reviewNotes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginTop="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/default_margin"
+    android:hint="@string/review_notes_hint"
+    android:inputType="textMultiLine"
+    android:maxLength="480" />
+
+  <Button
+    android:id="@+id/addReview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:background="@color/colorPrimary"
+    android:text="@string/save_book_review_text"
+    android:textColor="@color/white" />
+</LinearLayout>
