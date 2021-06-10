@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.code.App
 import com.example.code.R
-import com.raywenderlich.android.librarian.model.relations.BookReview
+import com.example.code.model.relations.BookReview
 import com.example.code.ui.addReview.AddBookReviewActivity
 import com.example.code.ui.bookReviewDetails.BookReviewDetailsActivity
 import com.example.code.utils.createAndShowDialog

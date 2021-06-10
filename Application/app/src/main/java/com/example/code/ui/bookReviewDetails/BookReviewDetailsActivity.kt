@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.code.App
 import com.example.code.R
 import com.example.code.model.ReadingEntry
-import com.raywenderlich.android.librarian.model.relations.BookReview
+import com.example.code.model.relations.BookReview
 import com.example.code.ui.bookReviewDetails.readingEntries.AddReadingEntryDialogFragment
 import com.example.code.ui.bookReviewDetails.readingEntries.ReadingEntryAdapter
 import com.example.code.utils.createAndShowDialog

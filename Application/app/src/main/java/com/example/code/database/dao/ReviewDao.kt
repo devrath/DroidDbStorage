@@ -2,7 +2,7 @@ package com.example.code.database.dao
 
 import androidx.room.*
 import com.example.code.model.Review
-import com.raywenderlich.android.librarian.model.relations.BookReview
+import com.example.code.model.relations.BookReview
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -9,7 +9,7 @@ import com.example.code.model.Genre
 import com.example.code.model.ReadingList
 import com.example.code.model.Review
 import com.raywenderlich.android.librarian.model.relations.BookAndGenre
-import com.raywenderlich.android.librarian.model.relations.BookReview
+import com.example.code.model.relations.BookReview
 import com.raywenderlich.android.librarian.model.relations.ReadingListsWithBooks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

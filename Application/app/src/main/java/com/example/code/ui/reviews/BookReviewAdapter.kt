@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.code.R
-import com.raywenderlich.android.librarian.model.relations.BookReview
+import com.example.code.model.relations.BookReview
 
 class BookReviewAdapter(
-    private val onItemSelected: (BookReview) -> Unit,
-    private val onItemLongTapped: (BookReview) -> Unit
+        private val onItemSelected: (BookReview) -> Unit,
+        private val onItemLongTapped: (BookReview) -> Unit
 ) : RecyclerView.Adapter<BookReviewViewHolder>() {
 
   private val items = mutableListOf<BookReview>()
