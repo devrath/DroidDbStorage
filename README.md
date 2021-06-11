@@ -8,7 +8,5 @@
 <a><img src="https://img.shields.io/badge/Database-room%20persistence%20library-deeppink?style=for-the-badge&logo=Bitrise"></a>  
 </p>
 
-<p align="center"><a><img align="left" src="https://github.com/devrath/devrath/blob/master/images/description.png" width="60" height="60" alt="Description" title="Description"></a></p> 
-This repository comprises of data persistence library for android to store complex data which are related to each other locally on a android device . Check wiki tab above to access the documentation 
-
----
+* **`Check wiki tab above to access the documentation and some use cases`**  
+* **`This repository comprises of data persistence library for android to store complex data which are related to each other locally on a android device `** 
