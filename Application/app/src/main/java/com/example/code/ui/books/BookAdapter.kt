@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.code.R
 import com.example.code.model.Book
-import com.raywenderlich.android.librarian.model.relations.BookAndGenre
+import com.example.code.model.relations.BookAndGenre
 
 class BookAdapter(
     private val onItemLongTapped: (Book) -> Unit

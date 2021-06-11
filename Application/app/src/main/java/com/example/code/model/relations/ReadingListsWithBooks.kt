@@ -35,6 +35,7 @@
 package com.raywenderlich.android.librarian.model.relations
 
 import android.os.Parcelable
+import com.example.code.model.relations.BookAndGenre
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

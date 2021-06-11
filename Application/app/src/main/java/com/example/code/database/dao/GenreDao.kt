@@ -2,7 +2,7 @@ package com.example.code.database.dao
 
 import androidx.room.*
 import com.example.code.model.Genre
-import com.raywenderlich.android.librarian.model.relations.BooksByGenre
+import com.example.code.model.relations.BooksByGenre
 
 @Dao
 interface GenreDao {
