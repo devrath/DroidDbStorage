@@ -12,7 +12,7 @@
 
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜 𝚘𝚏 𝚠𝚒𝚔𝚒`** |
 | ------------------------ |
-| [`𝚁𝚘𝚘𝚖 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎`](https://github.com/devrath/DroidDbStorage/blob/main/README.md#room-database) |
+| [𝚁𝚘𝚘𝚖 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎](https://github.com/devrath/DroidDbStorage/blob/main/README.md#room-database) |
 
 </div>
 
