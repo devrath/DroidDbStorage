@@ -24,7 +24,7 @@
 |   | **` Contents of wiki `** |
 | - | ---------------------- |
 | **`1`** | [**`What is Room Database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-What-is-Room-Database) |
-| **`2`**  | [**`Layers of room database`**](https://github.com/devrath/verbose-room-database/wiki/Layers-of-room-database) |
+| **`2`**  | [**`Layers of room database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Layers-of-room-database) |
 | **`3`**  | [**`Scenarios to use room database`**](https://github.com/devrath/verbose-room-database/wiki/Layers-of-room-database) |
 | **`4`**  | [**`Advantages of Room Database`**](https://github.com/devrath/verbose-room-database/wiki/Advantages-of-Room-Database) |
 | **`5`**  | [**`When to use room database instead of other storage techniques`**](https://github.com/devrath/verbose-room-database/wiki/When-to-use-room-database-instead-of-other-storage-techniques) |
