@@ -28,13 +28,12 @@
 | **`3`**  | [**`Scenarios to use room database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Scenarios-to-use-room-database) |
 | **`4`**  | [**`Advantages of Room Database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Advantages-of-Room-Database) |
 | **`5`**  | [**`When to use room database instead of other storage techniques`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-When-to-use-room-database-instead-of-other-storage-techniques) |
-|  **`6`** | [**`Layered blocks explained using code`**](https://github.com/devrath/verbose-room-database/wiki/Layered-blocks-explained-using-code) |
-|  **`7`** | [**`Define a abstraction layer to use DAO`**](https://github.com/devrath/verbose-room-database/wiki/Define-a-abstraction-layer-to-use-DAO) |
-| **`8`** | [**`About using queries`**](https://github.com/devrath/verbose-room-database/wiki/About-using-queries) |
-| **`9`** | [**`Type Converters`**](https://github.com/devrath/verbose-room-database/wiki/Type-Converters) |
-| **`10`** | [**`Defining the entity relationship in room`**](https://github.com/devrath/verbose-room-database/wiki/Defining-the-entity-relationship-in-room) |
-| **`11`** | [**`Performing database operations in background thread`**](https://github.com/devrath/verbose-room-database/wiki/Performing-database-operations-in-background-thread) |
-| **`12`** | [**`Database Migration`**](https://github.com/devrath/verbose-room-database/wiki/Database-Migration) |
+|  **`6`** | [**`Define a abstraction layer to use DAO`**](https://github.com/devrath/verbose-room-database/wiki/Define-a-abstraction-layer-to-use-DAO) |
+| **`7`** | [**`About using queries`**](https://github.com/devrath/verbose-room-database/wiki/About-using-queries) |
+| **`8`** | [**`Type Converters`**](https://github.com/devrath/verbose-room-database/wiki/Type-Converters) |
+| **`9`** | [**`Defining the entity relationship in room`**](https://github.com/devrath/verbose-room-database/wiki/Defining-the-entity-relationship-in-room) |
+| **`10`** | [**`Performing database operations in background thread`**](https://github.com/devrath/verbose-room-database/wiki/Performing-database-operations-in-background-thread) |
+| **`11`** | [**`Database Migration`**](https://github.com/devrath/verbose-room-database/wiki/Database-Migration) |
 
 </div>
 
