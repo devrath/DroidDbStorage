@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.xml.main.MainActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.readingListDetails.ReadingListDetailsActivity" />
-        <activity android:name=".ui.bookReviewDetails.BookReviewDetailsActivity" />
-        <activity android:name=".ui.addBook.AddBookActivity" />
-        <activity android:name=".ui.addReview.AddBookReviewActivity" />
+        <activity android:name=".ui.xml.readingListDetails.ReadingListDetailsActivity" />
+        <activity android:name=".ui.xml.bookReviewDetails.BookReviewDetailsActivity" />
+        <activity android:name=".ui.xml.addBook.AddBookActivity" />
+        <activity android:name=".ui.xml.addReview.AddBookReviewActivity" />
     </application>
 
 </manifest>
