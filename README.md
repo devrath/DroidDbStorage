@@ -27,7 +27,7 @@
 | **`2`**  | [**`Layers of room database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Layers-of-room-database) |
 | **`3`**  | [**`Scenarios to use room database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Scenarios-to-use-room-database) |
 | **`4`**  | [**`Advantages of Room Database`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Advantages-of-Room-Database) |
-| **`5`**  | [**`When to use room database instead of other storage techniques`**](https://github.com/devrath/verbose-room-database/wiki/When-to-use-room-database-instead-of-other-storage-techniques) |
+| **`5`**  | [**`When to use room database instead of other storage techniques`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-When-to-use-room-database-instead-of-other-storage-techniques) |
 |  **`6`** | [**`Layered blocks explained using code`**](https://github.com/devrath/verbose-room-database/wiki/Layered-blocks-explained-using-code) |
 |  **`7`** | [**`Define a abstraction layer to use DAO`**](https://github.com/devrath/verbose-room-database/wiki/Define-a-abstraction-layer-to-use-DAO) |
 | **`8`** | [**`About using queries`**](https://github.com/devrath/verbose-room-database/wiki/About-using-queries) |
