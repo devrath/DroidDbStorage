@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/half_margin">
+
+  <RadioGroup
+    android:id="@+id/filterOptions"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <RadioButton
+      android:id="@+id/noFilter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/half_margin"
+      android:text="@string/no_filter" />
+
+    <RadioButton
+      android:id="@+id/byGenreFilter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/half_margin"
+      android:text="@string/filter_by_genre" />
+
+    <RadioButton
+      android:id="@+id/byRatingFilter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:text="@string/filter_by_rating" />
+  </RadioGroup>
+
+  <FrameLayout
+    android:id="@+id/optionsContainer"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/filterOptions">
+
+    <RatingBar
+      android:id="@+id/ratingPicker"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:max="5"
+      android:stepSize="1"
+      android:visibility="gone" />
+
+    <Spinner
+      android:id="@+id/genrePicker"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/default_margin"
+      android:visibility="gone" />
+  </FrameLayout>
+
+  <Button
+    android:id="@+id/selectFilter"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:background="@color/colorPrimary"
+    android:text="@string/confirm_filter"
+    android:textColor="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/optionsContainer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

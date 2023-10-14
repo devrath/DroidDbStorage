@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <EditText
+    android:id="@+id/bookTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:hint="@string/book_title_hint"
+    android:importantForAutofill="no"
+    android:inputType="textCapSentences" />
+
+  <EditText
+    android:id="@+id/bookDescription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:hint="@string/book_description_hint"
+    android:importantForAutofill="no"
+    android:inputType="textMultiLine"
+    android:maxLength="240" />
+
+  <Spinner
+    android:id="@+id/genrePicker"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/default_margin" />
+
+  <Button
+    android:id="@+id/addBook"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:background="@color/colorPrimary"
+    android:text="@string/add_book_button_text"
+    android:textColor="@color/white" />
+</LinearLayout>

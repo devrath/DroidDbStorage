@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="150dp"
+  android:layout_margin="@dimen/half_margin">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+      android:id="@+id/bookTitle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/default_margin"
+      android:textColor="@color/colorPrimary"
+      android:textSize="@dimen/title_text_size"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Catcher in the rye" />
+
+    <TextView
+      android:id="@+id/bookGenre"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginTop="@dimen/small_margin"
+      android:includeFontPadding="false"
+      android:textSize="@dimen/subtitle_text_size"
+      android:textStyle="italic"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/bookTitle"
+      tools:text="Youth novel" />
+
+    <TextView
+      android:id="@+id/bookDescription"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginTop="@dimen/half_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/half_margin"
+      android:maxLength="240"
+      android:textSize="12sp"
+      android:textStyle="italic"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/bookGenre"
+      tools:text="The Catcher in the Rye is a story by J. D. Salinger, partially published in serial form in 1945–1946 and as a novel in 1951. It portrays the problem of teenage angst and rebellion, and the search for one's calling." />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
