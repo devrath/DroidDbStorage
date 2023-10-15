@@ -7,8 +7,12 @@
     <string name="str_book_reviews">Book Reviews</string>
     <string name="str_reading_list">Reading List</string>
     <string name="str_add">Add</string>
+    <string name="str_title">Title</string>
+    <string name="str_description">Description</string>
     <string name="str_add_book">Add Book</string>
     <string name="str_navigate_back">Navigate back</string>
     <string name="title_activity_add_book">AddBookActivity</string>
+    <string name="title_enter_book_title">Enter book title</string>
+    <string name="title_enter_book_description">Enter book description</string>
 
 </resources>
