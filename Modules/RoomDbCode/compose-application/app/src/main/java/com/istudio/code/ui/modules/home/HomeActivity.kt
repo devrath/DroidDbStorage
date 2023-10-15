@@ -10,8 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.istudio.code.ui.modules.home.screens.HomeContainer
-import com.istudio.code.ui.theme.AndroidTheme
-import dagger.hilt.EntryPoint
+import com.istudio.code.ui.theme.MaterialAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +18,7 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AndroidTheme {
+            MaterialAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -40,5 +39,5 @@ fun CurrentScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun CurrentScreenPreview() {
-    AndroidTheme { CurrentScreen() }
+    MaterialAppTheme { CurrentScreen() }
 }
