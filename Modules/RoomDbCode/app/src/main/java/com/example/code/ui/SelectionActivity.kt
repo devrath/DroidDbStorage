@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.code.R
 import com.example.code.databinding.ActivitySelectionBinding
-import com.example.code.ui.compose.main.ComposeMainActivity
+import com.example.code.ui.compose.screens.main.ComposeMainActivity
 import com.example.code.ui.xml.main.MainActivity
 import com.example.code.utils.startActivity
 

@@ -1,4 +1,4 @@
-package com.example.code.ui.compose.main
+package com.example.code.ui.compose.screens.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
