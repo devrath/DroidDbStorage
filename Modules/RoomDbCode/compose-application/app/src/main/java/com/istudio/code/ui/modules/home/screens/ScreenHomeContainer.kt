@@ -23,13 +23,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
+import com.istudio.code.R
 import com.istudio.code.ui.modules.home.navigation.HomeModuleNavGraph
 import com.istudio.code.ui.modules.home.navigation.HomeNavItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContainer(modifier: Modifier = Modifier) {
+
+    val cxt = LocalContext.current
 
     // Data items to have the Bottom tabs
     val navItems = remember {
@@ -56,16 +60,25 @@ fun HomeContainer(modifier: Modifier = Modifier) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Home")
+                    var screenTitle = cxt.getString(R.string.str_home)
+                    screenTitle = when (selectedItemIndex) {
+                        0 -> cxt.getString(R.string.str_my_books)
+                        1 -> cxt.getString(R.string.str_book_reviews)
+                        else -> cxt.getString(R.string.str_reading_list)
+                    }
+                    Text(text = screenTitle)
                 },
                 actions = {
-                    IconButton(onClick = {
+                    if(selectedItemIndex == 0){
+                        // Display the filter Icon only if it is First Tab - MyBooks
+                        IconButton(onClick = {
 
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.FilterList,
-                            contentDescription = "Filter"
-                        )
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.FilterList,
+                                contentDescription = cxt.getString(R.string.str_filter)
+                            )
+                        }
                     }
                 },
                 scrollBehavior = scrollBehaviour

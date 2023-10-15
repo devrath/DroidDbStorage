@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Android</string>
+
+    <string name="str_home">Home</string>
+    <string name="str_filter">Filter</string>
+    <string name="str_my_books">My Books</string>
+    <string name="str_book_reviews">Book Reviews</string>
+    <string name="str_reading_list">Reading List</string>
+
 </resources>
