@@ -95,7 +95,7 @@ fun HomeContainer(modifier: Modifier = Modifier) {
                             navController.navigate(item.route)
                         },
                         label = {
-                            Text(text = item.title)
+                            Text(text = cxt.getString(item.title))
                         },
                         icon = {
                             Icon(
@@ -104,7 +104,7 @@ fun HomeContainer(modifier: Modifier = Modifier) {
                                 } else {
                                     item.iconUnSelected
                                 },
-                                contentDescription = item.title
+                                contentDescription = cxt.getString(item.title)
                             )
                         },
                     )
