@@ -1,4 +1,4 @@
-package com.istudio.code.ui.modules.home.screens
+package com.istudio.code.ui.modules.home.content
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.compose.rememberNavController
 import com.istudio.code.R
 import com.istudio.code.ui.modules.addbook.AddBookActivity
