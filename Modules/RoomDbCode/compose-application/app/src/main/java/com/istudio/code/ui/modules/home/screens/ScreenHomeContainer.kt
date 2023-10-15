@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -89,7 +91,7 @@ fun HomeContainer(modifier: Modifier = Modifier) {
                         Text(text = screenTitle)
                     },
                     actions = {
-                        if(selectedItemIndex == 0){
+                        if (selectedItemIndex == 0) {
                             // Display the filter Icon only if it is First Tab - MyBooks
                             IconButton(onClick = {
                                 coroutineScope.launch {
@@ -132,6 +134,9 @@ fun HomeContainer(modifier: Modifier = Modifier) {
                         )
                     }
                 }
+            },
+            floatingActionButton = {
+                FloatingButton(expanded = true)
             }
         ) {
             Column(
@@ -169,4 +174,22 @@ fun BottomSheetContent() {
             }
         }
     }
+}
+
+@Composable
+fun FloatingButton(
+    expanded: Boolean
+) {
+    val cxt = LocalContext.current
+    ExtendedFloatingActionButton(
+        onClick = { /* do something*/ },
+        icon = {
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = cxt.getString(R.string.str_add)
+            )
+        },
+        text = { Text(text = cxt.getString(R.string.str_add)) },
+        expanded = expanded
+    )
 }
