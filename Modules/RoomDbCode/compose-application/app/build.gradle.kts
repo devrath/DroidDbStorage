@@ -1,16 +1,18 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.istudio.code"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.istudio.code"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -30,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
@@ -47,11 +49,15 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    kapt {
+        // Allow references to generated code
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
@@ -66,4 +72,17 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.7.4")
+    // <---------------------- MATERIAL-3 ---------------------->
+    // Dependency for material-3
+    implementation("androidx.compose.material3:material3:1.2.0-alpha09")
+    // Dependency for material-3 - Variety of icons
+    implementation("androidx.compose.material:material-icons-extended:1.6.0-alpha07")
+    // Determine whether you are on phone, tablet etc to determine the right UI layout
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.0-alpha09")
+    // <---------------------- MATERIAL-3 ---------------------->
 }
