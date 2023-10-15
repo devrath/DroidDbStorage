@@ -22,7 +22,10 @@ class AddBookActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CurrentScreen()
+                    CurrentScreen(){
+                        // Close Screen
+                        finish()
+                    }
                 }
             }
         }
@@ -30,14 +33,16 @@ class AddBookActivity : ComponentActivity() {
 }
 
 @Composable
-private fun CurrentScreen(modifier: Modifier = Modifier) {
-    AddBookContainer()
+private fun CurrentScreen(
+    modifier: Modifier = Modifier,backPress: () -> Unit
+) {
+    AddBookContainer(onBackPress = backPress)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MaterialAppTheme {
-        CurrentScreen()
+        CurrentScreen(){}
     }
 }

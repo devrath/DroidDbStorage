@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddBookContainer(modifier: Modifier = Modifier) {
+fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
     // Context
     val cxt = LocalContext.current
@@ -51,6 +51,7 @@ fun AddBookContainer(modifier: Modifier = Modifier) {
                     IconButton(onClick = {
                         coroutineScope.launch {
                             // Close
+                            onBackPress.invoke()
                         }
                     }) {
                         Icon(
