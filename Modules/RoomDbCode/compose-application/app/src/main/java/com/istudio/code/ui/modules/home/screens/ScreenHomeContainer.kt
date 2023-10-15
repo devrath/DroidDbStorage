@@ -38,10 +38,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.compose.rememberNavController
 import com.istudio.code.R
+import com.istudio.code.ui.modules.addbook.AddBookActivity
 import com.istudio.code.ui.modules.home.navigation.HomeModuleNavGraph
 import com.istudio.code.ui.modules.home.navigation.HomeNavItem
+import com.istudio.code.utils.startActivity
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -182,7 +185,7 @@ fun FloatingButton(
 ) {
     val cxt = LocalContext.current
     ExtendedFloatingActionButton(
-        onClick = { /* do something*/ },
+        onClick = { cxt.startActivity<AddBookActivity>() },
         icon = {
             Icon(
                 imageVector = Icons.Filled.Add,

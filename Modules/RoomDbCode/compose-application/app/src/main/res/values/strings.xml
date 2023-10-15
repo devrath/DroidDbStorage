@@ -7,5 +7,6 @@
     <string name="str_book_reviews">Book Reviews</string>
     <string name="str_reading_list">Reading List</string>
     <string name="str_add">Add</string>
+    <string name="title_activity_add_book">AddBookActivity</string>
 
 </resources>
