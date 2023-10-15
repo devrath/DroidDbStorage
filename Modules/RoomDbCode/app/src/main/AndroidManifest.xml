@@ -3,24 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.compose.main.ComposeMainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compose_main"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.xml.main.MainActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="false" />
+        <activity
+            android:name=".ui.SelectionActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.xml.readingListDetails.ReadingListDetailsActivity" />
         <activity android:name=".ui.xml.bookReviewDetails.BookReviewDetailsActivity" />
         <activity android:name=".ui.xml.addBook.AddBookActivity" />
