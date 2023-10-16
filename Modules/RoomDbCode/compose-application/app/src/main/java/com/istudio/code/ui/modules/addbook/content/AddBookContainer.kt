@@ -153,42 +153,18 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                         expanded = isExpanded,
                         onDismissRequest = { isExpanded = false }
                     ) {
-                        DropdownMenuItem(
-                            text = { Text(text = "Action - 1") },
-                            onClick = {
-                                actionText = "Action - 1"
-                                isExpanded = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(text = "Action - 2") },
-                            onClick = {
-                                actionText = "Action - 2"
-                                isExpanded = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(text = "Action - 3") },
-                            onClick = {
-                                actionText = "Action - 3"
-                                isExpanded = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(text = "Action - 4") },
-                            onClick = {
-                                actionText = "Action - 4"
-                                isExpanded = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(text = "Action - 5") },
-                            onClick = {
-                                actionText = "Action - 5"
-                                isExpanded = false
-                            }
-                        )
 
+                        val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
+
+                        bookCategories.forEachIndexed { index , item ->
+                            DropdownMenuItem(
+                                text = { Text(text = item) },
+                                onClick = {
+                                    actionText = item
+                                    isExpanded = false
+                                }
+                            )
+                        }
                     }
                 }
 

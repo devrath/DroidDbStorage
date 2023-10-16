@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="book_categories">
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Classic</item>
+        <item>Mystery</item>
+        <item>Fantasy</item>
+        <item>Sci-Fi</item>
+        <item>History</item>
+        <item>Horror</item>
+        <item>Romance</item>
+        <item>Short Story</item>
+        <item>Biography</item>
+        <item>Poetry</item>
+        <item>Self Help</item>
+        <item>Young Novel</item>
+    </string-array>
+</resources>
