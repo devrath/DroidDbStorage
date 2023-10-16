@@ -1,5 +1,6 @@
 package com.istudio.code.ui.modules.addbook.content
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,12 +40,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.code.R
+import com.istudio.code.ui.modules.addbook.AddBookVm
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
+
+    val viewModel: AddBookVm = hiltViewModel()
 
     // Context
     val cxt = LocalContext.current
@@ -56,8 +61,6 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
     // Exposed drop down menu
     var isExpanded by remember { mutableStateOf(false) }
-    var actionText by remember { mutableStateOf("") }
-
 
     Scaffold(
         modifier = Modifier
@@ -94,31 +97,30 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
         ) {
 
             Column(
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
 
-                // Current Screen Content
-                var titleState by remember { mutableStateOf("") }
-                var descriptionState by remember { mutableStateOf("") }
-
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = titleState,
-                    onValueChange = { updatedText -> titleState = updatedText },
+                    value = viewModel.viewState.title,
+                    onValueChange = { updatedText -> viewModel.setTitle(updatedText) },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_title)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_title)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    isError = false
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = descriptionState,
-                    onValueChange = { updatedText -> descriptionState = updatedText },
+                    value = viewModel.viewState.description,
+                    onValueChange = { updatedText -> viewModel.setDescription(updatedText) },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_description)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
@@ -135,9 +137,8 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     }
                 ) {
                     TextField(
-
-                        value = actionText,
-                        onValueChange = { },
+                        value = viewModel.viewState.category,
+                        onValueChange = { value -> viewModel.setCategory(value) },
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
@@ -145,8 +146,12 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        modifier = Modifier.menuAnchor().fillMaxWidth(),
-                        placeholder = { Text(text = "Action") }
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth(),
+                        placeholder = {
+                            Text(text = cxt.getString(R.string.select_a_category))
+                        }
                     )
 
                     ExposedDropdownMenu(
@@ -160,7 +165,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                             DropdownMenuItem(
                                 text = { Text(text = item) },
                                 onClick = {
-                                    actionText = item
+                                    viewModel.setCategory(item)
                                     isExpanded = false
                                 }
                             )
@@ -172,7 +177,13 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { /** Your action **/ }
+                    onClick = {
+                        if(viewModel.validateAddBookAction()){
+                            Log.d("D","Success")
+                        }else{
+                            Log.d("D","Failure")
+                        }
+                    }
                 ) {
                     Text(text = cxt.getString(R.string.str_add))
                 }

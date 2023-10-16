@@ -14,5 +14,6 @@
     <string name="title_activity_add_book">AddBookActivity</string>
     <string name="title_enter_book_title">Enter book title</string>
     <string name="title_enter_book_description">Enter book description</string>
+    <string name="select_a_category">Select a category</string>
 
 </resources>
