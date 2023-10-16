@@ -78,6 +78,12 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
     // Exposed drop down menu
     var isExpanded by remember { mutableStateOf(false) }
+    //  Error State: Title
+    var isTitleError by remember { mutableStateOf(false) }
+    //  Error State: Description
+    var isDescriptionError by remember { mutableStateOf(false) }
+    //  Error State: Category
+    var isCategoryError by remember { mutableStateOf(false) }
     // Launched effect state
     val launchedEffectState by remember { mutableStateOf(false) }
 
@@ -90,7 +96,9 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     // Close the screen
                     onBackPress()
                 }
-
+                is AddBookResponseEvent.DescriptionFieldError -> isDescriptionError = true
+                is AddBookResponseEvent.TitleFieldError -> isTitleError = true
+                is AddBookResponseEvent.CategoryFieldError -> isCategoryError = true
                 else -> Unit
             }
         }
@@ -145,13 +153,14 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     value = state.title,
                     onValueChange = { updatedText ->
+                        isTitleError = false
                         viewModel.onEvent(AddBookViewEvent.SetTitle(updatedText))
                     },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_title)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_title)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    isError = false
+                    isError = isTitleError
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -160,12 +169,14 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     value = state.description,
                     onValueChange = { updatedText ->
+                        isDescriptionError = false
                         viewModel.onEvent(AddBookViewEvent.SetDescription(updatedText))
                     },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_description)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    isError = isDescriptionError
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -194,7 +205,8 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                             .fillMaxWidth(),
                         placeholder = {
                             Text(text = cxt.getString(R.string.select_a_category))
-                        }
+                        },
+                        isError = isCategoryError
                     )
 
                     ExposedDropdownMenu(
@@ -210,6 +222,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                                 onClick = {
                                     viewModel.onEvent(AddBookViewEvent.SetCategory(item))
                                     isExpanded = false
+                                    isCategoryError = false
                                 }
                             )
                         }

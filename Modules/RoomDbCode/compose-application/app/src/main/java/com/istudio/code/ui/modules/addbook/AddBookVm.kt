@@ -51,7 +51,18 @@ class AddBookVm @Inject constructor() : ViewModel() {
                         // Success validation is notified to the composable
                         _uiEvent.send(AddBookResponseEvent.AddBookSuccess)
                     } else {
-                        // Failure
+                        // <------------------- Failure ------------------->
+                        // Check if title is empty
+                        if(viewState.title.isEmpty()){
+                            // Notify error state to the title filed
+                            _uiEvent.send(AddBookResponseEvent.TitleFieldError)
+                        }else if(viewState.description.isEmpty()){
+                            // Notify error state to the description filed
+                            _uiEvent.send(AddBookResponseEvent.DescriptionFieldError)
+                        }else if(viewState.category.isEmpty()){
+                            // Notify error state to the category filed
+                            _uiEvent.send(AddBookResponseEvent.CategoryFieldError)
+                        }
                     }
                 }
             }
