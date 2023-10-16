@@ -37,6 +37,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.istudio.code.R
 import kotlinx.coroutines.launch
@@ -134,6 +135,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     }
                 ) {
                     TextField(
+
                         value = actionText,
                         onValueChange = { },
                         readOnly = true,
@@ -143,7 +145,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        modifier = Modifier.menuAnchor(),
+                        modifier = Modifier.menuAnchor().fillMaxWidth(),
                         placeholder = { Text(text = "Action") }
                     )
 
@@ -204,4 +206,11 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
         }
 
     }
+}
+
+
+@Composable
+@Preview
+private fun ScreenPreview() {
+    AddBookContainer(){}
 }
