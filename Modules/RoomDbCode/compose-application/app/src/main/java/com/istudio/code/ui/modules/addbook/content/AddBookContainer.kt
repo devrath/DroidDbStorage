@@ -13,13 +13,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,6 +52,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
     // Scroll behaviour
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
+
+    // Exposed drop down menu
+    var isExpanded by remember { mutableStateOf(false) }
+    var actionText by remember { mutableStateOf("") }
 
 
     Scaffold(
@@ -85,7 +93,9 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
         ) {
 
             Column(
-                modifier = Modifier.padding(20.dp)
+                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
             ) {
 
                 // Current Screen Content
@@ -113,6 +123,72 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                ExposedDropdownMenuBox(
+                    modifier = Modifier.fillMaxWidth(),
+                    expanded = isExpanded,
+                    onExpandedChange = {
+                        isExpanded = it
+                    }
+                ) {
+                    TextField(
+                        value = actionText,
+                        onValueChange = { },
+                        readOnly = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                expanded = isExpanded
+                            )
+                        },
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                        modifier = Modifier.menuAnchor(),
+                        placeholder = { Text(text = "Action") }
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = isExpanded,
+                        onDismissRequest = { isExpanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(text = "Action - 1") },
+                            onClick = {
+                                actionText = "Action - 1"
+                                isExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(text = "Action - 2") },
+                            onClick = {
+                                actionText = "Action - 2"
+                                isExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(text = "Action - 3") },
+                            onClick = {
+                                actionText = "Action - 3"
+                                isExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(text = "Action - 4") },
+                            onClick = {
+                                actionText = "Action - 4"
+                                isExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(text = "Action - 5") },
+                            onClick = {
+                                actionText = "Action - 5"
+                                isExpanded = false
+                            }
+                        )
+
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(20.dp))
 
