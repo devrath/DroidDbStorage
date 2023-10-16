@@ -65,6 +65,22 @@ class AddBookVm @Inject constructor() : ViewModel() {
                         }
                     }
                 }
+
+                is AddBookViewEvent.SetIsCategoryError ->  {
+                    viewState = viewState.copy(isCategoryError = event.isCategoryError)
+                }
+                is AddBookViewEvent.SetIsDescriptionError ->  {
+                    viewState = viewState.copy(isDescriptionError = event.isDescriptionError)
+                }
+                is AddBookViewEvent.SetIsExpanded ->  {
+                    viewState = viewState.copy(isExpanded = event.isExpanded)
+                }
+                is AddBookViewEvent.SetIsTitleError -> {
+                    viewState = viewState.copy(isTitleError = event.isTitleError)
+                }
+                is AddBookViewEvent.SetLaunchedEffectState -> {
+                    viewState = viewState.copy(launchedEffectState = event.launchedEffectState)
+                }
             }
         }
     }

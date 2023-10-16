@@ -76,19 +76,9 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
     // Scroll behaviour
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-    // Exposed drop down menu
-    var isExpanded by remember { mutableStateOf(false) }
-    //  Error State: Title
-    var isTitleError by remember { mutableStateOf(false) }
-    //  Error State: Description
-    var isDescriptionError by remember { mutableStateOf(false) }
-    //  Error State: Category
-    var isCategoryError by remember { mutableStateOf(false) }
-    // Launched effect state
-    val launchedEffectState by remember { mutableStateOf(false) }
 
 
-    LaunchedEffect(key1 = launchedEffectState) {
+    LaunchedEffect(key1 = state.launchedEffectState) {
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -96,9 +86,15 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     // Close the screen
                     onBackPress()
                 }
-                is AddBookResponseEvent.DescriptionFieldError -> isDescriptionError = true
-                is AddBookResponseEvent.TitleFieldError -> isTitleError = true
-                is AddBookResponseEvent.CategoryFieldError -> isCategoryError = true
+                is AddBookResponseEvent.DescriptionFieldError -> {
+                    viewModel.onEvent(AddBookViewEvent.SetIsDescriptionError(true))
+                }
+                is AddBookResponseEvent.TitleFieldError -> {
+                    viewModel.onEvent(AddBookViewEvent.SetIsTitleError(true))
+                }
+                is AddBookResponseEvent.CategoryFieldError -> {
+                    viewModel.onEvent(AddBookViewEvent.SetIsCategoryError(true))
+                }
                 else -> Unit
             }
         }
@@ -153,14 +149,14 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     value = state.title,
                     onValueChange = { updatedText ->
-                        isTitleError = false
+                        viewModel.onEvent(AddBookViewEvent.SetIsTitleError(false))
                         viewModel.onEvent(AddBookViewEvent.SetTitle(updatedText))
                     },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_title)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_title)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    isError = isTitleError
+                    isError = state.isTitleError
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -169,23 +165,23 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     value = state.description,
                     onValueChange = { updatedText ->
-                        isDescriptionError = false
+                        viewModel.onEvent(AddBookViewEvent.SetIsDescriptionError(false))
                         viewModel.onEvent(AddBookViewEvent.SetDescription(updatedText))
                     },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_description)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    isError = isDescriptionError
+                    isError = state.isDescriptionError
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
                 ExposedDropdownMenuBox(
                     modifier = Modifier.fillMaxWidth(),
-                    expanded = isExpanded,
+                    expanded = state.isExpanded,
                     onExpandedChange = {
-                        isExpanded = it
+                        viewModel.onEvent(AddBookViewEvent.SetIsExpanded(it))
                     }
                 ) {
                     TextField(
@@ -196,7 +192,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
-                                expanded = isExpanded
+                                expanded = state.isExpanded
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
@@ -206,12 +202,14 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                         placeholder = {
                             Text(text = cxt.getString(R.string.select_a_category))
                         },
-                        isError = isCategoryError
+                        isError = state.isCategoryError
                     )
 
                     ExposedDropdownMenu(
-                        expanded = isExpanded,
-                        onDismissRequest = { isExpanded = false }
+                        expanded = state.isExpanded,
+                        onDismissRequest = {
+                            viewModel.onEvent(AddBookViewEvent.SetIsExpanded(false))
+                        }
                     ) {
 
                         val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
@@ -221,8 +219,8 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                                 text = { Text(text = item) },
                                 onClick = {
                                     viewModel.onEvent(AddBookViewEvent.SetCategory(item))
-                                    isExpanded = false
-                                    isCategoryError = false
+                                    viewModel.onEvent(AddBookViewEvent.SetIsExpanded(false))
+                                    viewModel.onEvent(AddBookViewEvent.SetIsCategoryError(false))
                                 }
                             )
                         }
