@@ -1,4 +1,4 @@
-package com.istudio.code.ui.modules.addbook
+package com.istudio.code.ui.modules.addbook.states
 
 import androidx.annotation.StringRes
 

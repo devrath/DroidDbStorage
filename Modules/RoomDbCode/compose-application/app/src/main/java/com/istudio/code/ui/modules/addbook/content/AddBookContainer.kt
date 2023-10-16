@@ -23,10 +23,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,26 +48,58 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.code.R
 import com.istudio.code.ui.modules.addbook.AddBookVm
+import com.istudio.code.ui.modules.addbook.states.AddBookResponseEvent
+import com.istudio.code.ui.modules.addbook.states.AddBookViewEvent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
-    val viewModel: AddBookVm = hiltViewModel()
-
+    // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
     val cxt = LocalContext.current
+    // View model reference
+    val viewModel: AddBookVm = hiltViewModel()
+    // View state reference from view model
+    val state = viewModel.viewState
+    // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
+
+    // <!--------------------- CONTROLLERS ------------------------>
+    // Keyboard controller
+    val keyboardController = LocalSoftwareKeyboardController.current
+    // SnackBar controller
+    val snackBarController = remember { SnackbarHostState() }
     // Coroutine to handle the animation
-    val coroutineScope = rememberCoroutineScope()
+    val coroutineScopeController = rememberCoroutineScope()
+    // <!--------------------- CONTROLLERS ------------------------>
 
     // Scroll behaviour
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-
     // Exposed drop down menu
     var isExpanded by remember { mutableStateOf(false) }
+    // Launched effect state
+    val launchedEffectState by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(key1 = launchedEffectState) {
+        // <***********> Event is observed from View-Model <************>
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is AddBookResponseEvent.AddBookSuccess -> {
+                    // Close the screen
+                    onBackPress()
+                }
+
+                else -> Unit
+            }
+        }
+        // <***********> Event is observed from View-Model <************>
+    }
+
 
     Scaffold(
+        snackbarHost = { SnackbarHost(snackBarController) },
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehaviour.nestedScrollConnection),
@@ -73,7 +110,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        coroutineScope.launch {
+                        coroutineScopeController.launch {
                             // Close
                             onBackPress.invoke()
                         }
@@ -106,8 +143,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = viewModel.viewState.title,
-                    onValueChange = { updatedText -> viewModel.setTitle(updatedText) },
+                    value = state.title,
+                    onValueChange = { updatedText ->
+                        viewModel.onEvent(AddBookViewEvent.SetTitle(updatedText))
+                    },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_title)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_title)) },
@@ -119,8 +158,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = viewModel.viewState.description,
-                    onValueChange = { updatedText -> viewModel.setDescription(updatedText) },
+                    value = state.description,
+                    onValueChange = { updatedText ->
+                        viewModel.onEvent(AddBookViewEvent.SetDescription(updatedText))
+                    },
                     textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Left),
                     label = { Text(text = cxt.getString(R.string.title_enter_book_description)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
@@ -137,8 +178,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     }
                 ) {
                     TextField(
-                        value = viewModel.viewState.category,
-                        onValueChange = { value -> viewModel.setCategory(value) },
+                        value = state.category,
+                        onValueChange = { value ->
+                            viewModel.onEvent(AddBookViewEvent.SetCategory(value))
+                        },
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
@@ -161,11 +204,11 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
                         val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
 
-                        bookCategories.forEachIndexed { index , item ->
+                        bookCategories.forEachIndexed { index, item ->
                             DropdownMenuItem(
                                 text = { Text(text = item) },
                                 onClick = {
-                                    viewModel.setCategory(item)
+                                    viewModel.onEvent(AddBookViewEvent.SetCategory(item))
                                     isExpanded = false
                                 }
                             )
@@ -178,11 +221,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        if(viewModel.validateAddBookAction()){
-                            Log.d("D","Success")
-                        }else{
-                            Log.d("D","Failure")
+                        coroutineScopeController.launch {
+                            keyboardController?.hide()
                         }
+                        viewModel.onEvent(AddBookViewEvent.AddBookViewClick)
                     }
                 ) {
                     Text(text = cxt.getString(R.string.str_add))
@@ -199,5 +241,5 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 @Composable
 @Preview
 private fun ScreenPreview() {
-    AddBookContainer(){}
+    AddBookContainer() {}
 }
