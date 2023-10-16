@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- SPLASH - THEME - STYLE -->
+    <style name="Theme.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.Android</item>
+    </style>
+    <!-- APPLICATION - THEME - STYLE -->
     <style name="Theme.Android" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
