@@ -43,7 +43,7 @@ import com.istudio.code.R
 import com.istudio.code.presentation.modules.addbook.AddBookActivity
 import com.istudio.code.presentation.modules.home.navigation.HomeModuleNavGraph
 import com.istudio.code.presentation.modules.home.navigation.HomeNavItem
-import com.istudio.code.platform.extensions.startActivity
+import com.istudio.code.core.platform.extensions.startActivity
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

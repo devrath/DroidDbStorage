@@ -77,10 +77,12 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Gson
+    implementation("com.google.code.gson:gson:2.9.0")
     // Splash
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
     // Navigation Compose

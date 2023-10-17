@@ -1,4 +1,4 @@
-package com.istudio.code.platform.uiEvent
+package com.istudio.code.core.platform.uiEvent
 
 import android.content.Context
 

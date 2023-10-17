@@ -3,7 +3,7 @@ package com.istudio.code.domain.usecases.validateAddBook
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult
 import com.istudio.code.domain.entities.input.AddBookTitleInput
-import com.istudio.code.platform.uiEvent.UiText
+import com.istudio.code.core.platform.uiEvent.UiText
 import javax.inject.Inject
 
 class ValidateTitleInputUseCase @Inject constructor() {

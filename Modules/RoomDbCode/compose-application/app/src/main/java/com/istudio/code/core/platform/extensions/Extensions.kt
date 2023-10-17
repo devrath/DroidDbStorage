@@ -1,4 +1,4 @@
-package com.istudio.code.platform.extensions
+package com.istudio.code.core.platform.extensions
 
 import android.app.Activity
 import android.content.Context

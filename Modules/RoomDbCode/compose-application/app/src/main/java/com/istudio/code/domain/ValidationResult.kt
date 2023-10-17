@@ -1,6 +1,6 @@
 package com.istudio.code.domain
 
-import com.istudio.code.platform.uiEvent.UiText
+import com.istudio.code.core.platform.uiEvent.UiText
 
 data class ValidationResult(
     val successful: Boolean,
