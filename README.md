@@ -1,5 +1,5 @@
-# verbose-room-database
-![Banner](https://github.com/devrath/devrath/blob/master/images/Banner.png)
+# DroidDbStorage
+![Banner](https://github.com/devrath/DroidDbStorage/blob/main/assets/banner.png)
 
 
 <p align="center">
