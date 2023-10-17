@@ -1,4 +1,4 @@
-package com.istudio.code.domain.di
+package com.istudio.code.domain.di.viewmodellevel
 
 import com.istudio.code.domain.usecases.AddBookModuleUseCases
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
