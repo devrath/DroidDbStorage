@@ -1,7 +1,10 @@
 package com.istudio.code.domain.di
 
 import com.istudio.code.domain.usecases.AddBookModuleUseCases
-import com.istudio.code.domain.usecases.validateAddBook.ValidateAddBookUseCase
+import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
+import com.istudio.code.domain.usecases.validateAddBook.ValidateCategoryInputUseCase
+import com.istudio.code.domain.usecases.validateAddBook.ValidateDescriptionInputUseCase
+import com.istudio.code.domain.usecases.validateAddBook.ValidateTitleInputUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +19,10 @@ object AddBookDomainModule {
     @Provides
     fun provideTrackerUseCases(): AddBookModuleUseCases {
         return AddBookModuleUseCases(
-            validateLogin = ValidateAddBookUseCase()
+            validateAllInputs = ValidateAllInputsUseCase(),
+            validateTitle = ValidateTitleInputUseCase(),
+            validateDescription = ValidateDescriptionInputUseCase(),
+            validateCategory = ValidateCategoryInputUseCase()
         )
     }
 

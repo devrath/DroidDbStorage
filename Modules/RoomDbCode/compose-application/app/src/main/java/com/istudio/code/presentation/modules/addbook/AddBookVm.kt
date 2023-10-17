@@ -5,7 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.istudio.code.domain.entities.input.AddBookInput
+import com.istudio.code.domain.entities.input.AddBookAllInputs
+import com.istudio.code.domain.entities.input.AddBookCategoryInput
+import com.istudio.code.domain.entities.input.AddBookDescriptionInput
+import com.istudio.code.domain.entities.input.AddBookTitleInput
 import com.istudio.code.domain.usecases.AddBookModuleUseCases
 import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookUiState
@@ -17,10 +20,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-
 @HiltViewModel
 class AddBookVm @Inject constructor(
-    private var addBookModuleUseCases : AddBookModuleUseCases
+    private var addBookModuleUseCases: AddBookModuleUseCases
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view
@@ -56,31 +58,35 @@ class AddBookVm @Inject constructor(
                     } else {
                         // <------------------- Failure ------------------->
                         // Check if title is empty
-                        if(viewState.title.isEmpty()){
+                        if (!validateTitle()) {
                             // Notify error state to the title filed
                             _uiEvent.send(AddBookResponseEvent.TitleFieldError)
-                        }else if(viewState.description.isEmpty()){
+                        } else if (!validateDescription()) {
                             // Notify error state to the description filed
                             _uiEvent.send(AddBookResponseEvent.DescriptionFieldError)
-                        }else if(viewState.category.isEmpty()){
+                        } else if (!validateCategory()) {
                             // Notify error state to the category filed
                             _uiEvent.send(AddBookResponseEvent.CategoryFieldError)
                         }
                     }
                 }
 
-                is AddBookViewEvent.SetIsCategoryError ->  {
+                is AddBookViewEvent.SetIsCategoryError -> {
                     viewState = viewState.copy(isCategoryError = event.isCategoryError)
                 }
-                is AddBookViewEvent.SetIsDescriptionError ->  {
+
+                is AddBookViewEvent.SetIsDescriptionError -> {
                     viewState = viewState.copy(isDescriptionError = event.isDescriptionError)
                 }
-                is AddBookViewEvent.SetIsExpanded ->  {
+
+                is AddBookViewEvent.SetIsExpanded -> {
                     viewState = viewState.copy(isExpanded = event.isExpanded)
                 }
+
                 is AddBookViewEvent.SetIsTitleError -> {
                     viewState = viewState.copy(isTitleError = event.isTitleError)
                 }
+
                 is AddBookViewEvent.SetLaunchedEffectState -> {
                     viewState = viewState.copy(launchedEffectState = event.launchedEffectState)
                 }
@@ -91,21 +97,56 @@ class AddBookVm @Inject constructor(
     /** <************> UI Action is invoked from composable <************> **/
 
     /** <*********************> Use case invocations <*******************> **/
+
+    /**
+     * Validate All the fields
+     */
     private fun validateAddBookAction(): Boolean {
 
-        val input = AddBookInput(
-            title = viewState.title,
-            description = viewState.description,
+        val input = AddBookAllInputs(
+            title = viewState.title, description = viewState.description,
             category = viewState.category
         )
 
-        addBookModuleUseCases.validateLogin.invoke(input)
-            .onSuccess {
-                return it.successful
-            }
-            .onFailure {
-                return false
-            }
+        addBookModuleUseCases.validateAllInputs.invoke(input).onSuccess { return it.successful }
+            .onFailure { return false }
+
+        return false
+    }
+
+    /**
+     * Validate title
+     */
+    private fun validateTitle(): Boolean {
+
+        val input = AddBookTitleInput(title = viewState.title)
+
+        addBookModuleUseCases.validateTitle.invoke(input).onSuccess { return it.successful }
+            .onFailure { return false }
+
+        return false
+    }
+
+    /**
+     * Validate category
+     */
+    private fun validateCategory(): Boolean {
+        val input = AddBookCategoryInput(category = viewState.category)
+
+        addBookModuleUseCases.validateCategory.invoke(input).onSuccess { return it.successful }
+            .onFailure { return false }
+
+        return false
+    }
+
+    /**
+     * Validate description
+     */
+    private fun validateDescription(): Boolean {
+        val input = AddBookDescriptionInput(description = viewState.description)
+
+        addBookModuleUseCases.validateDescription.invoke(input).onSuccess { return it.successful }
+            .onFailure { return false }
 
         return false
     }

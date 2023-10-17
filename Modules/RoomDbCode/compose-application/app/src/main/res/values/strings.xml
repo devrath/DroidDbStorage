@@ -18,6 +18,9 @@
 
 
     <string name="str_err_validations_failed">Add book validations failed</string>
+    <string name="str_err_title_validation_failed">Title is empty</string>
+    <string name="str_err_description_validation_failed">Description is empty</string>
+    <string name="str_err_category_validation_failed">Category is not selected</string>
 
 
 </resources>

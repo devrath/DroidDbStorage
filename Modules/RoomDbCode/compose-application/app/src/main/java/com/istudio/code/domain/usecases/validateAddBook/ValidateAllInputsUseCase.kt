@@ -2,16 +2,16 @@ package com.istudio.code.domain.usecases.validateAddBook
 
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult
-import com.istudio.code.domain.entities.input.AddBookInput
+import com.istudio.code.domain.entities.input.AddBookAllInputs
 import com.istudio.code.platform.uiEvent.UiText
 import javax.inject.Inject
 
-class ValidateAddBookUseCase @Inject constructor(){
+class ValidateAllInputsUseCase @Inject constructor(){
 
     private enum class VALIDATIONS { TITLE, DESCRIPTION, CATEGORY }
 
     operator fun invoke(
-        input: AddBookInput
+        input: AddBookAllInputs
     ): Result<ValidationResult> {
         return try {
             val result = initiateValidation(input)
@@ -21,7 +21,7 @@ class ValidateAddBookUseCase @Inject constructor(){
         }
     }
 
-    private fun initiateValidation(input: AddBookInput): ValidationResult {
+    private fun initiateValidation(input: AddBookAllInputs): ValidationResult {
 
         return if (validateAddBookAction(input)) {
             ValidationResult(
@@ -36,7 +36,7 @@ class ValidateAddBookUseCase @Inject constructor(){
     }
 
 
-    private fun validateFields(input: AddBookInput,widget: VALIDATIONS) = when (widget) {
+    private fun validateFields(input: AddBookAllInputs, widget: VALIDATIONS) = when (widget) {
         // Title validation
         VALIDATIONS.TITLE -> input.title.isNotEmpty()
         // Description validation
@@ -45,7 +45,7 @@ class ValidateAddBookUseCase @Inject constructor(){
         VALIDATIONS.CATEGORY -> input.category.isNotEmpty()
     }
 
-    private fun validateAddBookAction(input: AddBookInput): Boolean {
+    private fun validateAddBookAction(input: AddBookAllInputs): Boolean {
         return validateFields(input,VALIDATIONS.TITLE) &&
                 validateFields(input,VALIDATIONS.DESCRIPTION) &&
                 validateFields(input,VALIDATIONS.CATEGORY)
