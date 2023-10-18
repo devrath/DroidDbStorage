@@ -14,7 +14,7 @@ import com.istudio.code.domain.database.models.Review
 
 @Database(
     entities = [
-        Book::class, Genre::class
+        Book::class, Genre::class, Review::class, ReadingList::class
     ],
     version = DATABASE_VERSION
 )

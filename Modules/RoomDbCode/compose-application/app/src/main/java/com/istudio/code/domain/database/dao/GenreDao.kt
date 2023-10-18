@@ -9,11 +9,22 @@ import com.istudio.code.domain.database.models.Genre
 @Dao
 interface GenreDao {
 
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting just a list of Genre
+     */
     @Query("SELECT * FROM genre")
     fun getGenres() : List<Genre>
 
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting a single genre based on a genreId
+     */
     @Query("SELECT * FROM genre WHERE id=:genreId")
     fun getGenreById(genreId:String) : Genre
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addGenres(genre:List<Genre>)
