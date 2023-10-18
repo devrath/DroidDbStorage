@@ -43,8 +43,6 @@ private fun CurrentScreenPreview() {
 
 @Composable
 private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
-    //viewModel.onEvent(AddBookViewEvent.SetIsDescriptionError(false))
-
 
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
@@ -73,21 +71,8 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
             contentPadding = PaddingValues(16.dp),
             content = {
                 item {
-
                     state.books.forEachIndexed { index, book ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                                .wrapContentHeight()
-                                .padding(vertical = 25.dp),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                book.name,
-                                style = MaterialTheme.typography.titleMedium
-                            )
-                        }
-
+                        MyBooksItem(title = book.name, description = book.description)
                     }
                 }
             },
