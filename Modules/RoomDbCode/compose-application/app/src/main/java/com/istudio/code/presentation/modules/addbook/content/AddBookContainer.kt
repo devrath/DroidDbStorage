@@ -73,6 +73,15 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
 
     LaunchedEffect(key1 = state.launchedEffectState) {
+
+        // Insert categories in the database
+        val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
+        viewModel.insertGenreToDb(bookCategories)
+
+        // Set the genre list in view model
+        val genreList = viewModel.retrieveGenreToDb()
+        viewModel.onEvent(AddBookViewEvent.SetGenreList(genreList))
+
         // <***********> Event is observed from View-Model <************>
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -206,7 +215,7 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                         }
                     ) {
 
-                        val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
+                        val bookCategories = viewModel.viewState.genreList
 
                         bookCategories.forEachIndexed { index, item ->
                             DropdownMenuItem(

@@ -13,5 +13,6 @@ interface AppRepository {
     fun addBook(book: Book)
     fun getBooks(): List<BookAndGenre>
     fun getGenres(): List<Genre>
+    fun addGenres(genres: List<Genre>)
     fun getGenreById(genreId: String): Genre
 }

@@ -12,4 +12,6 @@ sealed class AddBookViewEvent {
     data class SetIsDescriptionError(val isDescriptionError: Boolean) : AddBookViewEvent()
     data class SetIsCategoryError(val isCategoryError: Boolean) : AddBookViewEvent()
     data class SetLaunchedEffectState(val launchedEffectState: Boolean) : AddBookViewEvent()
+
+    data class SetGenreList(val genreList: List<String>) : AddBookViewEvent()
 }

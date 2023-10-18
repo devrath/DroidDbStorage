@@ -1,6 +1,9 @@
 package com.istudio.code.domain.di.viewmodellevel
 
+import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.usecases.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
+import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateCategoryInputUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateDescriptionInputUseCase
@@ -17,12 +20,16 @@ object AddBookDomainModule {
 
     @ViewModelScoped
     @Provides
-    fun provideTrackerUseCases(): AddBookModuleUseCases {
+    fun provideTrackerUseCases(
+        appRepositoryImpl: AppRepositoryImpl
+    ): AddBookModuleUseCases {
         return AddBookModuleUseCases(
             validateAllInputs = ValidateAllInputsUseCase(),
             validateTitle = ValidateTitleInputUseCase(),
             validateDescription = ValidateDescriptionInputUseCase(),
-            validateCategory = ValidateCategoryInputUseCase()
+            validateCategory = ValidateCategoryInputUseCase(),
+            addGenreDataUseCase = AddGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
+            retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl)
         )
     }
 

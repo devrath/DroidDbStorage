@@ -10,4 +10,6 @@ data class AddBookUiState(
     val isDescriptionError: Boolean = false,
     val isCategoryError: Boolean = false,
     val launchedEffectState: Boolean = false,
+
+    val genreList: List<String> = emptyList(),
 )

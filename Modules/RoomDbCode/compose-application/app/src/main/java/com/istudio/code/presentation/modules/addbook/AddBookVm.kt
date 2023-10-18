@@ -1,10 +1,12 @@
 package com.istudio.code.presentation.modules.addbook
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.R
 import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.entities.input.AddBookAllInputs
@@ -16,6 +18,7 @@ import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookUiState
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -95,6 +98,10 @@ class AddBookVm @Inject constructor(
                     viewState = viewState.copy(launchedEffectState = event.launchedEffectState)
                 }
 
+                is AddBookViewEvent.SetGenreList -> {
+                    viewState = viewState.copy(genreList = event.genreList)
+                }
+
                 else -> {}
             }
         }
@@ -156,6 +163,32 @@ class AddBookVm @Inject constructor(
 
         return false
     }
+
+
+    fun insertGenreToDb(bookCategories: Array<String>): Boolean {
+        addBookModuleUseCases.addGenreDataUseCase.invoke(bookCategories)
+            .onSuccess {
+                // Categories are inserted
+                return true;
+            }.onFailure {
+                // Category insertion is failure
+                return false;
+            }
+        return false;
+    }
+
+    fun retrieveGenreToDb(): List<String> {
+        addBookModuleUseCases.retrieveGenreDataUseCase.invoke()
+            .onSuccess {
+                // Categories are inserted
+                return it;
+            }.onFailure {
+                // Category insertion is failure
+                return emptyList();
+            }
+        return emptyList();
+    }
+
     /** <*********************> Use case invocations <*******************> **/
 
 
