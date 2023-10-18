@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.data.repository.AppRepositoryImpl
+import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.entities.input.AddBookAllInputs
 import com.istudio.code.domain.entities.input.AddBookCategoryInput
 import com.istudio.code.domain.entities.input.AddBookDescriptionInput
@@ -22,7 +24,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddBookVm @Inject constructor(
-    private var addBookModuleUseCases: AddBookModuleUseCases
+    private var addBookModuleUseCases: AddBookModuleUseCases,
+    // -->
+    private val appRepositoryImpl : AppRepositoryImpl
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view
@@ -90,6 +94,8 @@ class AddBookVm @Inject constructor(
                 is AddBookViewEvent.SetLaunchedEffectState -> {
                     viewState = viewState.copy(launchedEffectState = event.launchedEffectState)
                 }
+
+                else -> {}
             }
         }
     }
@@ -151,5 +157,36 @@ class AddBookVm @Inject constructor(
         return false
     }
     /** <*********************> Use case invocations <*******************> **/
+
+
+
+
+
+    fun getGenreList() {
+        // Genre contains the all the columns in table
+        // We shall use map operator to get just the names as the list
+        val genreName : List<String> = appRepositoryImpl.getGenres().map {
+            it.name
+        }
+    }
+
+    fun createBook(): Boolean {
+        val title = viewState.title
+        val description = viewState.description
+        val genreId = appRepositoryImpl.getGenres().firstOrNull {
+            it.name == viewState.category
+        }?.id
+
+        if((title.isNotBlank()) && (description.isNotBlank()) && (!genreId.isNullOrBlank())){
+            val book = Book(genreId = genreId, name = title, description = description)
+            // Add the book to the database
+            appRepositoryImpl.addBook(book)
+            return true
+        }else{
+            return false
+        }
+
+    }
+
 
 }
