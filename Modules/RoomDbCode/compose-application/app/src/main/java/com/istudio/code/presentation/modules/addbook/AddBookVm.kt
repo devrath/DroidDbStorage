@@ -200,11 +200,13 @@ class AddBookVm @Inject constructor(
     /** <*********************> Use case invocations <*******************> **/
 
 
+    /**
+     * Creating a new book entry in the local database
+     */
     fun createBook(): Boolean {
 
         val input = AddBookAllInputs(
-            title = viewState.title,
-            description = viewState.description,
+            title = viewState.title, description = viewState.description,
             category = viewState.category
         )
 
