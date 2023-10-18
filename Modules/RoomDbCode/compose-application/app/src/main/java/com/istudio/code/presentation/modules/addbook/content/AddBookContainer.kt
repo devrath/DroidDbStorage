@@ -74,10 +74,11 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
 
     LaunchedEffect(key1 = state.launchedEffectState) {
 
-        // Insert categories in the database
-        val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
-        viewModel.insertGenreToDb(bookCategories)
-
+        if(viewModel.retrieveGenreToDb().isEmpty()){
+            // Insert categories in the database - Is already the entries are not added
+            val bookCategories = cxt.resources.getStringArray(R.array.book_categories)
+            viewModel.insertGenreToDb(bookCategories)
+        }
         // Set the genre list in view model
         val genreList = viewModel.retrieveGenreToDb()
         viewModel.onEvent(AddBookViewEvent.SetGenreList(genreList))
