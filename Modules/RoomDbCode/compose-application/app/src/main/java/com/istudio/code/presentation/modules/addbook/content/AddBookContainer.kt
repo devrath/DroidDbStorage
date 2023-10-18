@@ -178,6 +178,8 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
                     label = { Text(text = cxt.getString(R.string.title_enter_book_description)) },
                     placeholder = { Text(text = cxt.getString(R.string.str_description)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    maxLines = 5,
+                    singleLine = false,
                     isError = state.isDescriptionError
                 )
 

@@ -70,7 +70,7 @@ fun MyBook(item: BookAndGenre
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 item.book.description, style = MaterialTheme.typography.bodySmall,
-                maxLines = 240
+                maxLines = 5
             )
         }
     }
