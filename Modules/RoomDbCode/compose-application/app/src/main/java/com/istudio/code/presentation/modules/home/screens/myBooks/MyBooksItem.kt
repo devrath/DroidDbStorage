@@ -16,23 +16,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.istudio.code.domain.database.models.Book
+import com.istudio.code.domain.database.models.Genre
+import com.istudio.code.domain.database.models.relations.BookAndGenre
 
 @Composable
-fun MyBooksItem(title: String, description: String) {
-    MyBook(title, description)
+fun MyBooksItem(item: BookAndGenre) {
+    MyBook(item)
 }
 
 
 @Preview
 @Composable
 private fun CurrentScreenPreview() {
-    MyBook(title = "Title", description = "Description is some sentences")
+    MyBook(
+        BookAndGenre(
+            book = Book(
+                name = "BookName",
+                description = "Description",
+                genreId = "123",
+            ), genre = Genre(
+                name = "Action Packed"
+            )
+        )
+    )
 }
 
 @Composable
-fun MyBook(
-    title: String,
-    description: String
+fun MyBook(item: BookAndGenre
 ) {
     Card(
         modifier = Modifier
@@ -50,11 +61,16 @@ fun MyBook(
                 .padding(16.dp)
         ) {
             Text(
-                title, style = MaterialTheme.typography.titleMedium
+                item.book.name, style = MaterialTheme.typography.titleLarge,
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                description, style = MaterialTheme.typography.bodyMedium
+                item.genre.name, style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                item.book.description, style = MaterialTheme.typography.bodySmall,
+                maxLines = 240
             )
         }
     }

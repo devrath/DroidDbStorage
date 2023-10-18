@@ -25,9 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddBookVm @Inject constructor(
-    private var mainModuleUseCases: MainModuleUseCases,
-    // -->
-    private val appRepositoryImpl : AppRepositoryImpl
+    private var mainModuleUseCases: MainModuleUseCases
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view

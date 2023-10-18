@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -71,8 +70,8 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
             contentPadding = PaddingValues(16.dp),
             content = {
                 item {
-                    state.books.forEachIndexed { index, book ->
-                        MyBooksItem(title = book.name, description = book.description)
+                    state.books.forEachIndexed { index, item ->
+                        MyBooksItem(item)
                     }
                 }
             },
