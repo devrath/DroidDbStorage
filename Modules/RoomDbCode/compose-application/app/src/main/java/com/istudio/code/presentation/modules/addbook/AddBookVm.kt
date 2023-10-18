@@ -7,6 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.istudio.code.R
+import com.istudio.code.core.platform.functional.UseCaseResult
+import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.entities.input.AddBookAllInputs
@@ -169,9 +171,12 @@ class AddBookVm @Inject constructor(
         addBookModuleUseCases.addGenreDataUseCase.invoke(bookCategories)
             .onSuccess {
                 // Categories are inserted
-                return true;
+                return it;
             }.onFailure {
                 // Category insertion is failure
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
                 return false;
             }
         return false;
@@ -184,6 +189,9 @@ class AddBookVm @Inject constructor(
                 return it;
             }.onFailure {
                 // Category insertion is failure
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
                 return emptyList();
             }
         return emptyList();
@@ -192,34 +200,48 @@ class AddBookVm @Inject constructor(
     /** <*********************> Use case invocations <*******************> **/
 
 
-
-
-
-    fun getGenreList() {
-        // Genre contains the all the columns in table
-        // We shall use map operator to get just the names as the list
-        val genreName : List<String> = appRepositoryImpl.getGenres().map {
-            it.name
-        }
-    }
-
     fun createBook(): Boolean {
-        val title = viewState.title
-        val description = viewState.description
-        val genreId = appRepositoryImpl.getGenres().firstOrNull {
-            it.name == viewState.category
-        }?.id
 
-        if((title.isNotBlank()) && (description.isNotBlank()) && (!genreId.isNullOrBlank())){
-            val book = Book(genreId = genreId, name = title, description = description)
-            // Add the book to the database
-            appRepositoryImpl.addBook(book)
-            return true
-        }else{
-            return false
-        }
+        val input = AddBookAllInputs(
+            title = viewState.title,
+            description = viewState.description,
+            category = viewState.category
+        )
 
+        addBookModuleUseCases.addBookUseCase.invoke(input)
+            .onSuccess { return  it }
+            .onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+                return  false
+            }
+
+        return  false
     }
+
+
+
+
+
+    /** ********************************* DISPLAY MESSAGES ****************************************/
+    /**
+     * ERROR HANDLING:
+     * Displaying messages to the snack-bar
+     */
+    private suspend fun useCaseErrorMessage(result: UiText?) {
+        result?.let { _uiEvent.send(AddBookResponseEvent.ShowSnackBar(it.toString())) }
+    }
+
+    /**
+     * ERROR HANDLING:
+     * For the Use cases
+     */
+    private suspend fun useCaseError(result: UseCaseResult.Error) {
+        val uiEvent = UiText.DynamicString(result.exception.message.toString())
+        _uiEvent.send(AddBookResponseEvent.ShowSnackBar(uiEvent.text))
+    }
+    /** ********************************* DISPLAY MESSAGES ****************************************/
 
 
 }

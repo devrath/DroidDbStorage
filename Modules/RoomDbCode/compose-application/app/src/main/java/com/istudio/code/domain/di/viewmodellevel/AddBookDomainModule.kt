@@ -2,6 +2,7 @@ package com.istudio.code.domain.di.viewmodellevel
 
 import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.usecases.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
 import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
@@ -29,7 +30,8 @@ object AddBookDomainModule {
             validateDescription = ValidateDescriptionInputUseCase(),
             validateCategory = ValidateCategoryInputUseCase(),
             addGenreDataUseCase = AddGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
-            retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl)
+            retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
+            addBookUseCase = AddBookUseCase(appRepositoryImpl = appRepositoryImpl)
         )
     }
 

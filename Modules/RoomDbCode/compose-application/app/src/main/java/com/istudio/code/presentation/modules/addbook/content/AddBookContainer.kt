@@ -87,8 +87,10 @@ fun AddBookContainer(modifier: Modifier = Modifier, onBackPress: () -> Unit) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is AddBookResponseEvent.AddBookSuccess -> {
-                    // Close the screen
-                    onBackPress()
+                    if(viewModel.createBook()){
+                        // Close the screen
+                        onBackPress()
+                    }
                 }
                 is AddBookResponseEvent.DescriptionFieldError -> {
                     viewModel.onEvent(AddBookViewEvent.SetIsDescriptionError(true))

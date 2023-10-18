@@ -1,5 +1,6 @@
 package com.istudio.code.domain.usecases
 
+import com.istudio.code.domain.usecases.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
 import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
@@ -17,5 +18,6 @@ data class AddBookModuleUseCases(
     // --> ********** REPOSITORY-OPERATIONS **************
     val addGenreDataUseCase: AddGenreDataUseCase,
     val retrieveGenreDataUseCase: RetrieveGenreDataUseCase,
+    val addBookUseCase: AddBookUseCase,
     // --> ********** REPOSITORY-OPERATIONS **************
 )

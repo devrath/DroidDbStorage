@@ -5,5 +5,5 @@ sealed class AddBookResponseEvent {
     object TitleFieldError : AddBookResponseEvent()
     object DescriptionFieldError : AddBookResponseEvent()
     object CategoryFieldError : AddBookResponseEvent()
-    //data class ShowSnackbar(val message: String) : AddBookResponseEvent()
+    data class ShowSnackBar(val message: String) : AddBookResponseEvent()
 }
