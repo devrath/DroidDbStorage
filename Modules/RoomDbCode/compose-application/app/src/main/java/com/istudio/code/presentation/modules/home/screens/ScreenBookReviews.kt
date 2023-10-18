@@ -15,25 +15,32 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.istudio.code.presentation.modules.home.HomeVm
 
 @Composable
-fun ScreenBookReviews() {
-    CurrentScreen(screenName = "Book Reviews", backgroundColor = Color.DarkGray)
+fun ScreenBookReviews(viewModelStore: ViewModelStoreOwner) {
+    CurrentScreen(viewModelStore)
 }
 
 @Preview
 @Composable
-private fun CurrentScreen() {
-    ScreenBookReviews()
+private fun CurrentScreenPreview() {
+    val viewModelStore = checkNotNull(LocalViewModelStoreOwner.current)
+    CurrentScreen(viewModelStore)
 }
 
 
 @Composable
-private fun CurrentScreen(screenName: String, backgroundColor: Color) {
+private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
+    val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = backgroundColor),
+            .background(color = Color.DarkGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -45,7 +52,7 @@ private fun CurrentScreen(screenName: String, backgroundColor: Color) {
             style = TextStyle(
                 color = Color.White
             ),
-            text = screenName
+            text = "BookReviews"
         )
     }
 }

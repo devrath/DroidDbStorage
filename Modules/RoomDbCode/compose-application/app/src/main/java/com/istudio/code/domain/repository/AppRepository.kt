@@ -15,4 +15,5 @@ interface AppRepository {
     fun getGenres(): List<Genre>
     fun addGenres(genres: List<Genre>)
     fun getGenreById(genreId: String): Genre
+    fun getAllBooks(): List<Book>
 }

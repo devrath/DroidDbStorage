@@ -29,5 +29,6 @@ class AppRepositoryImpl @Inject constructor(
     }
 
     override fun getGenreById(genreId: String): Genre = genreDao.getGenreById(genreId = genreId)
+    override fun getAllBooks(): List<Book> =  bookDao.getBooks()
 
 }

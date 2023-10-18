@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.compose.rememberNavController
 import com.istudio.code.R
 import com.istudio.code.presentation.modules.addbook.AddBookActivity
@@ -48,7 +49,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeContainer(modifier: Modifier = Modifier) {
+fun HomeContainer(
+    viewModelStore: ViewModelStoreOwner,
+) {
 
     // Context
     val cxt = LocalContext.current
@@ -146,7 +149,7 @@ fun HomeContainer(modifier: Modifier = Modifier) {
                     .fillMaxSize()
                     .padding(it)
             ) {
-                HomeModuleNavGraph(navController)
+                HomeModuleNavGraph(navController,viewModelStore)
             }
         }
 

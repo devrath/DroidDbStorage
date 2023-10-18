@@ -15,16 +15,22 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.istudio.code.presentation.modules.home.HomeVm
 
 @Composable
-fun ScreenReadingList() {
+fun ScreenReadingList(viewModelStore: ViewModelStoreOwner) {
+    val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
     CurrentScreen(screenName = "Reading List", backgroundColor = Color.DarkGray)
 }
 
 @Preview
 @Composable
 private fun CurrentScreen() {
-    ScreenReadingList()
+    val viewModelStore = checkNotNull(LocalViewModelStoreOwner.current)
+    ScreenReadingList(viewModelStore)
 }
 
 
@@ -33,7 +39,7 @@ private fun CurrentScreen(screenName: String, backgroundColor: Color) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = backgroundColor),
+            .background(color = Color.DarkGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

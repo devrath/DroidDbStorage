@@ -1,26 +1,22 @@
 package com.istudio.code.presentation.modules.addbook
 
-import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.istudio.code.R
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.data.repository.AppRepositoryImpl
-import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.entities.input.AddBookAllInputs
 import com.istudio.code.domain.entities.input.AddBookCategoryInput
 import com.istudio.code.domain.entities.input.AddBookDescriptionInput
 import com.istudio.code.domain.entities.input.AddBookTitleInput
-import com.istudio.code.domain.usecases.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.MainModuleUseCases
 import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookUiState
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -29,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddBookVm @Inject constructor(
-    private var addBookModuleUseCases: AddBookModuleUseCases,
+    private var mainModuleUseCases: MainModuleUseCases,
     // -->
     private val appRepositoryImpl : AppRepositoryImpl
 ) : ViewModel() {
@@ -123,7 +119,7 @@ class AddBookVm @Inject constructor(
             category = viewState.category
         )
 
-        addBookModuleUseCases.validateAllInputs.invoke(input).onSuccess { return it.successful }
+        mainModuleUseCases.validateAllInputs.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -136,7 +132,7 @@ class AddBookVm @Inject constructor(
 
         val input = AddBookTitleInput(title = viewState.title)
 
-        addBookModuleUseCases.validateTitle.invoke(input).onSuccess { return it.successful }
+        mainModuleUseCases.validateTitle.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -148,7 +144,7 @@ class AddBookVm @Inject constructor(
     private fun validateCategory(): Boolean {
         val input = AddBookCategoryInput(category = viewState.category)
 
-        addBookModuleUseCases.validateCategory.invoke(input).onSuccess { return it.successful }
+        mainModuleUseCases.validateCategory.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -160,7 +156,7 @@ class AddBookVm @Inject constructor(
     private fun validateDescription(): Boolean {
         val input = AddBookDescriptionInput(description = viewState.description)
 
-        addBookModuleUseCases.validateDescription.invoke(input).onSuccess { return it.successful }
+        mainModuleUseCases.validateDescription.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -168,7 +164,7 @@ class AddBookVm @Inject constructor(
 
 
     fun insertGenreToDb(bookCategories: Array<String>): Boolean {
-        addBookModuleUseCases.addGenreDataUseCase.invoke(bookCategories)
+        mainModuleUseCases.addGenreDataUseCase.invoke(bookCategories)
             .onSuccess {
                 // Categories are inserted
                 return it;
@@ -183,7 +179,7 @@ class AddBookVm @Inject constructor(
     }
 
     fun retrieveGenreToDb(): List<String> {
-        addBookModuleUseCases.retrieveGenreDataUseCase.invoke()
+        mainModuleUseCases.retrieveGenreDataUseCase.invoke()
             .onSuccess {
                 // Categories are inserted
                 return it;
@@ -210,7 +206,7 @@ class AddBookVm @Inject constructor(
             category = viewState.category
         )
 
-        addBookModuleUseCases.addBookUseCase.invoke(input)
+        mainModuleUseCases.addBookUseCase.invoke(input)
             .onSuccess { return  it }
             .onFailure {
                 viewModelScope.launch {
