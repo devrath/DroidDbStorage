@@ -26,9 +26,6 @@ class HomeVm @Inject constructor(
     var viewState by mutableStateOf(HomeUiState())
         private set
 
-    var book : Book? = null
-
-
     // View model sets this state, Composable observes this state
     private val _uiEvent = Channel<HomeResponseEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -43,7 +40,10 @@ class HomeVm @Inject constructor(
                 is HomeUiEvent.DeleteBook -> {
                     deleteBook(event.book)
                 }
-            }
+
+                is HomeUiEvent.ConfirmDeleteBook -> {
+                    viewState = viewState.copy(book = event.book)
+                }            }
         }
     }
 

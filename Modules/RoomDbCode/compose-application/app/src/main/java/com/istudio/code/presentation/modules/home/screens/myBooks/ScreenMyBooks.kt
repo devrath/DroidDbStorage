@@ -80,7 +80,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
                     state.books.forEachIndexed { index, item ->
                         MyBooksItem(item){
                             dialogDisplayState = true
-                            viewModel.book = item.book;
+                            viewModel.onEvent(HomeUiEvent.ConfirmDeleteBook(item.book))
                         }
                     }
                 }
@@ -90,10 +90,9 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
 
     if (dialogDisplayState) {
         DeleteBookDialog(dialogDisplayState) { newValue ->
-            // Here we re-assign the boolean value and update the state
             dialogDisplayState = false
             if(newValue){
-                viewModel.book?.let {
+                viewModel.viewState.book?.let {
                     viewModel.onEvent(HomeUiEvent.DeleteBook(it))
                 }
             }
