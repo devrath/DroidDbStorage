@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.data.repository.AppRepositoryImpl
+import com.istudio.code.domain.database.models.relations.BookAndGenre
 import com.istudio.code.domain.usecases.MainModuleUseCases
 import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
@@ -24,7 +25,9 @@ class HomeVm @Inject constructor(
     private val mainModuleUseCases: MainModuleUseCases,
 ) : ViewModel() {
 
-    var viewState by mutableStateOf(HomeUiState())
+   /* var viewState by mutableStateOf(HomeUiState())
+        private set*/
+    var booksList : List<BookAndGenre> by mutableStateOf(emptyList())
         private set
 
 
@@ -46,7 +49,7 @@ class HomeVm @Inject constructor(
     private fun retrieveAllBooks() {
         mainModuleUseCases.getBooksUseCase.invoke()
             .onSuccess {
-                viewState = viewState.copy(books = it)
+                booksList = it
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))

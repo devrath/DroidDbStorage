@@ -45,7 +45,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     //val viewModel: HomeVm = hiltViewModel()
     val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
     // View state reference from view model
-    val state = viewModel.viewState
+    val state = viewModel.booksList
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     val lifecycleEvent = rememberLifecycleEvent()
@@ -70,7 +70,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
             contentPadding = PaddingValues(16.dp),
             content = {
                 item {
-                    state.books.forEachIndexed { index, item ->
+                    state.forEachIndexed { index, item ->
                         MyBooksItem(item)
                     }
                 }
