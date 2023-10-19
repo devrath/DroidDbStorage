@@ -2,6 +2,7 @@ package com.istudio.code.domain.usecases
 
 import com.istudio.code.domain.usecases.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
+import com.istudio.code.domain.usecases.dbOperations.DeleteBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
@@ -20,6 +21,7 @@ data class MainModuleUseCases(
     val addGenreDataUseCase: AddGenreDataUseCase,
     val retrieveGenreDataUseCase: RetrieveGenreDataUseCase,
     val addBookUseCase: AddBookUseCase,
-    val getBooksUseCase: GetBooksUseCase
+    val getBooksUseCase: GetBooksUseCase,
+    val deleteBookUseCase: DeleteBookUseCase
     // --> ********** REPOSITORY-OPERATIONS **************
 )

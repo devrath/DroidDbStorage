@@ -56,7 +56,7 @@ fun MyBook(
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .clickable(onClick = { onClick }),
+            .clickable(onClick = { onClick.invoke() }),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         )

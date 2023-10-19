@@ -4,6 +4,7 @@ import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.usecases.MainModuleUseCases
 import com.istudio.code.domain.usecases.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
+import com.istudio.code.domain.usecases.dbOperations.DeleteBookUseCase
 import com.istudio.code.domain.usecases.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
@@ -33,7 +34,8 @@ object MainDomainModule {
             addGenreDataUseCase = AddGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             addBookUseCase = AddBookUseCase(appRepositoryImpl = appRepositoryImpl),
-            getBooksUseCase = GetBooksUseCase(appRepositoryImpl = appRepositoryImpl)
+            getBooksUseCase = GetBooksUseCase(appRepositoryImpl = appRepositoryImpl),
+            deleteBookUseCase = DeleteBookUseCase(appRepositoryImpl = appRepositoryImpl)
         )
     }
 

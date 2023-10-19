@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
-import com.istudio.code.data.repository.AppRepositoryImpl
+import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.usecases.MainModuleUseCases
-import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiState
@@ -27,6 +26,8 @@ class HomeVm @Inject constructor(
     var viewState by mutableStateOf(HomeUiState())
         private set
 
+    var book : Book? = null
+
 
     // View model sets this state, Composable observes this state
     private val _uiEvent = Channel<HomeResponseEvent>()
@@ -39,6 +40,9 @@ class HomeVm @Inject constructor(
                     // Retrieve books from Database
                     retrieveAllBooks()
                 }
+                is HomeUiEvent.DeleteBook -> {
+                    deleteBook(event.book)
+                }
             }
         }
     }
@@ -47,6 +51,17 @@ class HomeVm @Inject constructor(
         mainModuleUseCases.getBooksUseCase.invoke()
             .onSuccess {
                 viewState = viewState.copy(books = it)
+            }.onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+            }
+    }
+
+    private fun deleteBook(book: Book) {
+        mainModuleUseCases.deleteBookUseCase
+            .invoke(book).onSuccess {
+
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))

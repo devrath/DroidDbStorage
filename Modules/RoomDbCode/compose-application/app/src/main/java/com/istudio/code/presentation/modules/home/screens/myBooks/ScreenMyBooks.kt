@@ -9,6 +9,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +23,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.code.core.platform.utils.composeUtils.rememberLifecycleEvent
+import com.istudio.code.domain.database.models.Book
 import com.istudio.code.presentation.modules.home.HomeVm
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 
@@ -46,6 +51,8 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
     // View state reference from view model
     val state = viewModel.viewState
+
+    var dialogDisplayState by remember { mutableStateOf(false) }
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
     val lifecycleEvent = rememberLifecycleEvent()
@@ -72,11 +79,24 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
                 item {
                     state.books.forEachIndexed { index, item ->
                         MyBooksItem(item){
-
+                            dialogDisplayState = true
+                            viewModel.book = item.book;
                         }
                     }
                 }
             },
         )
+    }
+
+    if (dialogDisplayState) {
+        DeleteBookDialog(dialogDisplayState) { newValue ->
+            // Here we re-assign the boolean value and update the state
+            dialogDisplayState = false
+            if(newValue){
+                viewModel.book?.let {
+                    viewModel.onEvent(HomeUiEvent.DeleteBook(it))
+                }
+            }
+        }
     }
 }
