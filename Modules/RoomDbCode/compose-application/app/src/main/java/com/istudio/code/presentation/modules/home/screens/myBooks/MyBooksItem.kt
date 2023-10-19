@@ -21,8 +21,10 @@ import com.istudio.code.domain.database.models.Genre
 import com.istudio.code.domain.database.models.relations.BookAndGenre
 
 @Composable
-fun MyBooksItem(item: BookAndGenre) {
-    MyBook(item)
+fun MyBooksItem(
+    item: BookAndGenre, onClick:() -> Unit
+) {
+    MyBook(item,onClick)
 }
 
 
@@ -39,18 +41,22 @@ private fun CurrentScreenPreview() {
                 name = "Action Packed"
             )
         )
-    )
+    ){
+
+    }
 }
 
 @Composable
-fun MyBook(item: BookAndGenre
+fun MyBook(
+    item: BookAndGenre,
+    onClick:() -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .clickable(onClick = { }),
+            .clickable(onClick = { onClick }),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         )

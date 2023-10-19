@@ -71,7 +71,9 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
             content = {
                 item {
                     state.books.forEachIndexed { index, item ->
-                        MyBooksItem(item)
+                        MyBooksItem(item){
+
+                        }
                     }
                 }
             },
