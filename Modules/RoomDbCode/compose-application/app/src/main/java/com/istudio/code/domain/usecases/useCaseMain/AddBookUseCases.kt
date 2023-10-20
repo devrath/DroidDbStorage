@@ -5,10 +5,10 @@ import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddGenreDataUs
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.RetrieveGenreDataUseCase
-import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateAllInputsUseCase
-import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateCategoryInputUseCase
-import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateDescriptionInputUseCase
-import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateTitleInputUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateAllInputsUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateCategoryInputUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateDescriptionInputUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateTitleInputUseCase
 
 data class AddBookUseCases(
     // --> ***************** VALIDATIONS *****************

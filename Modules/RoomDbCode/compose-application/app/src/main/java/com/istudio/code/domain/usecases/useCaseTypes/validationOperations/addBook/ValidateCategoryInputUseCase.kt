@@ -1,4 +1,4 @@
-package com.istudio.code.domain.usecases.useCaseTypes.validationOperations
+package com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook
 
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult

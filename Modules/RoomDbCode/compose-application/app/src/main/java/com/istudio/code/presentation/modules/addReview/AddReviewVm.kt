@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.presentation.modules.addReview.states.AddReviewResponseEvent
 import com.istudio.code.presentation.modules.addReview.states.AddReviewUiState
 import com.istudio.code.presentation.modules.addReview.states.AddReviewViewEvent
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddReviewVm @Inject constructor(
-
+    val reviewBookUseCases : ReviewBookUseCases
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view

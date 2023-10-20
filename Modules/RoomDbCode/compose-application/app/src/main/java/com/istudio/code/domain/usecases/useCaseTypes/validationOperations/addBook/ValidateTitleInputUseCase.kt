@@ -1,17 +1,17 @@
-package com.istudio.code.domain.usecases.useCaseTypes.validationOperations
+package com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook
 
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult
-import com.istudio.code.domain.entities.input.AddBookDescriptionInput
+import com.istudio.code.domain.entities.input.AddBookTitleInput
 import com.istudio.code.core.platform.uiEvent.UiText
 import javax.inject.Inject
 
-class ValidateDescriptionInputUseCase  @Inject constructor() {
+class ValidateTitleInputUseCase @Inject constructor() {
 
     operator fun invoke(
-        input: AddBookDescriptionInput
+        input: AddBookTitleInput
     ): Result<ValidationResult> {
-        // Check if description is empty
+        // Check if title is empty
         return try {
             val result = initiateValidation(input)
             Result.success(result)
@@ -20,11 +20,11 @@ class ValidateDescriptionInputUseCase  @Inject constructor() {
         }
     }
 
-    private fun initiateValidation(input: AddBookDescriptionInput): ValidationResult {
-        return if(input.description.isEmpty()){
+    private fun initiateValidation(input: AddBookTitleInput): ValidationResult {
+        return if(input.title.isEmpty()){
             ValidationResult(
                 successful = false,
-                errorMessage = UiText.StringResource(R.string.str_err_description_validation_failed)
+                errorMessage = UiText.StringResource(R.string.str_err_title_validation_failed)
             )
         }else{
             ValidationResult(
