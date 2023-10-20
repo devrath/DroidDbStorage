@@ -25,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.code.core.platform.utils.composeUtils.rememberLifecycleEvent
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.presentation.modules.home.HomeVm
+import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 
 @Composable
@@ -57,8 +58,20 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
 
     val lifecycleEvent = rememberLifecycleEvent()
     LaunchedEffect(lifecycleEvent) {
-        // This is used to refresh the screen on returning from another screen
+
+        if (lifecycleEvent == Lifecycle.Event.ON_CREATE) {
+            viewModel.uiEvent.collect { event ->
+                when (event) {
+                    is HomeResponseEvent.ShowSnackBar -> { }
+                    is HomeResponseEvent.RefreshData -> {
+                        viewModel.onEvent(HomeUiEvent.GetMyBooks)
+                    }
+                }
+            }
+        }
+
         if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
+            // This is used to refresh the screen on returning from another screen
             // initiate data reloading
             // Initiate retrieval of books
             viewModel.onEvent(HomeUiEvent.GetMyBooks)

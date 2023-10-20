@@ -9,6 +9,7 @@ import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.usecases.MainModuleUseCases
+import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiState
@@ -61,7 +62,9 @@ class HomeVm @Inject constructor(
     private fun deleteBook(book: Book) {
         mainModuleUseCases.deleteBookUseCase
             .invoke(book).onSuccess {
-
+                viewModelScope.launch {
+                    _uiEvent.send(HomeResponseEvent.RefreshData)
+                }
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
