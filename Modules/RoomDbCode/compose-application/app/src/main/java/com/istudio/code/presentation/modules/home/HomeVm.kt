@@ -24,13 +24,15 @@ class HomeVm @Inject constructor(
     private val mainModuleUseCases: MainModuleUseCases,
 ) : ViewModel() {
 
+    // Data states from Presentation layer attached to VM
     var viewState by mutableStateOf(HomeUiState())
         private set
 
-    // View model sets this state, Composable observes this state
+    // View model sets this state from inside VM, Composable observes this state
     private val _uiEvent = Channel<HomeResponseEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    // VM observes the changes and Composable sets the changes form composable
     fun onEvent(event: HomeUiEvent) {
         viewModelScope.launch {
             when (event) {
@@ -39,6 +41,7 @@ class HomeVm @Inject constructor(
                     retrieveAllBooks()
                 }
                 is HomeUiEvent.DeleteBook -> {
+                    // Deleting the book from database
                     deleteBook(event.book)
                 }
 
@@ -48,6 +51,11 @@ class HomeVm @Inject constructor(
         }
     }
 
+    /** <*********************> Use case invocations <*******************> **/
+
+    /**
+     * USE-CASE: Retrieving all books from database
+     */
     private fun retrieveAllBooks() {
         mainModuleUseCases.getBooksUseCase.invoke()
             .onSuccess {
@@ -59,19 +67,23 @@ class HomeVm @Inject constructor(
             }
     }
 
+    /**
+     * USE-CASE: Deleting book from database
+     */
     private fun deleteBook(book: Book) {
-        mainModuleUseCases.deleteBookUseCase
-            .invoke(book).onSuccess {
-                viewModelScope.launch {
+        viewModelScope.launch {
+            mainModuleUseCases.deleteBookUseCase
+                .invoke(book).onSuccess {
                     _uiEvent.send(HomeResponseEvent.RefreshData)
+                    //retrieveAllBooks()
+                }.onFailure {
+                    viewModelScope.launch {
+                        useCaseError(UseCaseResult.Error(Exception(it)))
+                    }
                 }
-            }.onFailure {
-                viewModelScope.launch {
-                    useCaseError(UseCaseResult.Error(Exception(it)))
-                }
-            }
+        }
     }
-
+    /** <*********************> Use case invocations <*******************> **/
 
 
 

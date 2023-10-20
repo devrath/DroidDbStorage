@@ -6,5 +6,6 @@ import com.istudio.code.domain.database.models.relations.BookAndGenre
 
 data class HomeUiState(
     val books: List<BookAndGenre> = emptyList(),
-    var book : Book? = null
+    var book : Book? = null,
+    val launchedEffectState: Boolean = false,
 )

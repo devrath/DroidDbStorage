@@ -53,30 +53,33 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     // View state reference from view model
     val state = viewModel.viewState
 
+    // Dialog visibility state
     var dialogDisplayState by remember { mutableStateOf(false) }
     // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
 
-    val lifecycleEvent = rememberLifecycleEvent()
-    LaunchedEffect(lifecycleEvent) {
-
-        if (lifecycleEvent == Lifecycle.Event.ON_CREATE) {
-            viewModel.uiEvent.collect { event ->
-                when (event) {
-                    is HomeResponseEvent.ShowSnackBar -> { }
-                    is HomeResponseEvent.RefreshData -> {
-                        viewModel.onEvent(HomeUiEvent.GetMyBooks)
-                    }
+    // <!----------- OBSERVE THE ACTIONS from VM ------------------>
+    LaunchedEffect(state.launchedEffectState) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is HomeResponseEvent.ShowSnackBar -> { }
+                is HomeResponseEvent.RefreshData -> {
+                    viewModel.onEvent(HomeUiEvent.GetMyBooks)
                 }
             }
         }
+    }
+    // <!----------- OBSERVE THE ACTIONS from VM ------------------>
 
+    // <!---- OBSERVE EVENT when you return from next screen  ----->
+    val lifecycleEvent = rememberLifecycleEvent()
+    LaunchedEffect(lifecycleEvent) {
+        // This is used to refresh the screen on returning from another screen
         if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
-            // This is used to refresh the screen on returning from another screen
-            // initiate data reloading
-            // Initiate retrieval of books
+            // initiate data reloading by retrieving the books from database again
             viewModel.onEvent(HomeUiEvent.GetMyBooks)
         }
     }
+    // <!---- OBSERVE EVENT when you return from next screen  ----->
 
     Column(
         modifier = Modifier
