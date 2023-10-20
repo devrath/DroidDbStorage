@@ -16,6 +16,8 @@
     <string name="title_enter_book_title">Enter book title</string>
     <string name="title_enter_book_description">Enter book description</string>
     <string name="select_a_category">Select a category</string>
+    <string name="select_a_rating">Select a rating</string>
+
 
 
     <string name="str_err_validations_failed">Add book validations failed</string>

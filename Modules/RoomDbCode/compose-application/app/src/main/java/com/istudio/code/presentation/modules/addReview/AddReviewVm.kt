@@ -36,8 +36,11 @@ class AddReviewVm @Inject constructor(
                 is AddReviewViewEvent.SetBooksList -> {
 
                 }
+                is AddReviewViewEvent.SetRatingsList -> {
+                    viewState = viewState.copy(ratingsList = event.ratinglist)
+                }
                 is AddReviewViewEvent.SetRating -> {
-
+                    viewState = viewState.copy(rating = event.rating)
                 }
                 is AddReviewViewEvent.SetReviewNotes -> {
 
@@ -47,12 +50,22 @@ class AddReviewVm @Inject constructor(
                     viewState = viewState.copy(bookTitle = event.title)
                 }
                 is AddReviewViewEvent.SetBookListExpandedState -> {
-                    // Sate to indicate if the dropdown is expanded
+                    // Sate to indicate if the dropdown is expanded :-> Book Drop Down
                     viewState = viewState.copy(isBookListExpanded = event.isExpanded)
+                }
+
+                is AddReviewViewEvent.SetRatingsListExpandedState -> {
+                    // Sate to indicate if the dropdown is expanded :-> Ratings Drop Down
+                    viewState = viewState.copy(isRatingsListExpanded = event.isExpanded)
                 }
             }
         }
     }
     /** <************> UI Action is invoked from composable <************> **/
+
+
+
+
+
 
 }

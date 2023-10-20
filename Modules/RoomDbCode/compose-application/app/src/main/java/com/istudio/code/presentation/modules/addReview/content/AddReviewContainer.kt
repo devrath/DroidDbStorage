@@ -2,8 +2,10 @@ package com.istudio.code.presentation.modules.addReview.content
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -21,8 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -38,7 +43,6 @@ import com.istudio.code.presentation.modules.addReview.AddReviewVm
 import com.istudio.code.presentation.modules.addReview.states.AddReviewViewEvent
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddReviewContainer(
     modifier: Modifier = Modifier, onBackPress: () -> Unit
@@ -52,7 +56,7 @@ fun AddReviewContainer(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CurrentScreen(state: AddReviewVm,onBackPress :() -> Unit) {
+fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
 
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
@@ -72,10 +76,15 @@ fun CurrentScreen(state: AddReviewVm,onBackPress :() -> Unit) {
 
     // Scroll behaviour
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
-
+    // Rating values
+    cxt.resources.getIntArray(R.array.rating_values)?.let { values ->
+       state.onEvent(
+            event = AddReviewViewEvent.SetRatingsList(values.map { strValue -> strValue })
+        )
+    }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackBarController)  },
+        snackbarHost = { SnackbarHost(snackBarController) },
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehaviour.nestedScrollConnection),
@@ -99,42 +108,39 @@ fun CurrentScreen(state: AddReviewVm,onBackPress :() -> Unit) {
     ) {
 
         Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(it),
+            Modifier.fillMaxWidth().padding(it),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
+                modifier = Modifier.fillMaxWidth().padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
 
                 //var isExpanded by remember { mutableStateOf(false) }
-                var bookTitle = state.viewState.bookTitle
-                // Get the expanded state from VM and use here
-                var curDropDownExpState = state.viewState.isBookListExpanded
+                var currentTitle = state.viewState.bookTitle
+                var currentRating = state.viewState.rating
+                // Get the expanded state from VM and use here : Books
+                var curBooksDropDownExpState = state.viewState.isBookListExpanded
+                var curRatingsDropDownExpState = state.viewState.isRatingsListExpanded
 
                 ExposedDropdownMenuBox(
                     modifier = Modifier.fillMaxWidth(),
-                    expanded = curDropDownExpState,
+                    expanded = curBooksDropDownExpState,
                     onExpandedChange = {
                         // Update the expanded state in VM
                         state.onEvent(event = AddReviewViewEvent.SetBookListExpandedState(true))
-                    },
-
-                    ) {
+                    }
+                ) {
                     TextField(
-                        value = bookTitle,
+                        value = currentTitle,
                         onValueChange = { },
                         readOnly = true,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(
-                                expanded = curDropDownExpState
+                                expanded = curBooksDropDownExpState
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
@@ -145,7 +151,7 @@ fun CurrentScreen(state: AddReviewVm,onBackPress :() -> Unit) {
                     )
 
                     ExposedDropdownMenu(
-                        expanded = curDropDownExpState,
+                        expanded = curBooksDropDownExpState,
                         onDismissRequest = {
                             // Update the expanded state in VM
                             state.onEvent(event = AddReviewViewEvent.SetBookListExpandedState(false))
@@ -166,8 +172,53 @@ fun CurrentScreen(state: AddReviewVm,onBackPress :() -> Unit) {
                     }
                 }
 
-            }
+                Spacer(modifier = Modifier.height(20.dp))
 
+                ExposedDropdownMenuBox(
+                    modifier = Modifier.fillMaxWidth(),
+                    expanded = curRatingsDropDownExpState,
+                    onExpandedChange = {
+                        // Update the expanded state in VM
+                        state.onEvent(event = AddReviewViewEvent.SetRatingsListExpandedState(true))
+                    }
+                ) {
+                    TextField(
+                        value = currentRating,
+                        onValueChange = { },
+                        readOnly = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                expanded = curRatingsDropDownExpState
+                            )
+                        },
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                        modifier = Modifier.menuAnchor().fillMaxWidth(),
+                        placeholder = {
+                            Text(text = cxt.getString(R.string.select_a_rating))
+                        }
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = curRatingsDropDownExpState,
+                        onDismissRequest = {
+                            // Update the expanded state in VM
+                            state.onEvent(event = AddReviewViewEvent.SetRatingsListExpandedState(false))
+                        }
+                    ) {
+
+                        state.viewState.ratingsList.forEachIndexed { index, item ->
+                            DropdownMenuItem(
+                                text = { Text(text = item.toString()) },
+                                onClick = {
+                                    // Update the expanded state in VM
+                                    state.onEvent(event = AddReviewViewEvent.SetRatingsListExpandedState(false))
+                                    state.onEvent(event = AddReviewViewEvent.SetRating(item.toString()))
+                                }
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -182,7 +233,14 @@ private fun ScreenPreview() {
                 validateBookSelectedUseCase = ValidateBookSelectedUseCase()
             )
         )
-    ){
+    ) {
 
+    }
+}
+
+
+class SpecialFunction:() -> Unit {
+    override fun invoke() {
+        TODO("Not yet implemented")
     }
 }
