@@ -1,4 +1,4 @@
-package com.istudio.code.domain.usecases.validateAddBook
+package com.istudio.code.domain.usecases.useCaseTypes.validationOperations
 
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult
@@ -46,9 +46,9 @@ class ValidateAllInputsUseCase @Inject constructor(){
     }
 
     private fun validateAddBookAction(input: AddBookAllInputs): Boolean {
-        return validateFields(input,VALIDATIONS.TITLE) &&
-                validateFields(input,VALIDATIONS.DESCRIPTION) &&
-                validateFields(input,VALIDATIONS.CATEGORY)
+        return validateFields(input, VALIDATIONS.TITLE) &&
+                validateFields(input, VALIDATIONS.DESCRIPTION) &&
+                validateFields(input, VALIDATIONS.CATEGORY)
     }
 
 }

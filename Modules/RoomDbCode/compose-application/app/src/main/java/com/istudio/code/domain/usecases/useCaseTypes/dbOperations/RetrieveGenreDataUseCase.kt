@@ -1,4 +1,4 @@
-package com.istudio.code.domain.usecases.dbOperations
+package com.istudio.code.domain.usecases.useCaseTypes.dbOperations
 
 import com.istudio.code.data.repository.AppRepositoryImpl
 import javax.inject.Inject

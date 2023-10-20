@@ -1,16 +1,16 @@
 package com.istudio.code.domain.di.viewmodellevel
 
 import com.istudio.code.data.repository.AppRepositoryImpl
-import com.istudio.code.domain.usecases.MainModuleUseCases
-import com.istudio.code.domain.usecases.dbOperations.AddBookUseCase
-import com.istudio.code.domain.usecases.dbOperations.AddGenreDataUseCase
-import com.istudio.code.domain.usecases.dbOperations.DeleteBookUseCase
-import com.istudio.code.domain.usecases.dbOperations.GetBooksUseCase
-import com.istudio.code.domain.usecases.dbOperations.RetrieveGenreDataUseCase
-import com.istudio.code.domain.usecases.validateAddBook.ValidateAllInputsUseCase
-import com.istudio.code.domain.usecases.validateAddBook.ValidateCategoryInputUseCase
-import com.istudio.code.domain.usecases.validateAddBook.ValidateDescriptionInputUseCase
-import com.istudio.code.domain.usecases.validateAddBook.ValidateTitleInputUseCase
+import com.istudio.code.domain.usecases.useCaseMain.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddBookUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddGenreDataUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.RetrieveGenreDataUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateAllInputsUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateCategoryInputUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateDescriptionInputUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateTitleInputUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,8 @@ object MainDomainModule {
     @Provides
     fun provideTrackerUseCases(
         appRepositoryImpl: AppRepositoryImpl
-    ): MainModuleUseCases {
-        return MainModuleUseCases(
+    ): AddBookModuleUseCases {
+        return AddBookModuleUseCases(
             validateAllInputs = ValidateAllInputsUseCase(),
             validateTitle = ValidateTitleInputUseCase(),
             validateDescription = ValidateDescriptionInputUseCase(),

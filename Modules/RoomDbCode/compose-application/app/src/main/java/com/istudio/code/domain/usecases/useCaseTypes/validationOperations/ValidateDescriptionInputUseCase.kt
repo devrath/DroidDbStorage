@@ -1,15 +1,15 @@
-package com.istudio.code.domain.usecases.validateAddBook
+package com.istudio.code.domain.usecases.useCaseTypes.validationOperations
 
 import com.istudio.code.R
 import com.istudio.code.domain.ValidationResult
-import com.istudio.code.domain.entities.input.AddBookCategoryInput
+import com.istudio.code.domain.entities.input.AddBookDescriptionInput
 import com.istudio.code.core.platform.uiEvent.UiText
 import javax.inject.Inject
 
-class ValidateCategoryInputUseCase   @Inject constructor() {
+class ValidateDescriptionInputUseCase  @Inject constructor() {
 
     operator fun invoke(
-        input: AddBookCategoryInput
+        input: AddBookDescriptionInput
     ): Result<ValidationResult> {
         // Check if description is empty
         return try {
@@ -20,11 +20,11 @@ class ValidateCategoryInputUseCase   @Inject constructor() {
         }
     }
 
-    private fun initiateValidation(input: AddBookCategoryInput): ValidationResult {
-        return if(input.category.isEmpty()){
+    private fun initiateValidation(input: AddBookDescriptionInput): ValidationResult {
+        return if(input.description.isEmpty()){
             ValidationResult(
                 successful = false,
-                errorMessage = UiText.StringResource(R.string.str_err_category_validation_failed)
+                errorMessage = UiText.StringResource(R.string.str_err_description_validation_failed)
             )
         }else{
             ValidationResult(
