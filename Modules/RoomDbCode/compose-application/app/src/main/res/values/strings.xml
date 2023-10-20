@@ -21,6 +21,7 @@
     <string name="str_err_title_validation_failed">Title is empty</string>
     <string name="str_err_description_validation_failed">Description is empty</string>
     <string name="str_err_category_validation_failed">Category is not selected</string>
+    <string name="title_activity_add_review">AddReviewActivity</string>
 
 
 </resources>

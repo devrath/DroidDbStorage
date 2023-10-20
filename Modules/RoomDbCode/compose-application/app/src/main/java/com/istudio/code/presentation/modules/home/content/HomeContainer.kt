@@ -45,6 +45,7 @@ import com.istudio.code.presentation.modules.addbook.AddBookActivity
 import com.istudio.code.presentation.modules.home.navigation.HomeModuleNavGraph
 import com.istudio.code.presentation.modules.home.navigation.HomeNavItem
 import com.istudio.code.core.platform.extensions.startActivity
+import com.istudio.code.presentation.modules.addReview.AddReviewActivity
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,7 +142,7 @@ fun HomeContainer(
                 }
             },
             floatingActionButton = {
-                FloatingButton(expanded = true)
+                FloatingButton(expanded = true, selectedItemIndex)
             }
         ) {
             Column(
@@ -149,7 +150,7 @@ fun HomeContainer(
                     .fillMaxSize()
                     .padding(it)
             ) {
-                HomeModuleNavGraph(navController,viewModelStore)
+                HomeModuleNavGraph(navController, viewModelStore)
             }
         }
 
@@ -183,11 +184,22 @@ fun BottomSheetContent() {
 
 @Composable
 fun FloatingButton(
-    expanded: Boolean
+    expanded: Boolean,
+    selectedItemIndex: Int
 ) {
     val cxt = LocalContext.current
     ExtendedFloatingActionButton(
-        onClick = { cxt.startActivity<AddBookActivity>() },
+        onClick = {
+            if (selectedItemIndex == 0) {
+                // Start Add book activity
+                cxt.startActivity<AddBookActivity>()
+            } else if (selectedItemIndex == 1) {
+                // Start Add review activity
+                cxt.startActivity<AddReviewActivity>()
+            } else if (selectedItemIndex == 2) {
+                cxt.startActivity<AddBookActivity>()
+            }
+        },
         icon = {
             Icon(
                 imageVector = Icons.Filled.Add,
