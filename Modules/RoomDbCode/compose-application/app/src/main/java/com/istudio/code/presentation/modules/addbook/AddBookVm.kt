@@ -11,7 +11,7 @@ import com.istudio.code.domain.entities.input.AddBookAllInputs
 import com.istudio.code.domain.entities.input.AddBookCategoryInput
 import com.istudio.code.domain.entities.input.AddBookDescriptionInput
 import com.istudio.code.domain.entities.input.AddBookTitleInput
-import com.istudio.code.domain.usecases.useCaseMain.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookUiState
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddBookVm @Inject constructor(
-    private var addBookModuleUseCases: AddBookModuleUseCases
+    private var addBookUseCases: AddBookUseCases
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view
@@ -116,7 +116,7 @@ class AddBookVm @Inject constructor(
             category = viewState.category
         )
 
-        addBookModuleUseCases.validateAllInputs.invoke(input).onSuccess { return it.successful }
+        addBookUseCases.validateAllInputs.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -129,7 +129,7 @@ class AddBookVm @Inject constructor(
 
         val input = AddBookTitleInput(title = viewState.title)
 
-        addBookModuleUseCases.validateTitle.invoke(input).onSuccess { return it.successful }
+        addBookUseCases.validateTitle.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -141,7 +141,7 @@ class AddBookVm @Inject constructor(
     private fun validateCategory(): Boolean {
         val input = AddBookCategoryInput(category = viewState.category)
 
-        addBookModuleUseCases.validateCategory.invoke(input).onSuccess { return it.successful }
+        addBookUseCases.validateCategory.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -153,7 +153,7 @@ class AddBookVm @Inject constructor(
     private fun validateDescription(): Boolean {
         val input = AddBookDescriptionInput(description = viewState.description)
 
-        addBookModuleUseCases.validateDescription.invoke(input).onSuccess { return it.successful }
+        addBookUseCases.validateDescription.invoke(input).onSuccess { return it.successful }
             .onFailure { return false }
 
         return false
@@ -161,7 +161,7 @@ class AddBookVm @Inject constructor(
 
 
     fun insertGenreToDb(bookCategories: Array<String>): Boolean {
-        addBookModuleUseCases.addGenreDataUseCase.invoke(bookCategories)
+        addBookUseCases.addGenreDataUseCase.invoke(bookCategories)
             .onSuccess {
                 // Categories are inserted
                 return it;
@@ -176,7 +176,7 @@ class AddBookVm @Inject constructor(
     }
 
     fun retrieveGenreToDb(): List<String> {
-        addBookModuleUseCases.retrieveGenreDataUseCase.invoke()
+        addBookUseCases.retrieveGenreDataUseCase.invoke()
             .onSuccess {
                 // Categories are inserted
                 return it;
@@ -203,7 +203,7 @@ class AddBookVm @Inject constructor(
             category = viewState.category
         )
 
-        addBookModuleUseCases.addBookUseCase.invoke(input)
+        addBookUseCases.addBookUseCase.invoke(input)
             .onSuccess { return  it }
             .onFailure {
                 viewModelScope.launch {

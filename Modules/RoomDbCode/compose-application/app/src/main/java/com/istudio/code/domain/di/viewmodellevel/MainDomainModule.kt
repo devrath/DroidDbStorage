@@ -1,7 +1,7 @@
 package com.istudio.code.domain.di.viewmodellevel
 
 import com.istudio.code.data.repository.AppRepositoryImpl
-import com.istudio.code.domain.usecases.useCaseMain.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseCase
@@ -25,8 +25,8 @@ object MainDomainModule {
     @Provides
     fun provideTrackerUseCases(
         appRepositoryImpl: AppRepositoryImpl
-    ): AddBookModuleUseCases {
-        return AddBookModuleUseCases(
+    ): AddBookUseCases {
+        return AddBookUseCases(
             validateAllInputs = ValidateAllInputsUseCase(),
             validateTitle = ValidateTitleInputUseCase(),
             validateDescription = ValidateDescriptionInputUseCase(),

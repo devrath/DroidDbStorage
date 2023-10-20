@@ -10,7 +10,7 @@ import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.Valida
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateDescriptionInputUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.ValidateTitleInputUseCase
 
-data class AddBookModuleUseCases(
+data class AddBookUseCases(
     // --> ***************** VALIDATIONS *****************
     val validateAllInputs: ValidateAllInputsUseCase,
     val validateTitle: ValidateTitleInputUseCase,

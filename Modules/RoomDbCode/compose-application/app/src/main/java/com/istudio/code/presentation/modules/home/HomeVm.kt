@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.domain.database.models.Book
-import com.istudio.code.domain.usecases.useCaseMain.AddBookModuleUseCases
+import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiState
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeVm @Inject constructor(
-    private val addBookModuleUseCases: AddBookModuleUseCases,
+    private val addBookUseCases: AddBookUseCases,
 ) : ViewModel() {
 
     // Data states from Presentation layer attached to VM
@@ -56,7 +56,7 @@ class HomeVm @Inject constructor(
      * USE-CASE: Retrieving all books from database
      */
     private fun retrieveAllBooks() {
-        addBookModuleUseCases.getBooksUseCase.invoke()
+        addBookUseCases.getBooksUseCase.invoke()
             .onSuccess {
                 viewState = viewState.copy(books = it)
             }.onFailure {
@@ -71,7 +71,7 @@ class HomeVm @Inject constructor(
      */
     private fun deleteBook(book: Book) {
         viewModelScope.launch {
-            addBookModuleUseCases.deleteBookUseCase
+            addBookUseCases.deleteBookUseCase
                 .invoke(book).onSuccess {
                     _uiEvent.send(HomeResponseEvent.RefreshData)
                     //retrieveAllBooks()
