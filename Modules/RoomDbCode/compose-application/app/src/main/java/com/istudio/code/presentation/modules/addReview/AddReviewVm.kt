@@ -33,7 +33,7 @@ class AddReviewVm @Inject constructor(
     fun onEvent(event: AddReviewViewEvent) {
         viewModelScope.launch {
             when (event){
-                is AddReviewViewEvent.SetBooKTitle -> {
+                is AddReviewViewEvent.SetBooksList -> {
 
                 }
                 is AddReviewViewEvent.SetRating -> {
@@ -41,6 +41,14 @@ class AddReviewVm @Inject constructor(
                 }
                 is AddReviewViewEvent.SetReviewNotes -> {
 
+                }
+                is AddReviewViewEvent.SetBookTitle -> {
+                    // Book Title
+                    viewState = viewState.copy(bookTitle = event.title)
+                }
+                is AddReviewViewEvent.SetBookListExpandedState -> {
+                    // Sate to indicate if the dropdown is expanded
+                    viewState = viewState.copy(isBookListExpanded = event.isExpanded)
                 }
             }
         }

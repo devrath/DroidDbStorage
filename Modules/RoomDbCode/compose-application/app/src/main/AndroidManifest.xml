@@ -17,7 +17,7 @@
             android:name=".presentation.modules.addReview.AddReviewActivity"
             android:exported="false"
             android:label="@string/title_activity_add_review"
-            android:theme="@style/Theme.MySplash" />
+            android:theme="@style/Theme.Android" />
         <activity
             android:name=".presentation.modules.addbook.AddBookActivity"
             android:exported="false"
