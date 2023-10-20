@@ -37,6 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.code.R
+import com.istudio.code.core.platform.utils.composeUtils.ControlWrapper
+import com.istudio.code.core.platform.utils.composeUtils.CustomEditText
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateBookSelectedUseCase
 import com.istudio.code.presentation.modules.addReview.AddReviewVm
@@ -218,6 +220,10 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                         }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                CustomEditText()
             }
         }
     }

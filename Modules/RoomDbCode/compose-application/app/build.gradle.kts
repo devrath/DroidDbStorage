@@ -107,5 +107,7 @@ dependencies {
     ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     // <------------------- Room Database ---------------------->
+    // Rich editor text view
+    implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-beta03")
 
 }
