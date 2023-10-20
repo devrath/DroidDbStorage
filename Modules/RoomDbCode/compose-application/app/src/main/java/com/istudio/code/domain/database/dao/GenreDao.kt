@@ -26,6 +26,11 @@ interface GenreDao {
     fun getGenreById(genreId:String) : Genre
 
 
+    /**
+     * OPERATION: Adding
+     *
+     * Adding a list of genre
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addGenres(genre:List<Genre>)
 

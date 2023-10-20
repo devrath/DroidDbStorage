@@ -1,4 +1,4 @@
-package com.istudio.code.presentation.modules.home.screens
+package com.istudio.code.presentation.modules.home.screens.bookReviews
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

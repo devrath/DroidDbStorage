@@ -23,13 +23,12 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.code.core.platform.utils.composeUtils.rememberLifecycleEvent
-import com.istudio.code.domain.database.models.Book
 import com.istudio.code.presentation.modules.home.HomeVm
 import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
 import com.istudio.code.presentation.modules.home.states.HomeUiEvent
 
 @Composable
-fun ScreenMyBooks(viewModelStore: ViewModelStoreOwner) {
+fun MyBooksScreen(viewModelStore: ViewModelStoreOwner) {
     CurrentScreen(viewModelStore)
 }
 

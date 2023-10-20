@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.istudio.code.presentation.modules.home.screens.ScreenBookReviews
-import com.istudio.code.presentation.modules.home.screens.myBooks.ScreenMyBooks
+import com.istudio.code.presentation.modules.home.screens.bookReviews.ScreenBookReviews
+import com.istudio.code.presentation.modules.home.screens.myBooks.MyBooksScreen
 import com.istudio.code.presentation.modules.home.screens.ScreenReadingList
 
 @Composable
@@ -19,7 +19,7 @@ fun HomeModuleNavGraph(
         startDestination = HomeNavItem.MyBooks.route
     ) {
         composable(route = HomeNavItem.MyBooks.route) {
-            ScreenMyBooks(viewModelStore)
+            MyBooksScreen(viewModelStore)
         }
         composable(route = HomeNavItem.BookReviews.route) {
             ScreenBookReviews(viewModelStore)
