@@ -10,6 +10,8 @@ sealed class AddReviewViewEvent{
     data class SetReviewNotes(val rating: String) : AddReviewViewEvent()
 
 
+    object GetBooksList : AddReviewViewEvent()
+
     data class SetBooksList(val title: List<String>) : AddReviewViewEvent()
     data class SetRatingsList(val ratinglist: List<Int>) : AddReviewViewEvent()
     data class SetBookListExpandedState(val isExpanded: Boolean) : AddReviewViewEvent()

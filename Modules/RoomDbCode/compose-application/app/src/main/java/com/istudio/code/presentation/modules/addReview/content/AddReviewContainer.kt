@@ -41,12 +41,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.istudio.code.R
 import com.istudio.code.core.platform.utils.composeUtils.ControlWrapper
 import com.istudio.code.core.platform.utils.composeUtils.CustomEditText
+import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateBookSelectedUseCase
 import com.istudio.code.presentation.modules.addReview.AddReviewVm
 import com.istudio.code.presentation.modules.addReview.states.AddReviewViewEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
 import kotlinx.coroutines.launch
+import org.mockito.Mockito.mock
+import org.mockito.kotlin.mock
 
 @Composable
 fun AddReviewContainer(
@@ -83,10 +87,13 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
     val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
     // Rating values
     cxt.resources.getIntArray(R.array.rating_values)?.let { values ->
-       state.onEvent(
+        state.onEvent(
             event = AddReviewViewEvent.SetRatingsList(values.map { strValue -> strValue })
         )
     }
+    // Get books list from database
+    state.onEvent(event = AddReviewViewEvent.GetBooksList)
+
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackBarController) },
@@ -113,13 +120,17 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
     ) {
 
         Column(
-            Modifier.fillMaxWidth().padding(it),
+            Modifier
+                .fillMaxWidth()
+                .padding(it),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
 
             Column(
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -130,6 +141,12 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                 // Get the expanded state from VM and use here : Books
                 var curBooksDropDownExpState = state.viewState.isBookListExpanded
                 var curRatingsDropDownExpState = state.viewState.isRatingsListExpanded
+
+                // Books list
+                val booksList = state.viewState.booksList
+                // Ratings list
+                val ratingsList = state.viewState.ratingsList
+
 
                 ExposedDropdownMenuBox(
                     modifier = Modifier.fillMaxWidth(),
@@ -149,9 +166,11 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        modifier = Modifier.menuAnchor().fillMaxWidth(),
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth(),
                         placeholder = {
-                            Text(text = cxt.getString(R.string.select_a_category))
+                            Text(text = cxt.getString(R.string.select_a_book))
                         }
                     )
 
@@ -162,18 +181,18 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             state.onEvent(event = AddReviewViewEvent.SetBookListExpandedState(false))
                         }
                     ) {
-
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = "Test")
-                            },
-                            onClick = {
-                                // Update the expanded state in VM
-                                state.onEvent(event = AddReviewViewEvent.SetBookListExpandedState(false))
-                                state.onEvent(event = AddReviewViewEvent.SetBookTitle("Test"))
-                            }
-                        )
-
+                        booksList.forEachIndexed { index, item ->
+                            DropdownMenuItem(
+                                text = { Text(text = item.name) },
+                                onClick = {
+                                    // Update the expanded state in VM
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetBookListExpandedState(false)
+                                    )
+                                    state.onEvent(event = AddReviewViewEvent.SetBookTitle(item.name))
+                                }
+                            )
+                        }
                     }
                 }
 
@@ -197,7 +216,9 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             )
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                        modifier = Modifier.menuAnchor().fillMaxWidth(),
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth(),
                         placeholder = {
                             Text(text = cxt.getString(R.string.select_a_rating))
                         }
@@ -207,16 +228,23 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                         expanded = curRatingsDropDownExpState,
                         onDismissRequest = {
                             // Update the expanded state in VM
-                            state.onEvent(event = AddReviewViewEvent.SetRatingsListExpandedState(false))
+                            state.onEvent(
+                                event = AddReviewViewEvent.SetRatingsListExpandedState(
+                                    false
+                                )
+                            )
                         }
                     ) {
-
-                        state.viewState.ratingsList.forEachIndexed { index, item ->
+                        ratingsList.forEachIndexed { index, item ->
                             DropdownMenuItem(
                                 text = { Text(text = item.toString()) },
                                 onClick = {
                                     // Update the expanded state in VM
-                                    state.onEvent(event = AddReviewViewEvent.SetRatingsListExpandedState(false))
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetRatingsListExpandedState(
+                                            false
+                                        )
+                                    )
                                     state.onEvent(event = AddReviewViewEvent.SetRating(item.toString()))
                                 }
                             )
@@ -226,7 +254,7 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                CustomEditText(){ review ->
+                CustomEditText() { review ->
 
                 }
             }
@@ -238,20 +266,8 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
 @Composable
 @Preview
 private fun ScreenPreview() {
-    CurrentScreen(
-        AddReviewVm(
-            ReviewBookUseCases(
-                validateBookSelectedUseCase = ValidateBookSelectedUseCase()
-            )
-        )
-    ) {
+    val usecases: ReviewBookUseCases = mock()
+    CurrentScreen(AddReviewVm(usecases)) {
 
-    }
-}
-
-
-class SpecialFunction:() -> Unit {
-    override fun invoke() {
-        TODO("Not yet implemented")
     }
 }

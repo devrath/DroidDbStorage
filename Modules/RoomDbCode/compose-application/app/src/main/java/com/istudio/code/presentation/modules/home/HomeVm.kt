@@ -56,7 +56,7 @@ class HomeVm @Inject constructor(
      * USE-CASE: Retrieving all books from database
      */
     private fun retrieveAllBooks() {
-        addBookUseCases.getBooksUseCase.invoke()
+        addBookUseCases.getBooksAndGenreUseCase.invoke()
             .onSuccess {
                 viewState = viewState.copy(books = it)
             }.onFailure {

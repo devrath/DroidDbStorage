@@ -109,5 +109,6 @@ dependencies {
     // <------------------- Room Database ---------------------->
     // Rich editor text view
     implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-beta03")
+    implementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 
 }

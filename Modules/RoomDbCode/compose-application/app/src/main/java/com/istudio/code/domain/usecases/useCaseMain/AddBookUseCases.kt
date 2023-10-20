@@ -3,7 +3,7 @@ package com.istudio.code.domain.usecases.useCaseMain
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseCase
-import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksAndGenreUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateAllInputsUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateCategoryInputUseCase
@@ -21,7 +21,7 @@ data class AddBookUseCases(
     val addGenreDataUseCase: AddGenreDataUseCase,
     val retrieveGenreDataUseCase: RetrieveGenreDataUseCase,
     val addBookUseCase: AddBookUseCase,
-    val getBooksUseCase: GetBooksUseCase,
+    val getBooksAndGenreUseCase: GetBooksAndGenreUseCase,
     val deleteBookUseCase: DeleteBookUseCase
     // --> ********** REPOSITORY-OPERATIONS **************
 )

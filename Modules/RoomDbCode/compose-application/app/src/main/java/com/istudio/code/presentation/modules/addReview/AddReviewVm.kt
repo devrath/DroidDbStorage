@@ -5,10 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.core.platform.functional.UseCaseResult
+import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.presentation.modules.addReview.states.AddReviewResponseEvent
 import com.istudio.code.presentation.modules.addReview.states.AddReviewUiState
 import com.istudio.code.presentation.modules.addReview.states.AddReviewViewEvent
+import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -36,6 +39,7 @@ class AddReviewVm @Inject constructor(
                 is AddReviewViewEvent.SetBooksList -> {
 
                 }
+                is AddReviewViewEvent.GetBooksList ->  getBooksList()
                 is AddReviewViewEvent.SetRatingsList -> {
                     viewState = viewState.copy(ratingsList = event.ratinglist)
                 }
@@ -53,7 +57,6 @@ class AddReviewVm @Inject constructor(
                     // Sate to indicate if the dropdown is expanded :-> Book Drop Down
                     viewState = viewState.copy(isBookListExpanded = event.isExpanded)
                 }
-
                 is AddReviewViewEvent.SetRatingsListExpandedState -> {
                     // Sate to indicate if the dropdown is expanded :-> Ratings Drop Down
                     viewState = viewState.copy(isRatingsListExpanded = event.isExpanded)
@@ -63,8 +66,39 @@ class AddReviewVm @Inject constructor(
     }
     /** <************> UI Action is invoked from composable <************> **/
 
+    /** <*********************> Use case invocations <*******************> **/
+    private fun getBooksList() {
+        viewModelScope.launch {
+            reviewBookUseCases.getBooksUseCase.invoke()
+                .onSuccess {
+                    viewState = viewState.copy(booksList = it)
+                }.onFailure {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+        }
+    }
+    /** <*********************> Use case invocations <*******************> **/
 
 
+
+    /** ********************************* DISPLAY MESSAGES ****************************************/
+    /**
+     * ERROR HANDLING:
+     * Displaying messages to the snack-bar
+     */
+    private suspend fun useCaseErrorMessage(result: UiText?) {
+        result?.let { _uiEvent.send(AddReviewResponseEvent.ShowSnackBar(it.toString())) }
+    }
+
+    /**
+     * ERROR HANDLING:
+     * For the Use cases
+     */
+    private suspend fun useCaseError(result: UseCaseResult.Error) {
+        val uiEvent = UiText.DynamicString(result.exception.message.toString())
+        _uiEvent.send(AddReviewResponseEvent.ShowSnackBar(uiEvent.text))
+    }
+    /** ********************************* DISPLAY MESSAGES ****************************************/
 
 
 

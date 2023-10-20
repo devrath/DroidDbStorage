@@ -6,6 +6,7 @@ import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddBookUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksAndGenreUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateAllInputsUseCase
@@ -36,7 +37,7 @@ object MainDomainModule {
             addGenreDataUseCase = AddGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             addBookUseCase = AddBookUseCase(appRepositoryImpl = appRepositoryImpl),
-            getBooksUseCase = GetBooksUseCase(appRepositoryImpl = appRepositoryImpl),
+            getBooksAndGenreUseCase = GetBooksAndGenreUseCase(appRepositoryImpl = appRepositoryImpl),
             deleteBookUseCase = DeleteBookUseCase(appRepositoryImpl = appRepositoryImpl)
         )
     }
@@ -48,7 +49,8 @@ object MainDomainModule {
         appRepositoryImpl: AppRepositoryImpl
     ) : ReviewBookUseCases {
         return ReviewBookUseCases(
-            validateBookSelectedUseCase = ValidateBookSelectedUseCase()
+            validateBookSelectedUseCase = ValidateBookSelectedUseCase(),
+            getBooksUseCase = GetBooksUseCase(appRepositoryImpl)
         )
     }
 
