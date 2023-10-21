@@ -8,6 +8,7 @@
     <string name="str_reading_list">Reading List</string>
     <string name="str_add">Add</string>
     <string name="str_title">Title</string>
+    <string name="str_genre">Genre</string>
     <string name="str_description">Description</string>
     <string name="str_add_book">Add Book</string>
     <string name="str_add_review">Add Review</string>
@@ -19,6 +20,9 @@
     <string name="select_a_category">Select a category</string>
     <string name="select_a_rating">Select a rating</string>
     <string name="select_a_book">Select a book</string>
+    <string name="str_title_tag">Title</string>
+    <string name="str_genre_tag">Genre</string>
+    <string name="str_description_tag">Description</string>
 
 
 
