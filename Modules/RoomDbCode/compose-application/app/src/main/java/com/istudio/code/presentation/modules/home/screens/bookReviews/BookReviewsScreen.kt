@@ -7,9 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -44,15 +49,23 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily.Monospace,
-            style = TextStyle(
-                color = Color.White
-            ),
-            text = "BookReviews"
-        )
+
+
+        // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
+        // Context
+        val cxt = LocalContext.current
+        // View model reference
+        //val viewModel: HomeVm = hiltViewModel()
+        val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
+        // View state reference from view model
+        val state = viewModel.viewState
+
+        // Dialog visibility state
+        var dialogDisplayState by remember { mutableStateOf(false) }
+        // <!----------- MAIN-COMPOSE-CONTROL-PARTS ------------------->
+
+
+
+
     }
 }

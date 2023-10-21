@@ -24,8 +24,8 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.istudio.code.core.platform.utils.composeUtils.rememberLifecycleEvent
 import com.istudio.code.presentation.modules.home.HomeVm
-import com.istudio.code.presentation.modules.home.states.HomeResponseEvent
-import com.istudio.code.presentation.modules.home.states.HomeUiEvent
+import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksEvent
+import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiEvent
 
 @Composable
 fun MyBooksScreen(viewModelStore: ViewModelStoreOwner) {
@@ -60,9 +60,9 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     LaunchedEffect(state.launchedEffectState) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is HomeResponseEvent.ShowSnackBar -> { }
-                is HomeResponseEvent.RefreshData -> {
-                    viewModel.onEvent(HomeUiEvent.GetMyBooks)
+                is MyBooksEvent.ShowSnackBar -> { }
+                is MyBooksEvent.RefreshData -> {
+                    viewModel.onEvent(MyBooksUiEvent.GetMyBooks)
                 }
             }
         }
@@ -75,7 +75,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
         // This is used to refresh the screen on returning from another screen
         if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
             // initiate data reloading by retrieving the books from database again
-            viewModel.onEvent(HomeUiEvent.GetMyBooks)
+            viewModel.onEvent(MyBooksUiEvent.GetMyBooks)
         }
     }
     // <!---- OBSERVE EVENT when you return from next screen  ----->
@@ -95,7 +95,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
                     state.books.forEachIndexed { index, item ->
                         MyBooksItem(item){
                             dialogDisplayState = true
-                            viewModel.onEvent(HomeUiEvent.ConfirmDeleteBook(item.book))
+                            viewModel.onEvent(MyBooksUiEvent.ConfirmDeleteBook(item.book))
                         }
                     }
                 }
@@ -108,7 +108,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
             dialogDisplayState = false
             if(newValue){
                 viewModel.viewState.book?.let {
-                    viewModel.onEvent(HomeUiEvent.DeleteBook(it))
+                    viewModel.onEvent(MyBooksUiEvent.DeleteBook(it))
                 }
             }
         }

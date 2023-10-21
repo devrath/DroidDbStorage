@@ -1,10 +1,9 @@
-package com.istudio.code.presentation.modules.home.states
+package com.istudio.code.presentation.modules.home.states.myBooks
 
-import androidx.compose.runtime.mutableStateOf
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.relations.BookAndGenre
 
-data class HomeUiState(
+data class MyBooksUiState(
     val books: List<BookAndGenre> = emptyList(),
     var book : Book? = null,
     val launchedEffectState: Boolean = false,
