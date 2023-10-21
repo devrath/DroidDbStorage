@@ -14,6 +14,8 @@ import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBoo
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateDescriptionInputUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateTitleInputUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateBookSelectedUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateRatingSelectionUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateReviewNotesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,6 +52,8 @@ object MainDomainModule {
     ) : ReviewBookUseCases {
         return ReviewBookUseCases(
             validateBookSelectedUseCase = ValidateBookSelectedUseCase(),
+            validateRatingSelectionUseCase = ValidateRatingSelectionUseCase(),
+            validateReviewNotesUseCase = ValidateReviewNotesUseCase(),
             getBooksUseCase = GetBooksUseCase(appRepositoryImpl)
         )
     }

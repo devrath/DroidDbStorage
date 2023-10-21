@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddReviewVm @Inject constructor(
-    val reviewBookUseCases : ReviewBookUseCases
+    private val reviewBookUseCases : ReviewBookUseCases
 ) : ViewModel() {
 
     // Holds the data of all the widgets in the view
@@ -36,10 +36,12 @@ class AddReviewVm @Inject constructor(
     fun onEvent(event: AddReviewViewEvent) {
         viewModelScope.launch {
             when (event){
-                is AddReviewViewEvent.SetBooksList -> {
+                is AddReviewViewEvent.PerformAction -> {
 
                 }
-                is AddReviewViewEvent.GetBooksList ->  getBooksList()
+                is AddReviewViewEvent.GetBooksList -> {
+                    getBooksList()
+                }
                 is AddReviewViewEvent.SetRatingsList -> {
                     viewState = viewState.copy(ratingsList = event.ratinglist)
                 }
@@ -47,7 +49,7 @@ class AddReviewVm @Inject constructor(
                     viewState = viewState.copy(rating = event.rating)
                 }
                 is AddReviewViewEvent.SetReviewNotes -> {
-
+                    viewState = viewState.copy(reviewNotes = event.reviewNotes)
                 }
                 is AddReviewViewEvent.SetBookTitle -> {
                     // Book Title
@@ -76,6 +78,45 @@ class AddReviewVm @Inject constructor(
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
         }
+    }
+
+    private fun validateBookSelection(): Boolean {
+        reviewBookUseCases.validateBookSelectedUseCase.invoke(viewState.bookTitle)
+            .onSuccess {
+                return it
+            }.onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+                return false
+            }
+        return false
+    }
+
+    private fun validateRatingSelection(): Boolean {
+        reviewBookUseCases.validateRatingSelectionUseCase.invoke(viewState.bookTitle)
+            .onSuccess {
+                return it
+            }.onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+                return false
+            }
+        return false
+    }
+
+    private fun validateReviewNotesSelection(): Boolean {
+        reviewBookUseCases.validateReviewNotesUseCase.invoke(viewState.bookTitle)
+            .onSuccess {
+                return it
+            }.onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+                return false
+            }
+        return false
     }
     /** <*********************> Use case invocations <*******************> **/
 

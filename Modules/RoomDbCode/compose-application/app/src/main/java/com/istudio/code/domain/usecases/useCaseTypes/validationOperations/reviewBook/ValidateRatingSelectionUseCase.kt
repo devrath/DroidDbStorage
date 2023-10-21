@@ -2,8 +2,7 @@ package com.istudio.code.domain.usecases.useCaseTypes.validationOperations.revie
 
 import javax.inject.Inject
 
-class ValidateBookSelectedUseCase @Inject constructor() {
-
+class ValidateRatingSelectionUseCase @Inject constructor() {
     operator fun invoke(data : String) : Result<Boolean>{
         try{
             if(data.isNullOrEmpty()){
