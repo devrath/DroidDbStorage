@@ -23,7 +23,9 @@
     <string name="str_title_tag">Title</string>
     <string name="str_genre_tag">Genre</string>
     <string name="str_description_tag">Description</string>
-
+    <string name="str_name_tag">Name</string>
+    <string name="str_rating_tag">Rating</string>
+    <string name="str_review_notes_tag">Review notes</string>
 
 
     <string name="str_err_validations_failed">Add book validations failed</string>

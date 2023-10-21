@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.domain.database.models.Book
+import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiEvent
@@ -71,9 +72,17 @@ class HomeVm @Inject constructor(
     fun onEvent(event: MyReviewsUiEvent){
         viewModelScope.launch {
             when (event) {
-                is MyReviewsUiEvent.ConfirmDeleteReview -> { }
-                is MyReviewsUiEvent.DeleteReview -> { }
-                is MyReviewsUiEvent.GetMyReviews -> { }
+                is MyReviewsUiEvent.GetMyReviews -> {
+                    // Retrieve reviews from Database
+                    retrieveAllReviews()
+                }
+                is MyReviewsUiEvent.DeleteReview -> {
+                    // Deleting the book from database
+                    deleteReview(event.review)
+                }
+                is MyReviewsUiEvent.ConfirmDeleteReview -> {
+                    viewStateMyReviews = viewStateMyReviews.copy(review = event.review)
+                }
             }
         }
     }
@@ -113,6 +122,21 @@ class HomeVm @Inject constructor(
         }
     }
     /** <*******> Use case <My Books> <*******> **/
+
+    /** <*******> Use case <Reviews> <********> **/
+    /**
+     * USE-CASE: Retrieving all reviews of all books
+     */
+    private fun retrieveAllReviews() {
+        TODO("Not yet implemented")
+    }
+    /**
+     * USE-CASE: Deleting review from database
+     */
+    private fun deleteReview(review: Review) {
+
+    }
+    /** <*******> Use case <Reviews> <********> **/
 
     /** <*********************> Use case invocations <*******************> **/
 

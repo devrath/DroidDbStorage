@@ -4,8 +4,8 @@ import com.istudio.code.domain.database.models.Review
 
 sealed class MyReviewsUiEvent {
     object GetMyReviews : MyReviewsUiEvent()
-    data class DeleteReview(val book: Review) : MyReviewsUiEvent()
-    data class ConfirmDeleteReview(val book: Review) : MyReviewsUiEvent()
+    data class DeleteReview(val review: Review) : MyReviewsUiEvent()
+    data class ConfirmDeleteReview(val review: Review) : MyReviewsUiEvent()
 
 }
 
