@@ -1,11 +1,14 @@
 package com.istudio.code.presentation.modules.addReview.states
 
+import com.istudio.code.domain.database.models.Book
+
 
 sealed class AddReviewViewEvent{
 
     data class SetBookTitle(val title: String) : AddReviewViewEvent()
     data class SetRating(val rating: String) : AddReviewViewEvent()
     data class SetReviewNotes(val reviewNotes: String) : AddReviewViewEvent()
+    data class SetBook(val book: Book) : AddReviewViewEvent()
 
 
     data class SetRatingsList(val ratinglist: List<Int>) : AddReviewViewEvent()

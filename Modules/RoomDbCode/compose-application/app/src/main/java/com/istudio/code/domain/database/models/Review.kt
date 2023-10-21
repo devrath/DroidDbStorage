@@ -14,7 +14,6 @@ data class Review(
     val bookId: String,
     val rating: Int,
     val notes: String,
-    val imageUrl: String,
     // val entries: List<ReadingEntry>,
     // val lastUpdatedDate: Date
 ) : Parcelable

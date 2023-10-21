@@ -1,5 +1,7 @@
 package com.istudio.code.domain.usecases.useCaseMain
 
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.AddReviewUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteReviewUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateBookSelectedUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.reviewBook.ValidateRatingSelectionUseCase
@@ -14,7 +16,9 @@ data class ReviewBookUseCases(
     // --> ***************** VALIDATIONS *****************
 
     // --> ********** REPOSITORY-OPERATIONS **************
-    val getBooksUseCase : GetBooksUseCase
+    val getBooksUseCase : GetBooksUseCase,
+    val deleteReviewUseCase : DeleteReviewUseCase,
+    val addReviewUseCase : AddReviewUseCase,
     // --> ********** REPOSITORY-OPERATIONS **************
 
 )

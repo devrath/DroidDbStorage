@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
+import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.presentation.modules.addReview.states.AddReviewResponseEvent
 import com.istudio.code.presentation.modules.addReview.states.AddReviewUiState
@@ -72,6 +73,10 @@ class AddReviewVm @Inject constructor(
                 is AddReviewViewEvent.SetReviewErrorState -> {
                     viewState = viewState.copy(isReviewError = event.isError)
                 }
+                is AddReviewViewEvent.SetBook -> {
+                    viewState = viewState.copy( book = event?.book)
+                }
+                else -> { }
             }
         }
     }
@@ -83,6 +88,24 @@ class AddReviewVm @Inject constructor(
             reviewBookUseCases.getBooksUseCase.invoke()
                 .onSuccess {
                     viewState = viewState.copy(booksList = it)
+                }.onFailure {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+        }
+    }
+
+    private fun addReview() {
+        viewModelScope.launch {
+
+            val review = Review(
+                rating = viewState.rating.toInt(),
+                notes = viewState.reviewNotes,
+                bookId = viewState.book?.id.toString(),
+            )
+
+            reviewBookUseCases.addReviewUseCase.invoke(review)
+                .onSuccess {
+                    _uiEvent.send(AddReviewResponseEvent.ReviewAddIsSuccessful)
                 }.onFailure {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
@@ -148,7 +171,7 @@ class AddReviewVm @Inject constructor(
             validateBookSelection()
         if(!viewState.isReviewError && !viewState.isBookError && !viewState.isRatingError){
             viewModelScope.launch {
-                _uiEvent.send(AddReviewResponseEvent.ReviewAddIsSuccessful)
+                addReview()
             }
         }
     }

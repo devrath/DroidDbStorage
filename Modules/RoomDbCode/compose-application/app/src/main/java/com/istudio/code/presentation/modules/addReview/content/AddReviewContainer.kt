@@ -206,6 +206,10 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                                     state.onEvent(
                                         event = AddReviewViewEvent.SetBookErrorState(isError = false)
                                     )
+                                    // Set book for future usage
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetBook(item)
+                                    )
                                 }
                             )
                         }

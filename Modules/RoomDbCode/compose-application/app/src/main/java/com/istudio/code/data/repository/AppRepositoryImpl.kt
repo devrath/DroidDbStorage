@@ -39,6 +39,8 @@ class AppRepositoryImpl @Inject constructor(
 
     override fun addReview(review: Review) = reviewDao.addReview(review)
 
+    override fun removeReview(review: Review) = reviewDao.deleteReview(review)
+
     override fun updateReview(review: Review) = reviewDao.updateReview(review)
 
     override fun addReadingList(readingList: ReadingList) {

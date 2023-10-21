@@ -15,6 +15,7 @@ data class AddReviewUiState(
     val launchedEffectState: Boolean = false,
     val isBookListExpanded: Boolean = false,
     val isRatingsListExpanded: Boolean = false,
+    val book: Book? = null,
     // <-------------> Other values stored <------------->
 
     // <-------------> Error states <-------------------->
