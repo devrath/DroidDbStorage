@@ -110,7 +110,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
                         state.reviews.forEachIndexed { index, item ->
                             MyReviewsItem(item){
                                 dialogDisplayState = true
-                                viewModel.onEvent(MyReviewsUiEvent.ConfirmDeleteReview(item))
+                                viewModel.onEvent(MyReviewsUiEvent.ConfirmDeleteReview(item.review))
                             }
                         }
                     }

@@ -10,6 +10,7 @@ import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteBookUseC
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.DeleteReviewUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksAndGenreUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetBooksUseCase
+import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.GetReviewsUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.dbOperations.RetrieveGenreDataUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateAllInputsUseCase
 import com.istudio.code.domain.usecases.useCaseTypes.validationOperations.addBook.ValidateCategoryInputUseCase
@@ -58,7 +59,8 @@ object MainDomainModule {
             validateReviewNotesUseCase = ValidateReviewNotesUseCase(),
             getBooksUseCase = GetBooksUseCase(appRepositoryImpl),
             deleteReviewUseCase = DeleteReviewUseCase(appRepositoryImpl),
-            addReviewUseCase = AddReviewUseCase(appRepositoryImpl)
+            addReviewUseCase = AddReviewUseCase(appRepositoryImpl),
+            getReviewsUseCase = GetReviewsUseCase(appRepositoryImpl)
         )
     }
 

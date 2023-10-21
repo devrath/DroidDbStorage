@@ -7,12 +7,14 @@ import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.database.models.relations.BookAndGenre
 import com.istudio.code.domain.database.models.relations.BookReview
 import com.istudio.code.domain.database.models.relations.ReadingListsWithBooks
+import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import kotlinx.coroutines.flow.Flow
 
 interface AppRepository {
     fun addBook(book: Book)
     fun getBooks(): List<BookAndGenre>
     fun getAllBooks(): List<Book>
+    fun getAllReviews(): List<ReviewAndBook>
     fun getGenres(): List<Genre>
     fun addGenres(genres: List<Genre>)
     fun getGenreById(genreId: String): Genre

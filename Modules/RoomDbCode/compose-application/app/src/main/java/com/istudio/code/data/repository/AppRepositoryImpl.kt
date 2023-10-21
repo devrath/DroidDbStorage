@@ -9,6 +9,7 @@ import com.istudio.code.domain.database.models.Genre
 import com.istudio.code.domain.database.models.ReadingList
 import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.database.models.relations.BookAndGenre
+import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import com.istudio.code.domain.repository.AppRepository
 import javax.inject.Inject
 
@@ -23,7 +24,19 @@ class AppRepositoryImpl @Inject constructor(
     // We combined using 2 different DAO's to get the combined end result you need
     override fun getBooks(): List<BookAndGenre> {
         return bookDao.getBooks().map {
-            BookAndGenre(it, genreDao.getGenreById(it.genreId))
+            BookAndGenre(
+                book = it,
+                genre = genreDao.getGenreById(it.genreId)
+            )
+        }
+    }
+
+    override fun getAllReviews(): List<ReviewAndBook> {
+        return reviewDao.getReviews().map {
+            ReviewAndBook(
+                review = it,
+                book = bookDao.getBookById(it.bookId)
+            )
         }
     }
 

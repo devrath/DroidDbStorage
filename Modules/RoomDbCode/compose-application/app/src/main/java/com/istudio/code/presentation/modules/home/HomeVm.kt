@@ -10,6 +10,7 @@ import com.istudio.code.core.platform.uiEvent.UiText
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
+import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiState
@@ -25,6 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeVm @Inject constructor(
     private val addBookUseCases: AddBookUseCases,
+    private val reviewBookUseCases: ReviewBookUseCases,
 ) : ViewModel() {
 
     /** ****** Data states from Presentation layer attached to VM ****** **/
@@ -128,13 +130,30 @@ class HomeVm @Inject constructor(
      * USE-CASE: Retrieving all reviews of all books
      */
     private fun retrieveAllReviews() {
-        TODO("Not yet implemented")
+        reviewBookUseCases.getReviewsUseCase.invoke()
+            .onSuccess {
+                viewStateMyReviews = viewStateMyReviews.copy(reviews = it)
+            }.onFailure {
+                viewModelScope.launch {
+                    useCaseError(UseCaseResult.Error(Exception(it)))
+                }
+            }
     }
     /**
      * USE-CASE: Deleting review from database
      */
     private fun deleteReview(review: Review) {
-
+      //  reviewBookUseCases
+        viewModelScope.launch {
+            reviewBookUseCases.deleteReviewUseCase
+                .invoke(review).onSuccess {
+                    _uiEventMyReviews.send(MyReviewsEvent.RefreshData)
+                }.onFailure {
+                    viewModelScope.launch {
+                        useCaseError(UseCaseResult.Error(Exception(it)))
+                    }
+                }
+        }
     }
     /** <*******> Use case <Reviews> <********> **/
 

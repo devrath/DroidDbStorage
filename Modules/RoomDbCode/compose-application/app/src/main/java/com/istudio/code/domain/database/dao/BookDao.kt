@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.istudio.code.domain.database.models.Book
+import com.istudio.code.domain.database.models.Genre
 
 @Dao
 interface BookDao {
@@ -17,6 +18,15 @@ interface BookDao {
      */
     @Query("SELECT * FROM books")
     fun getBooks() : List<Book>
+
+
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting a single genre based on a genreId
+     */
+    @Query("SELECT * FROM books WHERE id=:bookId")
+    fun getBookById(bookId:String) : Book
 
     /**
      * OPERATION: Inserting

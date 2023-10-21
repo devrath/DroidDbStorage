@@ -20,28 +20,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.istudio.code.R
-import com.istudio.code.domain.database.models.Review
+import com.istudio.code.domain.database.models.relations.ReviewAndBook
+import org.mockito.kotlin.mock
 
 @Composable
 fun MyReviewsItem(
-    item: Review, bookName: String = "", onClick:() -> Unit
+    item: ReviewAndBook, onClick:() -> Unit
 ) {
-    MyReview(item,bookName,onClick)
+    MyReview(item,onClick)
 }
 
 @Preview
 @Composable
 private fun CurrentScreenPreview() {
     MyReview(
-        item = Review(bookId = "0", rating = 4, notes = "Some Notes"),
-        bookName = "Jungle Book"
+        item = mock<ReviewAndBook>()
     ){}
 }
 
 @Composable
 fun MyReview(
-    item: Review,
-    bookName: String,
+    item: ReviewAndBook,
     onClick:() -> Unit
 ) {
     Card(
@@ -70,7 +69,7 @@ fun MyReview(
                     text = nameTag, style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    bookName, style = MaterialTheme.typography.bodyLarge
+                    item.book.name, style = MaterialTheme.typography.bodyLarge
                 )
             }
 
@@ -83,7 +82,7 @@ fun MyReview(
                     text = ratingTag, style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    item.rating.toString(), style = MaterialTheme.typography.bodyMedium
+                    item.review.rating.toString(), style = MaterialTheme.typography.bodyMedium
                 )
             }
 
@@ -96,7 +95,7 @@ fun MyReview(
                     text = reviewTag, style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    item.notes, style = MaterialTheme.typography.bodySmall, maxLines = 5
+                    item.review.notes, style = MaterialTheme.typography.bodySmall, maxLines = 5
                 )
             }
         }

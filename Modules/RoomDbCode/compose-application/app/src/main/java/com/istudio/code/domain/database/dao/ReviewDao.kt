@@ -4,10 +4,20 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Review
 
 @Dao
 interface ReviewDao {
+
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting just a list of reviews
+     */
+    @Query("SELECT * FROM review")
+    fun getReviews() : List<Review>
 
     /**
      * OPERATION: Inserting
