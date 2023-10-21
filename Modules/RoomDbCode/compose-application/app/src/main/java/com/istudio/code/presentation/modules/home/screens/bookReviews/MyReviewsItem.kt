@@ -1,5 +1,6 @@
 package com.istudio.code.presentation.modules.home.screens.bookReviews
 
+import android.text.Html
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.istudio.code.R
+import com.istudio.code.core.platform.utils.composeUtils.HtmlText
 import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import org.mockito.kotlin.mock
 
@@ -60,7 +62,9 @@ fun MyReview(
         val reviewTag = cxt.getString(R.string.str_review_notes_tag)
 
         Column(
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center
@@ -95,7 +99,8 @@ fun MyReview(
                     text = reviewTag, style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    item.review.notes, style = MaterialTheme.typography.bodySmall, maxLines = 5
+                    text = Html.fromHtml(item.review.notes).toString(),
+                    style = MaterialTheme.typography.bodySmall, maxLines = 5
                 )
             }
         }
