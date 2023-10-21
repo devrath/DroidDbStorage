@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -37,6 +38,7 @@ import com.istudio.code.R
 import com.istudio.code.core.platform.utils.composeUtils.CustomEditText
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
 import com.istudio.code.presentation.modules.addReview.AddReviewVm
+import com.istudio.code.presentation.modules.addReview.states.AddReviewResponseEvent
 import com.istudio.code.presentation.modules.addReview.states.AddReviewViewEvent
 import kotlinx.coroutines.launch
 import org.mockito.Mockito.mock
@@ -60,8 +62,6 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
     // Context
     val cxt = LocalContext.current
-
-    // View state reference from view model
     // <!------------ MAIN-COMPOSE-CONTROL-PARTS ----------------->
 
     // <!--------------------- CONTROLLERS ------------------------>
@@ -83,6 +83,24 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
     }
     // Get books list from database
     state.onEvent(event = AddReviewViewEvent.GetBooksList)
+
+
+    LaunchedEffect(key1 = state.viewState.launchedEffectState) {
+        // <***********> Event is observed from View-Model <************>
+        state.uiEvent.collect { event ->
+            when (event) {
+                is AddReviewResponseEvent.ShowSnackBar -> {
+
+                }
+
+                is AddReviewResponseEvent.ReviewAddIsSuccessful -> {
+                    // Close the screen
+                    onBackPress.invoke()
+                }
+            }
+        }
+
+    }
 
 
     Scaffold(
@@ -161,7 +179,8 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             .fillMaxWidth(),
                         placeholder = {
                             Text(text = cxt.getString(R.string.select_a_book))
-                        }
+                        },
+                        isError = state.viewState.isBookError
                     )
 
                     ExposedDropdownMenu(
@@ -175,11 +194,18 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             DropdownMenuItem(
                                 text = { Text(text = item.name) },
                                 onClick = {
-                                    // Update the expanded state in VM
+                                    // Update the expanded state for UiState in VM
                                     state.onEvent(
                                         event = AddReviewViewEvent.SetBookListExpandedState(false)
                                     )
-                                    state.onEvent(event = AddReviewViewEvent.SetBookTitle(item.name))
+                                    // Set the name in the UiState in VM
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetBookTitle(item.name)
+                                    )
+                                    // Set the book error state as false since new value is set
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetBookErrorState(isError = false)
+                                    )
                                 }
                             )
                         }
@@ -211,7 +237,8 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                             .fillMaxWidth(),
                         placeholder = {
                             Text(text = cxt.getString(R.string.select_a_rating))
-                        }
+                        },
+                        isError = state.viewState.isRatingError
                     )
 
                     ExposedDropdownMenu(
@@ -235,7 +262,13 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                                             false
                                         )
                                     )
-                                    state.onEvent(event = AddReviewViewEvent.SetRating(item.toString()))
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetRating(item.toString())
+                                    )
+                                    // Set the book error state as false since new value is set
+                                    state.onEvent(
+                                        event = AddReviewViewEvent.SetRatingErrorState(isError = false)
+                                    )
                                 }
                             )
                         }
@@ -244,10 +277,11 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                CustomEditText() { review ->
+                CustomEditText(state.viewState.isReviewError) { review ->
                     // Save the review data
                     state.onEvent(event = AddReviewViewEvent.SetReviewNotes(review))
-
+                    // Initiate validation - on Perform Action
+                    state.onEvent(event = AddReviewViewEvent.PerformAction)
                 }
             }
         }

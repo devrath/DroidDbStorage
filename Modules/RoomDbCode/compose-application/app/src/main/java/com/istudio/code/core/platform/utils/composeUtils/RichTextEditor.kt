@@ -65,7 +65,10 @@ implementation("androidx.compose.material:material-icons-extended:1.5.3")
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CustomEditText(onConfirmAction : (String) -> Unit) {
+fun CustomEditText(
+    isError:Boolean= false,
+    onConfirmAction : (String) -> Unit
+) {
     val state = rememberRichTextState()
     val titleSize = MaterialTheme.typography.displaySmall.fontSize
     val subtitleSize = MaterialTheme.typography.titleLarge.fontSize
@@ -87,7 +90,8 @@ fun CustomEditText(onConfirmAction : (String) -> Unit) {
                 placeholder = {
                     val placeholderText = LocalContext.current.getText(R.string.str_add_review_long_placeholder)
                     Text(text = placeholderText.toString())
-                }
+                },
+                isError = isError
             )
 
             Spacer(modifier = Modifier.height(10.dp))

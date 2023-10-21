@@ -16,4 +16,11 @@ data class AddReviewUiState(
     val isBookListExpanded: Boolean = false,
     val isRatingsListExpanded: Boolean = false,
     // <-------------> Other values stored <------------->
+
+    // <-------------> Error states <-------------------->
+    val isBookError: Boolean = false,
+    val isRatingError: Boolean = false,
+    val isReviewError: Boolean = false,
+    // <-------------> Error states <-------------------->
+
 )

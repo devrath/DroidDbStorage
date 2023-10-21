@@ -37,7 +37,7 @@ class AddReviewVm @Inject constructor(
         viewModelScope.launch {
             when (event){
                 is AddReviewViewEvent.PerformAction -> {
-
+                    initiateValidation()
                 }
                 is AddReviewViewEvent.GetBooksList -> {
                     getBooksList()
@@ -63,6 +63,15 @@ class AddReviewVm @Inject constructor(
                     // Sate to indicate if the dropdown is expanded :-> Ratings Drop Down
                     viewState = viewState.copy(isRatingsListExpanded = event.isExpanded)
                 }
+                is AddReviewViewEvent.SetBookErrorState -> {
+                    viewState = viewState.copy(isBookError = event.isError)
+                }
+                is AddReviewViewEvent.SetRatingErrorState -> {
+                    viewState = viewState.copy(isRatingError = event.isError)
+                }
+                is AddReviewViewEvent.SetReviewErrorState -> {
+                    viewState = viewState.copy(isReviewError = event.isError)
+                }
             }
         }
     }
@@ -80,47 +89,70 @@ class AddReviewVm @Inject constructor(
         }
     }
 
-    private fun validateBookSelection(): Boolean {
+    private fun validateBookSelection()  {
         reviewBookUseCases.validateBookSelectedUseCase.invoke(viewState.bookTitle)
             .onSuccess {
-                return it
+                if(!it){
+                    // failure
+                    viewState = viewState.copy(isBookError = true)
+                }else{
+                    // success
+                    viewState = viewState.copy(isBookError = false)
+                }
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
-                return false
             }
-        return false
     }
 
-    private fun validateRatingSelection(): Boolean {
-        reviewBookUseCases.validateRatingSelectionUseCase.invoke(viewState.bookTitle)
+    private fun validateRatingSelection() {
+        reviewBookUseCases.validateRatingSelectionUseCase.invoke(viewState.rating)
             .onSuccess {
-                return it
+                if(!it){
+                    // failure
+                    viewState = viewState.copy(isRatingError = true)
+                }else{
+                    // success
+                    viewState = viewState.copy(isRatingError = false)
+                }
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
-                return false
             }
-        return false
     }
 
-    private fun validateReviewNotesSelection(): Boolean {
-        reviewBookUseCases.validateReviewNotesUseCase.invoke(viewState.bookTitle)
+    private fun validateReviewNotesSelection() {
+        reviewBookUseCases.validateReviewNotesUseCase.invoke(viewState.reviewNotes)
             .onSuccess {
-                return it
+                if(!it){
+                    // failure
+                    viewState = viewState.copy(isReviewError = true)
+                }else{
+                    // success
+                    viewState = viewState.copy(isReviewError = false)
+                }
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
-                return false
             }
-        return false
     }
     /** <*********************> Use case invocations <*******************> **/
 
-
+    /** <*********************> Initiate validations <*******************> **/
+    private fun initiateValidation() {
+            validateReviewNotesSelection()
+            validateRatingSelection()
+            validateBookSelection()
+        if(!viewState.isReviewError && !viewState.isBookError && !viewState.isRatingError){
+            viewModelScope.launch {
+                _uiEvent.send(AddReviewResponseEvent.ReviewAddIsSuccessful)
+            }
+        }
+    }
+    /** <*********************> Initiate validations <*******************> **/
 
     /** ********************************* DISPLAY MESSAGES ****************************************/
     /**

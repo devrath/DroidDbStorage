@@ -16,4 +16,9 @@ sealed class AddReviewViewEvent{
     object GetBooksList : AddReviewViewEvent()
     object PerformAction : AddReviewViewEvent()
 
+
+    data class SetRatingErrorState(val isError: Boolean) : AddReviewViewEvent()
+    data class SetBookErrorState(val isError: Boolean) : AddReviewViewEvent()
+    data class SetReviewErrorState(val isError: Boolean) : AddReviewViewEvent()
+
 }

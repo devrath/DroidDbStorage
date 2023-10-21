@@ -4,17 +4,17 @@ import javax.inject.Inject
 
 class ValidateReviewNotesUseCase @Inject constructor() {
     operator fun invoke(data : String) : Result<Boolean>{
-        try{
-            if(data.isNullOrEmpty()){
-                // Failure
-                return Result.success(false)
-            }else{
+        return try{
+            if(data.isNotEmpty()){
                 // Success
-                return Result.success(true)
+                Result.success(true)
+            }else{
+                // Failure
+                Result.success(false)
             }
         }catch (ex:Exception){
             // Exception
-            return Result.failure(ex)
+            Result.failure(ex)
         }
     }
 
