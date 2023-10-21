@@ -12,6 +12,9 @@ import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiState
+import com.istudio.code.presentation.modules.home.states.myReviews.MyReviewsEvent
+import com.istudio.code.presentation.modules.home.states.myReviews.MyReviewsUIState
+import com.istudio.code.presentation.modules.home.states.myReviews.MyReviewsUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -23,15 +26,29 @@ class HomeVm @Inject constructor(
     private val addBookUseCases: AddBookUseCases,
 ) : ViewModel() {
 
-    // Data states from Presentation layer attached to VM
-    var viewState by mutableStateOf(MyBooksUiState())
+    /** ****** Data states from Presentation layer attached to VM ****** **/
+    /** DATA STATE: <--------> My Books <--------> **/
+    var viewStateMyBooks by mutableStateOf(MyBooksUiState())
         private set
+    /** DATA STATE: <--------> My Reviews <--------> **/
+    var viewStateMyReviews by mutableStateOf(MyReviewsUIState())
+        private set
+    /** ****** Data states from Presentation layer attached to VM ****** **/
 
-    // View model sets this state from inside VM, Composable observes this state
-    private val _uiEvent = Channel<MyBooksEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
 
-    // VM observes the changes and Composable sets the changes form composable
+
+    /** ****** View model sets this state from inside VM, Composable observes this state ****** **/
+    /** UI EVENT: <--------> My Books <--------> **/
+    private val _uiEventMyBooks = Channel<MyBooksEvent>()
+    val uiEventMyBooks = _uiEventMyBooks.receiveAsFlow()
+    /** UI EVENT: <--------> My Reviews <--------> **/
+    private val _uiEventMyReviews = Channel<MyReviewsEvent>()
+    val uiEventMyReviews = _uiEventMyReviews.receiveAsFlow()
+    /** ****** View model sets this state from inside VM, Composable observes this state ****** **/
+
+
+    /** ****** VM observes the changes and Composable sets the changes form composable ****** **/
+    /** ON EVENT: <--------> My Books <--------> **/
     fun onEvent(event: MyBooksUiEvent) {
         viewModelScope.launch {
             when (event) {
@@ -45,28 +62,40 @@ class HomeVm @Inject constructor(
                 }
 
                 is MyBooksUiEvent.ConfirmDeleteBook -> {
-                    viewState = viewState.copy(book = event.book)
+                    viewStateMyBooks = viewStateMyBooks.copy(book = event.book)
                 }
             }
         }
     }
+    /** ON EVENT: <--------> My Reviews <--------> **/
+    fun onEvent(event: MyReviewsUiEvent){
+        viewModelScope.launch {
+            when (event) {
+                is MyReviewsUiEvent.ConfirmDeleteReview -> { }
+                is MyReviewsUiEvent.DeleteReview -> { }
+                is MyReviewsUiEvent.GetMyReviews -> { }
+            }
+        }
+    }
+    /** ****** VM observes the changes and Composable sets the changes form composable ****** **/
+
 
     /** <*********************> Use case invocations <*******************> **/
 
+    /** <*******> Use case <My Books> <*******> **/
     /**
      * USE-CASE: Retrieving all books from database
      */
     private fun retrieveAllBooks() {
         addBookUseCases.getBooksAndGenreUseCase.invoke()
             .onSuccess {
-                viewState = viewState.copy(books = it)
+                viewStateMyBooks = viewStateMyBooks.copy(books = it)
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }
             }
     }
-
     /**
      * USE-CASE: Deleting book from database
      */
@@ -74,7 +103,7 @@ class HomeVm @Inject constructor(
         viewModelScope.launch {
             addBookUseCases.deleteBookUseCase
                 .invoke(book).onSuccess {
-                    _uiEvent.send(MyBooksEvent.RefreshData)
+                    _uiEventMyBooks.send(MyBooksEvent.RefreshData)
                     //retrieveAllBooks()
                 }.onFailure {
                     viewModelScope.launch {
@@ -83,6 +112,8 @@ class HomeVm @Inject constructor(
                 }
         }
     }
+    /** <*******> Use case <My Books> <*******> **/
+
     /** <*********************> Use case invocations <*******************> **/
 
 
@@ -94,7 +125,7 @@ class HomeVm @Inject constructor(
      * Displaying messages to the snack-bar
      */
     private suspend fun useCaseErrorMessage(result: UiText?) {
-        result?.let { _uiEvent.send(MyBooksEvent.ShowSnackBar(it.toString())) }
+        result?.let { _uiEventMyBooks.send(MyBooksEvent.ShowSnackBar(it.toString())) }
     }
 
     /**
@@ -103,7 +134,7 @@ class HomeVm @Inject constructor(
      */
     private suspend fun useCaseError(result: UseCaseResult.Error) {
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
-        _uiEvent.send(MyBooksEvent.ShowSnackBar(uiEvent.text))
+        _uiEventMyBooks.send(MyBooksEvent.ShowSnackBar(uiEvent.text))
     }
     /** ********************************* DISPLAY MESSAGES ****************************************/
 

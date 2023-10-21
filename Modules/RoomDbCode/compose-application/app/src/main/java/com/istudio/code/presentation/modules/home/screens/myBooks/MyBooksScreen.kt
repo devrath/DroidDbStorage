@@ -50,7 +50,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     //val viewModel: HomeVm = hiltViewModel()
     val viewModel = viewModel<HomeVm>(viewModelStoreOwner = viewModelStore)
     // View state reference from view model
-    val state = viewModel.viewState
+    val state = viewModel.viewStateMyBooks
 
     // Dialog visibility state
     var dialogDisplayState by remember { mutableStateOf(false) }
@@ -58,7 +58,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
 
     // <!----------- OBSERVE THE ACTIONS from VM ------------------>
     LaunchedEffect(state.launchedEffectState) {
-        viewModel.uiEvent.collect { event ->
+        viewModel.uiEventMyBooks.collect { event ->
             when (event) {
                 is MyBooksEvent.ShowSnackBar -> { }
                 is MyBooksEvent.RefreshData -> {
@@ -107,7 +107,7 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
         DeleteBookDialog(dialogDisplayState) { newValue ->
             dialogDisplayState = false
             if(newValue){
-                viewModel.viewState.book?.let {
+                viewModel.viewStateMyBooks.book?.let {
                     viewModel.onEvent(MyBooksUiEvent.DeleteBook(it))
                 }
             }
