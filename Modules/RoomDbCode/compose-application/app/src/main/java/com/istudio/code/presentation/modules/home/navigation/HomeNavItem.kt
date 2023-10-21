@@ -32,12 +32,4 @@ sealed class HomeNavItem(
         iconSelected = Icons.Filled.Reviews,
         iconUnSelected = Icons.Outlined.Reviews,
     )
-
-    // <--------- ReadingList Screen --------->
-    object ReadingList : HomeNavItem(
-        route = "readingList",
-        title = R.string.str_reading_list,
-        iconSelected = Icons.Filled.MoreTime,
-        iconUnSelected = Icons.Outlined.MoreTime,
-    )
 }

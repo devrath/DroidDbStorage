@@ -60,7 +60,7 @@ fun HomeContainer(
     val coroutineScope = rememberCoroutineScope()
     // Data items to have the Bottom tabs
     val navItems = remember {
-        mutableStateListOf(HomeNavItem.MyBooks, HomeNavItem.BookReviews, HomeNavItem.ReadingList)
+        mutableStateListOf(HomeNavItem.MyBooks, HomeNavItem.BookReviews)
     }
 
     // Scroll behaviour

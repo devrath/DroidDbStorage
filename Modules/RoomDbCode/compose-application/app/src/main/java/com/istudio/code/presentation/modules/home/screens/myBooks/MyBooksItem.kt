@@ -74,57 +74,44 @@ fun MyBook(
         val descriptionTag = cxt.getString(R.string.str_description_tag)
 
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
             Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Center
+                horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = titleTag,
-                    style = MaterialTheme.typography.titleLarge
+                    text = titleTag, style = MaterialTheme.typography.titleLarge
                 )
                 Text(
-                    item.book.name,
-                    style = MaterialTheme.typography.bodyLarge
+                    item.book.name, style = MaterialTheme.typography.bodyLarge
                 )
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Center
+                horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = genreTag,
-                    style = MaterialTheme.typography.titleMedium
+                    text = genreTag, style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    item.genre.name,
-                    style = MaterialTheme.typography.bodyMedium
+                    item.genre.name, style = MaterialTheme.typography.bodyMedium
                 )
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Center
+                horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = descriptionTag,
-                    style = MaterialTheme.typography.titleSmall
+                    text = descriptionTag, style = MaterialTheme.typography.titleSmall
                 )
-
                 Text(
-                    item.book.description, style = MaterialTheme.typography.bodySmall,
-                    maxLines = 5
+                    item.book.description, style = MaterialTheme.typography.bodySmall, maxLines = 5
                 )
             }
-
         }
     }
 }

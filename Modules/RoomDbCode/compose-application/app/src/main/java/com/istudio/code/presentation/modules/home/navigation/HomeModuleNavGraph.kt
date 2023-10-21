@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.istudio.code.presentation.modules.home.screens.bookReviews.ScreenBookReviews
 import com.istudio.code.presentation.modules.home.screens.myBooks.MyBooksScreen
-import com.istudio.code.presentation.modules.home.screens.ScreenReadingList
 
 @Composable
 fun HomeModuleNavGraph(
@@ -23,9 +22,6 @@ fun HomeModuleNavGraph(
         }
         composable(route = HomeNavItem.BookReviews.route) {
             ScreenBookReviews(viewModelStore)
-        }
-        composable(route = HomeNavItem.ReadingList.route) {
-            ScreenReadingList(viewModelStore)
         }
     }
 }
