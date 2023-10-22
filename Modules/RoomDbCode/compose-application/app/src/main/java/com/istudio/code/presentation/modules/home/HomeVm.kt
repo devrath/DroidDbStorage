@@ -1,16 +1,21 @@
 package com.istudio.code.presentation.modules.home
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.core.platform.coroutines.usecase.Result
+import com.istudio.code.core.platform.coroutines.usecase.data
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
+import com.istudio.code.core.platform.viewmodel.BaseViewModel
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
+import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiEvent
 import com.istudio.code.presentation.modules.home.states.myBooks.MyBooksUiState
@@ -28,7 +33,9 @@ import javax.inject.Inject
 class HomeVm @Inject constructor(
     private val addBookUseCases: AddBookUseCases,
     private val reviewBookUseCases: ReviewBookUseCases,
-) : ViewModel() {
+) : BaseViewModel<Unit>() {
+
+    override fun setupPrerequisites(params: Unit) {}
 
     /** ****** Data states from Presentation layer attached to VM ****** **/
     /** DATA STATE: <--------> My Books <--------> **/
@@ -127,14 +134,24 @@ class HomeVm @Inject constructor(
      * USE-CASE: Retrieving all reviews of all books
      */
     private fun retrieveAllReviews() {
-        reviewBookUseCases.getReviewsUseCase.invoke()
-            .onSuccess {
-                viewStateMyReviews = viewStateMyReviews.copy(reviews = it)
-            }.onFailure {
-                viewModelScope.launch {
-                    useCaseError(UseCaseResult.Error(Exception(it)))
+        launchUseCase(catchException {
+            Log.d("Error", it.message.toString())
+        }){
+            when (val result = reviewBookUseCases.getReviewsUseCase.invoke(HashMap())) {
+                is Result.Success -> {
+                    result.value.data?.catch {
+                        useCaseError(UseCaseResult.Error(Exception(it)))
+                    }?.collect{
+                        viewStateMyReviews = viewStateMyReviews.copy(reviews = it)
+                    }
                 }
+                is Result.Error -> {
+                    useCaseError(UseCaseResult.Error(Exception(result.exception)))
+                }
+                is Result.Loading -> { }
             }
+
+        }
     }
     /**
      * USE-CASE: Deleting review from database
@@ -144,7 +161,7 @@ class HomeVm @Inject constructor(
         viewModelScope.launch {
             reviewBookUseCases.deleteReviewUseCase
                 .invoke(review).onSuccess {
-                    _uiEventMyReviews.send(MyReviewsEvent.RefreshData)
+                    //_uiEventMyReviews.send(MyReviewsEvent.RefreshData)
                 }.onFailure {
                     viewModelScope.launch {
                         useCaseError(UseCaseResult.Error(Exception(it)))

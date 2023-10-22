@@ -24,7 +24,7 @@ class AppRepositoryImpl @Inject constructor(
         return bookDao.getBooks()
     }
 
-    override fun getAllReviews(): List<ReviewAndBook> {
+    override fun getAllReviews(): Flow<List<ReviewAndBook>> {
         return reviewDao.getReviews()
     }
 

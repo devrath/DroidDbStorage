@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.database.models.relations.ReviewAndBook
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReviewDao {
@@ -18,7 +19,7 @@ interface ReviewDao {
      * Getting just a list of reviews
      */
     @Query("SELECT * FROM review")
-    fun getReviews() : List<ReviewAndBook>
+    fun getReviews() : Flow<List<ReviewAndBook>>
 
     /**
      * OPERATION: Inserting

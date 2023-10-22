@@ -54,6 +54,7 @@ object MainDomainModule {
     @ViewModelScoped
     @Provides
     fun provideReviewBookUseCases(
+        @IoDispatcher dispatcher: CoroutineDispatcher,
         appRepositoryImpl: AppRepositoryImpl
     ) : ReviewBookUseCases {
         return ReviewBookUseCases(
@@ -63,7 +64,10 @@ object MainDomainModule {
             getBooksUseCase = GetBooksUseCase(appRepositoryImpl),
             deleteReviewUseCase = DeleteReviewUseCase(appRepositoryImpl),
             addReviewUseCase = AddReviewUseCase(appRepositoryImpl),
-            getReviewsUseCase = GetReviewsUseCase(appRepositoryImpl)
+            getReviewsUseCase = GetReviewsUseCase(
+                dispatcher = dispatcher,
+                appRepositoryImpl = appRepositoryImpl
+            )
         )
     }
 
