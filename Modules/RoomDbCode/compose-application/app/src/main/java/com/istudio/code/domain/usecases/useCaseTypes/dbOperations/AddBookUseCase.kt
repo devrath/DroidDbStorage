@@ -21,21 +21,27 @@ class AddBookUseCase @Inject constructor(
     override suspend fun execute(parameters: AddBookAllInputs): Result<Boolean> =
 
         suspendCancellableCoroutine { coroutine ->
-            val genreId = appRepositoryImpl.getGenres().firstOrNull {
-                it.name == parameters.category
-            }?.id
-
-            if ((parameters.title.isNotBlank()) && (parameters.description.isNotBlank()) && (!genreId.isNullOrBlank())) {
-                val book =
-                    Book(genreId = genreId, name = parameters.title, description = parameters.description)
-                // Add the book to the database
-
+            try {
                 CoroutineScope(dispatcher).launch {
-                    appRepositoryImpl.addBook(book)
-                    coroutine.resume(Result.Success(true))
+                    val genreId = appRepositoryImpl.getGenres().firstOrNull {
+                        // Get the genre Id whose name is equal to category name
+                        it.name == parameters.category
+                    }?.id
+
+                    if ((parameters.title.isNotBlank()) && (parameters.description.isNotBlank()) && (!genreId.isNullOrBlank())) {
+                        val book = Book(
+                            genreId = genreId, name = parameters.title,
+                            description = parameters.description
+                        )
+                        // Add the book to the database
+                        appRepositoryImpl.addBook(book)
+                        coroutine.resume(Result.Success(true))
+                    } else {
+                        coroutine.resume(Result.Success(false))
+                    }
                 }
-            } else {
-                coroutine.resume(Result.Success(false))
+            }catch (ex : Exception){
+                coroutine.resume(Result.Error(ex))
             }
         }
 
