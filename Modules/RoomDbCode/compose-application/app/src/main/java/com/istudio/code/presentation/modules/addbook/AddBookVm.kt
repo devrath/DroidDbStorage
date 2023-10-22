@@ -1,12 +1,16 @@
 package com.istudio.code.presentation.modules.addbook
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.istudio.code.core.platform.coroutines.usecase.Result
+import com.istudio.code.core.platform.coroutines.usecase.data
 import com.istudio.code.core.platform.functional.UseCaseResult
 import com.istudio.code.core.platform.uiEvent.UiText
+import com.istudio.code.core.platform.viewmodel.BaseViewModel
 import com.istudio.code.domain.entities.input.AddBookAllInputs
 import com.istudio.code.domain.entities.input.AddBookCategoryInput
 import com.istudio.code.domain.entities.input.AddBookDescriptionInput
@@ -25,7 +29,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AddBookVm @Inject constructor(
     private var addBookUseCases: AddBookUseCases
-) : ViewModel() {
+) : BaseViewModel<Unit>() {
+
+    override fun setupPrerequisites(params: Unit) = Unit
 
     // Holds the data of all the widgets in the view
     var viewState by mutableStateOf(AddBookUiState())
@@ -56,7 +62,8 @@ class AddBookVm @Inject constructor(
                 is AddBookViewEvent.AddBookViewClick -> {
                     if (validateAddBookAction()) {
                         // Success validation is notified to the composable
-                        _uiEvent.send(AddBookResponseEvent.AddBookSuccess)
+                        // Create a new entry for the book in database
+                        createBook()
                     } else {
                         // <------------------- Failure ------------------->
                         // Check if title is empty
@@ -196,23 +203,30 @@ class AddBookVm @Inject constructor(
     /**
      * Creating a new book entry in the local database
      */
-    fun createBook(): Boolean {
+    fun createBook() {
 
         val input = AddBookAllInputs(
             title = viewState.title, description = viewState.description,
             category = viewState.category
         )
 
-        addBookUseCases.addBookUseCase.invoke(input)
-            .onSuccess { return  it }
-            .onFailure {
-                viewModelScope.launch {
-                    useCaseError(UseCaseResult.Error(Exception(it)))
+        launchUseCase(catchException {
+            Log.d("Error", it.message.toString())
+            //_viewState.value = LoginViewState.ViewStateException(exception = "Validation Failed")
+        }) {
+            when (val result = addBookUseCases.addBookUseCase.invoke(input)) {
+                is Result.Success -> {
+                    if(result.value.data==true){
+                        _uiEvent.send(AddBookResponseEvent.AddBookSuccess)
+                    }
                 }
-                return  false
+                is Result.Error -> {
+                    useCaseError(UseCaseResult.Error(Exception(result.exception)))
+                }
+                is Result.Loading -> {}
             }
+        }
 
-        return  false
     }
 
 
@@ -236,6 +250,7 @@ class AddBookVm @Inject constructor(
         val uiEvent = UiText.DynamicString(result.exception.message.toString())
         _uiEvent.send(AddBookResponseEvent.ShowSnackBar(uiEvent.text))
     }
+
     /** ********************************* DISPLAY MESSAGES ****************************************/
 
 

@@ -17,7 +17,7 @@ class AppRepositoryImpl @Inject constructor(
     private val genreDao: GenreDao,
     private val reviewDao: ReviewDao
 ) : AppRepository {
-    override fun addBook(book: Book) = bookDao.addBook(book)
+    override suspend fun addBook(book: Book) = bookDao.addBook(book)
 
     // We combined using 2 different DAO's to get the combined end result you need
     override fun getBooks(): Flow<List<BookAndGenre>> {

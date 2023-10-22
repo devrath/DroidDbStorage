@@ -8,7 +8,7 @@ import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import kotlinx.coroutines.flow.Flow
 
 interface AppRepository {
-    fun addBook(book: Book)
+    suspend fun addBook(book: Book)
     fun getBooks(): Flow<List<BookAndGenre>>
     fun getAllReviews(): List<ReviewAndBook>
     fun getGenres(): List<Genre>

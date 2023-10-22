@@ -1,5 +1,6 @@
 package com.istudio.code.domain.di.viewmodellevel
 
+import com.istudio.code.core.platform.coroutines.dispatcher.IoDispatcher
 import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.usecases.useCaseMain.AddBookUseCases
 import com.istudio.code.domain.usecases.useCaseMain.ReviewBookUseCases
@@ -24,6 +25,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -32,6 +34,7 @@ object MainDomainModule {
     @ViewModelScoped
     @Provides
     fun provideAddBookUseCases(
+        @IoDispatcher dispatcher: CoroutineDispatcher,
         appRepositoryImpl: AppRepositoryImpl
     ): AddBookUseCases {
         return AddBookUseCases(
@@ -41,7 +44,7 @@ object MainDomainModule {
             validateCategory = ValidateCategoryInputUseCase(),
             addGenreDataUseCase = AddGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
-            addBookUseCase = AddBookUseCase(appRepositoryImpl = appRepositoryImpl),
+            addBookUseCase = AddBookUseCase(dispatcher = dispatcher, appRepositoryImpl = appRepositoryImpl),
             getBooksAndGenreUseCase = GetBooksAndGenreUseCase(appRepositoryImpl = appRepositoryImpl),
             deleteBookUseCase = DeleteBookUseCase(appRepositoryImpl = appRepositoryImpl)
         )

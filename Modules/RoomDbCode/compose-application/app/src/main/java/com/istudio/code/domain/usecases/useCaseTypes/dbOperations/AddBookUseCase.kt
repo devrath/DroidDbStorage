@@ -1,34 +1,42 @@
 package com.istudio.code.domain.usecases.useCaseTypes.dbOperations
 
+import com.istudio.code.core.platform.coroutines.dispatcher.IoDispatcher
+import com.istudio.code.core.platform.coroutines.usecase.SuspendUseCase
 import com.istudio.code.data.repository.AppRepositoryImpl
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.entities.input.AddBookAllInputs
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import com.istudio.code.core.platform.coroutines.usecase.Result
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class AddBookUseCase @Inject constructor(
+    @IoDispatcher val dispatcher: CoroutineDispatcher,
     private val appRepositoryImpl: AppRepositoryImpl,
-) {
-    operator fun invoke(input: AddBookAllInputs): Result<Boolean> {
+) : SuspendUseCase<AddBookAllInputs, Result<Boolean>>(dispatcher) {
 
-        try {
-            // We map the Id from genre table to book table
+    override suspend fun execute(parameters: AddBookAllInputs): Result<Boolean> =
+
+        suspendCancellableCoroutine { coroutine ->
             val genreId = appRepositoryImpl.getGenres().firstOrNull {
-                it.name == input.category
+                it.name == parameters.category
             }?.id
 
-            if ((input.title.isNotBlank()) && (input.description.isNotBlank()) && (!genreId.isNullOrBlank())) {
+            if ((parameters.title.isNotBlank()) && (parameters.description.isNotBlank()) && (!genreId.isNullOrBlank())) {
                 val book =
-                    Book(genreId = genreId, name = input.title, description = input.description)
+                    Book(genreId = genreId, name = parameters.title, description = parameters.description)
                 // Add the book to the database
-                appRepositoryImpl.addBook(book)
-                return Result.success(value = true)
-            } else {
-                return Result.success(value = false)
-            }
-        } catch (ex: Exception) {
-            return Result.failure(exception = ex)
-        }
 
-    }
+                CoroutineScope(dispatcher).launch {
+                    appRepositoryImpl.addBook(book)
+                    coroutine.resume(Result.Success(true))
+                }
+            } else {
+                coroutine.resume(Result.Success(false))
+            }
+        }
 
 }

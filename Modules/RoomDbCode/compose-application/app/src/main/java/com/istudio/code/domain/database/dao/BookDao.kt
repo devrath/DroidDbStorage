@@ -36,7 +36,7 @@ interface BookDao {
      * Inserting a new book in database
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addBook(book:Book)
+    suspend fun addBook(book:Book)
 
     /**
      * OPERATION: Deleting
