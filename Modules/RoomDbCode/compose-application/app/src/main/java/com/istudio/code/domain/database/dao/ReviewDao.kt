@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Review
+import com.istudio.code.domain.database.models.relations.ReviewAndBook
 
 @Dao
 interface ReviewDao {
@@ -17,7 +18,7 @@ interface ReviewDao {
      * Getting just a list of reviews
      */
     @Query("SELECT * FROM review")
-    fun getReviews() : List<Review>
+    fun getReviews() : List<ReviewAndBook>
 
     /**
      * OPERATION: Inserting

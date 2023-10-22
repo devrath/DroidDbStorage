@@ -1,6 +1,7 @@
 package com.istudio.code.domain.usecases.useCaseTypes.dbOperations
 
 import com.istudio.code.data.repository.AppRepositoryImpl
+import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import javax.inject.Inject
 

@@ -24,12 +24,7 @@ class AppRepositoryImpl @Inject constructor(
     }
 
     override fun getAllReviews(): List<ReviewAndBook> {
-        return reviewDao.getReviews().map {
-            ReviewAndBook(
-                review = it,
-                book = bookDao.getBookById(it.bookId)
-            )
-        }
+        return reviewDao.getReviews()
     }
 
     override fun getGenres(): List<Genre> = genreDao.getGenres()
@@ -45,5 +40,15 @@ class AppRepositoryImpl @Inject constructor(
     override fun removeReview(review: Review) = reviewDao.deleteReview(review)
 
     override fun updateReview(review: Review) = reviewDao.updateReview(review)
+    override fun getBooksByGenre(genreId: String): List<BookAndGenre> {
+        return genreDao.getBooksByGenre(genreId).let { bookByGenre ->
+            // If no books are available return a empty list
+            val books = bookByGenre.books ?: return emptyList()
+            // If books are present we return books that map to a genreID
+            return books.map {
+                BookAndGenre(it,bookByGenre.genre)
+            }
+        }
+    }
 
 }

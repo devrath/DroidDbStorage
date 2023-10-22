@@ -11,6 +11,7 @@ import java.util.*
 @Entity(tableName = "books")
 class Book(
     @PrimaryKey
+    @ColumnInfo(name = "id")
     val id: String = UUID.randomUUID().toString(),
     val name: String,
     val description: String,

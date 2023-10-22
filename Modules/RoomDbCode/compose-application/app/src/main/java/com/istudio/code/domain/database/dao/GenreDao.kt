@@ -4,7 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.istudio.code.domain.database.models.Genre
+import com.istudio.code.domain.database.models.relations.BooksByGenre
 
 @Dao
 interface GenreDao {
@@ -25,7 +27,6 @@ interface GenreDao {
     @Query("SELECT * FROM genre WHERE id=:genreId")
     fun getGenreById(genreId:String) : Genre
 
-
     /**
      * OPERATION: Adding
      *
@@ -34,5 +35,22 @@ interface GenreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addGenres(genre:List<Genre>)
 
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting list of books based on a perticular genre
+     */
+    @Transaction
+    @Query("SELECT * FROM genre WHERE id= :genreId")
+    fun getBooksByGenre(genreId : String) : BooksByGenre
 
+
+    /**
+     * OPERATION: Retrieving
+     *
+     * Getting list of Genre and all the books for each genre
+     */
+    /*@Transaction
+    @Query("SELECT * FROM genre")
+    fun getBooksByGenres(genreId : String) : List<BooksByGenre>*/
 }
