@@ -23,12 +23,7 @@ class AppRepositoryImpl @Inject constructor(
 
     // We combined using 2 different DAO's to get the combined end result you need
     override fun getBooks(): List<BookAndGenre> {
-        return bookDao.getBooks().map {
-            BookAndGenre(
-                book = it,
-                genre = genreDao.getGenreById(it.genreId)
-            )
-        }
+        return bookDao.getBooks()
     }
 
     override fun getAllReviews(): List<ReviewAndBook> {
@@ -45,8 +40,6 @@ class AppRepositoryImpl @Inject constructor(
     override fun addGenres(genres: List<Genre>) = genreDao.addGenres(genres)
 
     override fun getGenreById(genreId: String): Genre = genreDao.getGenreById(genreId = genreId)
-
-    override fun getAllBooks(): List<Book> = bookDao.getBooks()
 
     override fun removeBook(book: Book) = bookDao.deleteBook(book)
 

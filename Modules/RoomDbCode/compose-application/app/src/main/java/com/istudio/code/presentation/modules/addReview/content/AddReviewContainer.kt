@@ -200,7 +200,7 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                     ) {
                         booksList.forEachIndexed { index, item ->
                             DropdownMenuItem(
-                                text = { Text(text = item.name) },
+                                text = { Text(text = item.book.name) },
                                 onClick = {
                                     // Update the expanded state for UiState in VM
                                     state.onEvent(
@@ -208,7 +208,7 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                                     )
                                     // Set the name in the UiState in VM
                                     state.onEvent(
-                                        event = AddReviewViewEvent.SetBookTitle(item.name)
+                                        event = AddReviewViewEvent.SetBookTitle(item.book.name)
                                     )
                                     // Set the book error state as false since new value is set
                                     state.onEvent(
@@ -216,7 +216,7 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                                     )
                                     // Set book for future usage
                                     state.onEvent(
-                                        event = AddReviewViewEvent.SetBook(item)
+                                        event = AddReviewViewEvent.SetBook(item.book)
                                     )
                                 }
                             )

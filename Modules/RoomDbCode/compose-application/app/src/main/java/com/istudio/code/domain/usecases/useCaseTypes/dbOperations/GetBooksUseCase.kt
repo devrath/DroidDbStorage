@@ -8,10 +8,10 @@ import javax.inject.Inject
 class GetBooksUseCase @Inject constructor(
     private val appRepositoryImpl: AppRepositoryImpl,
 ) {
-    operator fun invoke(): Result<List<Book>> {
+    operator fun invoke(): Result<List<BookAndGenre>> {
         try {
             // Return as success
-            return Result.success(appRepositoryImpl.getAllBooks())
+            return Result.success(appRepositoryImpl.getBooks())
         } catch (ex: Exception) {
             // Return as failure
             return Result.failure(ex)

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Genre
+import com.istudio.code.domain.database.models.relations.BookAndGenre
 
 @Dao
 interface BookDao {
@@ -17,7 +18,7 @@ interface BookDao {
      * Getting just a list of books
      */
     @Query("SELECT * FROM books")
-    fun getBooks() : List<Book>
+    fun getBooks() : List<BookAndGenre>
 
 
     /**

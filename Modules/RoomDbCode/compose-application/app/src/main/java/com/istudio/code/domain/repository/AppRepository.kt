@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.Flow
 interface AppRepository {
     fun addBook(book: Book)
     fun getBooks(): List<BookAndGenre>
-    fun getAllBooks(): List<Book>
     fun getAllReviews(): List<ReviewAndBook>
     fun getGenres(): List<Genre>
     fun addGenres(genres: List<Genre>)
