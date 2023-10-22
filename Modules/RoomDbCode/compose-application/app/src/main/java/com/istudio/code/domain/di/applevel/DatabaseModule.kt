@@ -3,7 +3,6 @@ package com.istudio.code.domain.di.applevel
 import com.istudio.code.domain.database.AppDatabase
 import com.istudio.code.domain.database.dao.BookDao
 import com.istudio.code.domain.database.dao.GenreDao
-import com.istudio.code.domain.database.dao.ReadingListDao
 import com.istudio.code.domain.database.dao.ReviewDao
 import dagger.Module
 import dagger.Provides
@@ -25,12 +24,6 @@ object DatabaseModule {
     @Provides
     fun provideGenreDao(appDatabase: AppDatabase): GenreDao {
         return appDatabase.genreDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideReadingListDao(appDatabase: AppDatabase): ReadingListDao {
-        return appDatabase.readingListDao()
     }
 
 
