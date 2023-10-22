@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -107,6 +108,7 @@ class AddReviewVm @Inject constructor(
                 rating = viewState.rating.toInt(),
                 notes = viewState.reviewNotes,
                 bookId = viewState.book?.id.toString(),
+                lastUpdatedDate = Date()
             )
 
             reviewBookUseCases.addReviewUseCase.invoke(review)

@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.istudio.code.R
 import com.istudio.code.core.platform.utils.composeUtils.HtmlText
+import com.istudio.code.core.platform.utils.formatDateToText
 import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import org.mockito.kotlin.mock
 
@@ -36,7 +37,7 @@ fun MyReviewsItem(
 @Composable
 private fun CurrentScreenPreview() {
     MyReview(
-        item = mock<ReviewAndBook>()
+        item = mock()
     ){}
 }
 
@@ -59,6 +60,7 @@ fun MyReview(
         val cxt = LocalContext.current
         val nameTag = cxt.getString(R.string.str_name_tag)
         val ratingTag = cxt.getString(R.string.str_rating_tag)
+        val updatedDateTag = cxt.getString(R.string.str_updated_date_tag)
         val reviewTag = cxt.getString(R.string.str_review_notes_tag)
 
         Column(
@@ -99,8 +101,21 @@ fun MyReview(
                     text = reviewTag, style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    text = Html.fromHtml(item.review.notes).toString(),
+                    text = item.review.notes,
                     style = MaterialTheme.typography.bodySmall, maxLines = 5
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Column(
+                horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = updatedDateTag, style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    formatDateToText(item.review.lastUpdatedDate), style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

@@ -25,6 +25,7 @@
     <string name="str_description_tag">Description</string>
     <string name="str_name_tag">Name</string>
     <string name="str_rating_tag">Rating</string>
+    <string name="str_updated_date_tag">Updated Date</string>
     <string name="str_review_notes_tag">Review notes</string>
 
 
