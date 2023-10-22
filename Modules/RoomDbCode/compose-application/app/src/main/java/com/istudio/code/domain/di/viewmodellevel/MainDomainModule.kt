@@ -65,7 +65,10 @@ object MainDomainModule {
             validateRatingSelectionUseCase = ValidateRatingSelectionUseCase(),
             validateReviewNotesUseCase = ValidateReviewNotesUseCase(),
             getBooksUseCase = GetBooksUseCase(appRepositoryImpl),
-            deleteReviewUseCase = DeleteReviewUseCase(appRepositoryImpl),
+            deleteReviewUseCase = DeleteReviewUseCase(
+                dispatcher = dispatcher,
+                appRepositoryImpl = appRepositoryImpl
+            ),
             addReviewUseCase = AddReviewUseCase(appRepositoryImpl),
             getReviewsUseCase = GetReviewsUseCase(
                 dispatcher = dispatcher,

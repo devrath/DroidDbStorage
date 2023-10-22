@@ -1,5 +1,6 @@
 package com.istudio.code.presentation.modules.home.screens.bookReviews
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -75,7 +76,9 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
         LaunchedEffect(state.launchedEffectState) {
             viewModel.uiEventMyReviews.collect { event ->
                 when (event) {
-                    is MyReviewsEvent.ShowSnackBar -> {}
+                    is MyReviewsEvent.ShowSnackBar -> {
+                        Toast.makeText(cxt,event.message, Toast.LENGTH_LONG).show()
+                    }
                     is MyReviewsEvent.RefreshData -> {
                         viewModel.onEvent(MyReviewsUiEvent.GetMyReviews)
                     }

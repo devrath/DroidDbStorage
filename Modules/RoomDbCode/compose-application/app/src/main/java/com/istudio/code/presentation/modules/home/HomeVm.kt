@@ -123,8 +123,18 @@ class HomeVm @Inject constructor(
      * USE-CASE: Deleting book from database
      */
     private fun deleteBook(book: Book) {
-        viewModelScope.launch {
-            addBookUseCases.deleteBookUseCase.invoke(book)
+        launchUseCase(catchException {
+            Log.d("Error", it.message.toString())
+        }){
+            when (val result = addBookUseCases.deleteBookUseCase.invoke(book)) {
+                is Result.Success -> {
+                    _uiEventMyBooks.send(MyBooksEvent.ShowSnackBar("Success"))
+                }
+                is Result.Error -> {
+                    useCaseError(UseCaseResult.Error(Exception(result.exception)))
+                }
+                is Result.Loading -> { }
+            }
         }
     }
     /** <*******> Use case <My Books> <*******> **/
@@ -157,16 +167,18 @@ class HomeVm @Inject constructor(
      * USE-CASE: Deleting review from database
      */
     private fun deleteReview(review: Review) {
-      //  reviewBookUseCases
-        viewModelScope.launch {
-            reviewBookUseCases.deleteReviewUseCase
-                .invoke(review).onSuccess {
-                    //_uiEventMyReviews.send(MyReviewsEvent.RefreshData)
-                }.onFailure {
-                    viewModelScope.launch {
-                        useCaseError(UseCaseResult.Error(Exception(it)))
-                    }
+        launchUseCase(catchException {
+            Log.d("Error", it.message.toString())
+        }){
+            when (val result = reviewBookUseCases.deleteReviewUseCase.invoke(review)) {
+                is Result.Success -> {
+                    _uiEventMyReviews.send(MyReviewsEvent.ShowSnackBar("Success"))
                 }
+                is Result.Error -> {
+                    useCaseError(UseCaseResult.Error(Exception(result.exception)))
+                }
+                is Result.Loading -> { }
+            }
         }
     }
     /** <*******> Use case <Reviews> <********> **/

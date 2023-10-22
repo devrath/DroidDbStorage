@@ -1,5 +1,6 @@
 package com.istudio.code.presentation.modules.home.screens.myBooks
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -60,7 +61,9 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
     LaunchedEffect(state.launchedEffectState) {
         viewModel.uiEventMyBooks.collect { event ->
             when (event) {
-                is MyBooksEvent.ShowSnackBar -> { }
+                is MyBooksEvent.ShowSnackBar -> {
+                    Toast.makeText(cxt,event.message,Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
