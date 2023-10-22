@@ -9,6 +9,7 @@ import com.istudio.code.domain.database.models.Review
 import com.istudio.code.domain.database.models.relations.BookAndGenre
 import com.istudio.code.domain.database.models.relations.ReviewAndBook
 import com.istudio.code.domain.repository.AppRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
@@ -19,7 +20,7 @@ class AppRepositoryImpl @Inject constructor(
     override fun addBook(book: Book) = bookDao.addBook(book)
 
     // We combined using 2 different DAO's to get the combined end result you need
-    override fun getBooks(): List<BookAndGenre> {
+    override fun getBooks(): Flow<List<BookAndGenre>> {
         return bookDao.getBooks()
     }
 

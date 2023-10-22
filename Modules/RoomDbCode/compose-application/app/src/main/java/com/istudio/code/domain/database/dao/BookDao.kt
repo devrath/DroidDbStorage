@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.istudio.code.domain.database.models.Book
 import com.istudio.code.domain.database.models.Genre
 import com.istudio.code.domain.database.models.relations.BookAndGenre
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
@@ -18,7 +19,7 @@ interface BookDao {
      * Getting just a list of books
      */
     @Query("SELECT * FROM books")
-    fun getBooks() : List<BookAndGenre>
+    fun getBooks() : Flow<List<BookAndGenre>>
 
 
     /**

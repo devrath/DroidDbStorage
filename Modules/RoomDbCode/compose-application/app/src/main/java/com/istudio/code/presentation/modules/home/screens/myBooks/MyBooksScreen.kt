@@ -61,9 +61,6 @@ private fun CurrentScreen(viewModelStore: ViewModelStoreOwner) {
         viewModel.uiEventMyBooks.collect { event ->
             when (event) {
                 is MyBooksEvent.ShowSnackBar -> { }
-                is MyBooksEvent.RefreshData -> {
-                    viewModel.onEvent(MyBooksUiEvent.GetMyBooks)
-                }
             }
         }
     }

@@ -16,6 +16,8 @@ import com.istudio.code.presentation.modules.addbook.states.AddBookResponseEvent
 import com.istudio.code.presentation.modules.addbook.states.AddBookViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -86,8 +88,12 @@ class AddReviewVm @Inject constructor(
     private fun getBooksList() {
         viewModelScope.launch {
             reviewBookUseCases.getBooksUseCase.invoke()
-                .onSuccess {
-                    viewState = viewState.copy(booksList = it)
+                .onSuccess {flowOfBooks ->
+                    flowOfBooks.catch { error->
+                        useCaseError(UseCaseResult.Error(Exception(error)))
+                    }.collect{ books ->
+                        viewState = viewState.copy(booksList = books)
+                    }
                 }.onFailure {
                     useCaseError(UseCaseResult.Error(Exception(it)))
                 }

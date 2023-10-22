@@ -19,6 +19,7 @@ import com.istudio.code.presentation.modules.home.states.myReviews.MyReviewsUISt
 import com.istudio.code.presentation.modules.home.states.myReviews.MyReviewsUiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -97,10 +98,14 @@ class HomeVm @Inject constructor(
     /**
      * USE-CASE: Retrieving all books from database
      */
-    private fun retrieveAllBooks() {
+    private suspend fun retrieveAllBooks() {
         addBookUseCases.getBooksAndGenreUseCase.invoke()
-            .onSuccess {
-                viewStateMyBooks = viewStateMyBooks.copy(books = it)
+            .onSuccess { flowOfBooks ->
+                flowOfBooks.catch { error ->
+                    useCaseError(UseCaseResult.Error(Exception(error)))
+                }.collect{ books ->
+                    viewStateMyBooks = viewStateMyBooks.copy(books = books)
+                }
             }.onFailure {
                 viewModelScope.launch {
                     useCaseError(UseCaseResult.Error(Exception(it)))
@@ -112,15 +117,7 @@ class HomeVm @Inject constructor(
      */
     private fun deleteBook(book: Book) {
         viewModelScope.launch {
-            addBookUseCases.deleteBookUseCase
-                .invoke(book).onSuccess {
-                    _uiEventMyBooks.send(MyBooksEvent.RefreshData)
-                    //retrieveAllBooks()
-                }.onFailure {
-                    viewModelScope.launch {
-                        useCaseError(UseCaseResult.Error(Exception(it)))
-                    }
-                }
+            addBookUseCases.deleteBookUseCase.invoke(book)
         }
     }
     /** <*******> Use case <My Books> <*******> **/
