@@ -312,6 +312,8 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                     isError = state.viewState.isReviewError
                 )
 
+                Spacer(modifier = Modifier.height(20.dp))
+
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RectangleShape,
@@ -323,6 +325,8 @@ fun CurrentScreen(state: AddReviewVm, onBackPress: () -> Unit) {
                 ) {
                     Text(text = LocalContext.current.getString(R.string.str_add))
                 }
+
+                Spacer(modifier = Modifier.height(20.dp))
 
             }
         }

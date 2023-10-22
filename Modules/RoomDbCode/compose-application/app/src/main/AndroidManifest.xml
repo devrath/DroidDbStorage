@@ -16,6 +16,7 @@
         <activity
             android:name=".presentation.modules.addReview.AddReviewActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_add_review"
             android:theme="@style/Theme.Android" />
         <activity
