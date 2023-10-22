@@ -68,92 +68,65 @@ fun HomeContainer(
     // The state "rememberSavable" helps to save the state in configuration changes, We can save in viewmodel also
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
     // Keeping track of navigation
-    val navController = rememberNavController();
-    // For -> BottomSheetScaffold
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+    val navController = rememberNavController()
 
-    BottomSheetScaffold(
-        scaffoldState = bottomSheetScaffoldState,
-        sheetContent = {
-            BottomSheetContent()
+    // Scaffold: it contains bottom navigation bar and a NavHost(Contains all screens) for each screen
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehaviour.nestedScrollConnection),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    var screenTitle = cxt.getString(R.string.str_home)
+                    screenTitle = when (selectedItemIndex) {
+                        0 -> cxt.getString(R.string.str_my_books)
+                        1 -> cxt.getString(R.string.str_book_reviews)
+                        else -> cxt.getString(R.string.str_reading_list)
+                    }
+                    Text(text = screenTitle)
+                },
+                scrollBehavior = scrollBehaviour
+            )
         },
-        sheetPeekHeight = 0.dp
+        bottomBar = {
+            NavigationBar {
+                navItems.forEachIndexed { index, item ->
+                    NavigationBarItem(
+                        // If both the index are same, return true indicating it is selected
+                        selected = (selectedItemIndex == index),
+                        onClick = {
+                            selectedItemIndex = index
+                            navController.navigate(item.route)
+                        },
+                        label = {
+                            Text(text = cxt.getString(item.title))
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selectedItemIndex == index) {
+                                    item.iconSelected
+                                } else {
+                                    item.iconUnSelected
+                                },
+                                contentDescription = cxt.getString(item.title)
+                            )
+                        },
+                    )
+                }
+            }
+        },
+        floatingActionButton = {
+            FloatingButton(expanded = true, selectedItemIndex)
+        }
     ) {
-
-        // Scaffold: it contains bottom navigation bar and a NavHost(Contains all screens) for each screen
-        Scaffold(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehaviour.nestedScrollConnection),
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = {
-                        var screenTitle = cxt.getString(R.string.str_home)
-                        screenTitle = when (selectedItemIndex) {
-                            0 -> cxt.getString(R.string.str_my_books)
-                            1 -> cxt.getString(R.string.str_book_reviews)
-                            else -> cxt.getString(R.string.str_reading_list)
-                        }
-                        Text(text = screenTitle)
-                    },
-                    actions = {
-                        if (selectedItemIndex == 0) {
-                            // Display the filter Icon only if it is First Tab - MyBooks
-                            IconButton(onClick = {
-                                coroutineScope.launch {
-                                    bottomSheetScaffoldState.bottomSheetState.expand()
-                                }
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Default.FilterList,
-                                    contentDescription = cxt.getString(R.string.str_filter)
-                                )
-                            }
-                        }
-                    },
-                    scrollBehavior = scrollBehaviour
-                )
-            },
-            bottomBar = {
-                NavigationBar {
-                    navItems.forEachIndexed { index, item ->
-                        NavigationBarItem(
-                            // If both the index are same, return true indicating it is selected
-                            selected = (selectedItemIndex == index),
-                            onClick = {
-                                selectedItemIndex = index
-                                navController.navigate(item.route)
-                            },
-                            label = {
-                                Text(text = cxt.getString(item.title))
-                            },
-                            icon = {
-                                Icon(
-                                    imageVector = if (selectedItemIndex == index) {
-                                        item.iconSelected
-                                    } else {
-                                        item.iconUnSelected
-                                    },
-                                    contentDescription = cxt.getString(item.title)
-                                )
-                            },
-                        )
-                    }
-                }
-            },
-            floatingActionButton = {
-                FloatingButton(expanded = true, selectedItemIndex)
-            }
+                .padding(it)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-            ) {
-                HomeModuleNavGraph(navController, viewModelStore)
-            }
+            HomeModuleNavGraph(navController, viewModelStore)
         }
-
     }
 
 }
