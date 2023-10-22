@@ -34,7 +34,7 @@ class AppRepositoryImpl @Inject constructor(
 
     override fun getGenreById(genreId: String): Genre = genreDao.getGenreById(genreId = genreId)
 
-    override fun removeBook(book: Book) = bookDao.deleteBook(book)
+    override suspend fun removeBook(book: Book) = bookDao.deleteBook(book)
 
     override fun addReview(review: Review) = reviewDao.addReview(review)
 

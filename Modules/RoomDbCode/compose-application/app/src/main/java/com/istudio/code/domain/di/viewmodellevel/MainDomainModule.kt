@@ -46,7 +46,10 @@ object MainDomainModule {
             retrieveGenreDataUseCase = RetrieveGenreDataUseCase(appRepositoryImpl = appRepositoryImpl),
             addBookUseCase = AddBookUseCase(dispatcher = dispatcher, appRepositoryImpl = appRepositoryImpl),
             getBooksAndGenreUseCase = GetBooksAndGenreUseCase(appRepositoryImpl = appRepositoryImpl),
-            deleteBookUseCase = DeleteBookUseCase(appRepositoryImpl = appRepositoryImpl)
+            deleteBookUseCase = DeleteBookUseCase(
+                dispatcher = dispatcher,
+                appRepositoryImpl = appRepositoryImpl
+            )
         )
     }
 

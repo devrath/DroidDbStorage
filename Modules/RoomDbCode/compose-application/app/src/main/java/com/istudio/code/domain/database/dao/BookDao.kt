@@ -44,6 +44,6 @@ interface BookDao {
      * Deleting a existing book in database
      */
     @Delete
-    fun deleteBook(book : Book)
+    suspend fun deleteBook(book : Book)
 
 }

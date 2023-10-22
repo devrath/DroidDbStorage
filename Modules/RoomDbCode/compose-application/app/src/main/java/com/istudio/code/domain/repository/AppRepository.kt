@@ -14,7 +14,7 @@ interface AppRepository {
     fun getGenres(): List<Genre>
     fun addGenres(genres: List<Genre>)
     fun getGenreById(genreId: String): Genre
-    fun removeBook(book:Book)
+    suspend fun removeBook(book:Book)
     fun addReview(review:Review)
     fun removeReview(review:Review)
     fun updateReview(review:Review)
