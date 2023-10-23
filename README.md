@@ -47,6 +47,7 @@
 </div>
 
 ## Architecture 👷‍♂️
+
 <p align="center">
 <img src="https://github.com/devrath/DroidDbStorage/assets/1456191/f02e7fc1-4a50-4619-b3a6-1ae1eecec70b" />
 </p>
@@ -56,8 +57,11 @@
 * The `view` layer consists of `Activity`, `composable`, `view-model`
 * The `domain` layer consists of `use-cases`,`db-specific classes`,`di-modules`,`db-service`
 * The data layer consists of the implementation of the `db-service`. It interacts with the `room-database` by getting and sending the data back and forth.
-   
- 
+
+## Screen Flow ⏳
+<p align="center">
+<img src="https://github.com/devrath/DroidDbStorage/assets/1456191/845897f4-ff60-4893-826b-780589003e75" />
+</p>
 
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
