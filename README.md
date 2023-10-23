@@ -37,6 +37,16 @@
 
 </div>
 
+### `Demo`
+
+<p align="center">
+<img src="https://github.com/devrath/DroidDbStorage/blob/main/assets/demos/Demo.gif" width="220" height="460"/>
+</p>
+
+
+
+
+
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
 If you feel like support me a coffee for my efforts, I would greatly appreciate it.</br>
 <a href="https://www.buymeacoffee.com/devrath" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
