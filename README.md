@@ -46,6 +46,19 @@
 
 </div>
 
+## Architecture 👷‍♂️
+<p align="center">
+<img src="https://github.com/devrath/DroidDbStorage/assets/1456191/f02e7fc1-4a50-4619-b3a6-1ae1eecec70b" />
+</p>
+
+* There are three layers present `view`,`domain`,`data`
+* The `View` layer can access the `domain` layer, The `domain` layer can access the `data` layer, but the `view` layer cannot access the `data` layer directly.
+* The `view` layer consists of `Activity`, `composable`, `view-model`
+* The `domain` layer consists of `use-cases`,`db-specific classes`,`di-modules`,`db-service`
+* The data layer consists of the implementation of the `db-service`. It interacts with the `room-database` by getting and sending the data back and forth.
+   
+ 
+
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
 If you feel like support me a coffee for my efforts, I would greatly appreciate it.</br>
