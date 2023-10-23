@@ -3,24 +3,33 @@
 
 
 <p align="center">
+  
 <a><img src="https://img.shields.io/badge/Built%20Using-Kotlin-silver?style=for-the-badge&logo=kotlin"></a>
 <a><img src="https://img.shields.io/badge/Built%20By-Android%20Studio-red?style=for-the-badge&logo=android%20studio"></a>  
 <a><img src="https://img.shields.io/badge/Database-room%20persistence%20library-deeppink?style=for-the-badge&logo=Bitrise"></a>
 <a><img src="https://img.shields.io/badge/UI-Jetpack%20Compose-purple?style=for-the-badge&logo=android"></a>  
 <a><img src="https://img.shields.io/badge/Dependency%20Injection-Hilt-blue?style=for-the-badge&logo=atom"></a>  
+
 </p>
 
-<div align="center">
+<p align="center">
+  
+𝚃𝚑𝚒𝚜 𝚛𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢 𝚌𝚘𝚗𝚜𝚒𝚜𝚝𝚜 𝚘𝚏 𝚞𝚜𝚒𝚗𝚐 𝙹𝚎𝚝𝚙𝚊𝚌𝚔 𝙲𝚘𝚖𝚙𝚘𝚜𝚎 𝚒𝚗 𝚌𝚘𝚗𝚓𝚞𝚗𝚌𝚝𝚒𝚘𝚗 𝚠𝚒𝚝𝚑 𝚊𝚗 𝙰𝚗𝚍𝚛𝚘𝚒𝚍 𝚍𝚊𝚝𝚊 𝚙𝚎𝚛𝚜𝚒𝚜𝚝𝚎𝚗𝚌𝚎 𝚕𝚒𝚋𝚛𝚊𝚛𝚢 𝚝𝚘 𝚜𝚝𝚘𝚛𝚎 𝚌𝚘𝚖𝚙𝚕𝚎𝚡 𝚍𝚊𝚝𝚊 𝚝𝚑𝚊𝚝 𝚊𝚛𝚎 𝚛𝚎𝚕𝚊𝚝𝚎𝚍 𝚝𝚘 𝚎𝚊𝚌𝚑 𝚘𝚝𝚑𝚎𝚛 𝚕𝚘𝚌𝚊𝚕𝚕𝚢 𝚘𝚗 𝚊𝚗 𝙰𝚗𝚍𝚛𝚘𝚒𝚍 𝚍𝚎𝚟𝚒𝚌𝚎.
 
+</p>
+
+
+
+<p align="center">
+  
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜 𝚘𝚏 𝚠𝚒𝚔𝚒`** |
 | ------------------------ |
 | [𝙳𝚎𝚖𝚘](https://github.com/devrath/DroidDbStorage/blob/main/README.md#demo) |
 | [𝚁𝚘𝚘𝚖 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎](https://github.com/devrath/DroidDbStorage/blob/main/README.md#room-database) |
 | [𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎](https://github.com/devrath/DroidDbStorage/blob/main/README.md#architecture-%EF%B8%8F) |
 | [𝚂𝚌𝚛𝚎𝚎𝚗 𝙵𝚕𝚘𝚠](https://github.com/devrath/DroidDbStorage/blob/main/README.md#screen-flow-) |
-
-
-</div>
+  
+</p>
 
 ## `Demo`
 
