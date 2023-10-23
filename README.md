@@ -39,7 +39,8 @@
 | **`8`** | [**`Type Converters`**](https://github.com/devrath/verbose-room-database/wiki/Type-Converters) |
 | **`9`** | [**`Defining the entity relationship in room`**](https://github.com/devrath/verbose-room-database/wiki/Defining-the-entity-relationship-in-room) |
 | **`10`** | [**`Performing database operations in background thread`**](https://github.com/devrath/verbose-room-database/wiki/Performing-database-operations-in-background-thread) |
-| **`11`** | [**`Database Migration`**](https://github.com/devrath/verbose-room-database/wiki/Database-Migration) |
+| **`11`** | [**`Using foreign keys to establish relationship`**](https://github.com/devrath/DroidDbStorage/wiki/Room-%E2%80%90-Using-foreign-keys) |
+| **`12`** | [**`Database Migration`**](https://github.com/devrath/verbose-room-database/wiki/Database-Migration) |
 
 </div>
 
