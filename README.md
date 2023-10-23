@@ -8,7 +8,6 @@
 <a><img src="https://img.shields.io/badge/Database-room%20persistence%20library-deeppink?style=for-the-badge&logo=Bitrise"></a>
 <a><img src="https://img.shields.io/badge/UI-Jetpack%20Compose-purple?style=for-the-badge&logo=android"></a>  
 <a><img src="https://img.shields.io/badge/Dependency%20Injection-Hilt-blue?style=for-the-badge&logo=atom"></a>  
-
 </p>
 
 <div align="center">
