@@ -13,7 +13,11 @@
 
 | **`𝙲𝚘𝚗𝚝𝚎𝚗𝚝𝚜 𝚘𝚏 𝚠𝚒𝚔𝚒`** |
 | ------------------------ |
+| [𝙳𝚎𝚖𝚘](https://github.com/devrath/DroidDbStorage/blob/main/README.md#demo) |
 | [𝚁𝚘𝚘𝚖 𝙳𝚊𝚝𝚊𝚋𝚊𝚜𝚎](https://github.com/devrath/DroidDbStorage/blob/main/README.md#room-database) |
+| [𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎](https://github.com/devrath/DroidDbStorage/blob/main/README.md#architecture-%EF%B8%8F) |
+| [𝚂𝚌𝚛𝚎𝚎𝚗 𝙵𝚕𝚘𝚠](https://github.com/devrath/DroidDbStorage/blob/main/README.md#screen-flow-) |
+
 
 </div>
 
