@@ -16,6 +16,12 @@
 
 </div>
 
+## `Demo`
+
+<p align="center">
+<img src="https://github.com/devrath/DroidDbStorage/blob/main/assets/demos/Demo.gif" width="220" height="460"/>
+</p>
+
 
 ## `Room Database`
 
@@ -36,15 +42,6 @@
 | **`11`** | [**`Database Migration`**](https://github.com/devrath/verbose-room-database/wiki/Database-Migration) |
 
 </div>
-
-### `Demo`
-
-<p align="center">
-<img src="https://github.com/devrath/DroidDbStorage/blob/main/assets/demos/Demo.gif" width="220" height="460"/>
-</p>
-
-
-
 
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
