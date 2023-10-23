@@ -1,6 +1,5 @@
 # DroidDbStorage
-![Banner](https://github.com/devrath/DroidDbStorage/blob/main/assets/banner.png)
-
+![github-header-image](https://github.com/devrath/DroidDbStorage/assets/1456191/6801fc9b-5e35-40a9-b1df-412c37410fb8)
 
 <p align="center">
 <a><img src="https://img.shields.io/badge/Built%20Using-Kotlin-silver?style=for-the-badge&logo=kotlin"></a>
