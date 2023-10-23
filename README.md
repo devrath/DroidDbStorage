@@ -60,9 +60,8 @@
 
 ## Screen Flow ⏳
 <p align="center">
-<img src="https://github.com/devrath/DroidDbStorage/assets/1456191/845897f4-ff60-4893-826b-780589003e75" />
+<img src="https://github.com/devrath/DroidDbStorage/assets/1456191/512b74a7-f622-42be-8c2b-42e828f554e9" />
 </p>
-
 
 ## **`𝚂𝚞𝚙𝚙𝚘𝚛𝚝`** ☕
 If you feel like support me a coffee for my efforts, I would greatly appreciate it.</br>
