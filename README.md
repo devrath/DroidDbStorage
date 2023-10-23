@@ -5,7 +5,8 @@
 <p align="center">
 <a><img src="https://img.shields.io/badge/Built%20Using-Kotlin-silver?style=for-the-badge&logo=kotlin"></a>
 <a><img src="https://img.shields.io/badge/Built%20By-Android%20Studio-red?style=for-the-badge&logo=android%20studio"></a>  
-<a><img src="https://img.shields.io/badge/Database-room%20persistence%20library-deeppink?style=for-the-badge&logo=Bitrise"></a>  
+<a><img src="https://img.shields.io/badge/Database-room%20persistence%20library-deeppink?style=for-the-badge&logo=Bitrise"></a>
+<a><img src="https://img.shields.io/badge/UI-Jetpack%20Compose-purple?style=for-the-badge&logo=android"></a>  
 </p>
 
 <div align="center">
