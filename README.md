@@ -10,6 +10,8 @@
 <a><img src="https://img.shields.io/badge/Dependency%20Injection-Hilt-blue?style=for-the-badge&logo=atom"></a>  
 </p>
 
+𝚃𝚑𝚒𝚜 𝚛𝚎𝚙𝚘𝚜𝚒𝚝𝚘𝚛𝚢 𝚌𝚘𝚗𝚜𝚒𝚜𝚝𝚜 𝚘𝚏 𝚞𝚜𝚒𝚗𝚐 𝙹𝚎𝚝𝚙𝚊𝚌𝚔 𝙲𝚘𝚖𝚙𝚘𝚜𝚎 𝚒𝚗 𝚌𝚘𝚗𝚓𝚞𝚗𝚌𝚝𝚒𝚘𝚗 𝚠𝚒𝚝𝚑 𝚊𝚗 𝙰𝚗𝚍𝚛𝚘𝚒𝚍 𝚍𝚊𝚝𝚊 𝚙𝚎𝚛𝚜𝚒𝚜𝚝𝚎𝚗𝚌𝚎 𝚕𝚒𝚋𝚛𝚊𝚛𝚢 𝚝𝚘 𝚜𝚝𝚘𝚛𝚎 𝚌𝚘𝚖𝚙𝚕𝚎𝚡 𝚍𝚊𝚝𝚊 𝚝𝚑𝚊𝚝 𝚊𝚛𝚎 𝚛𝚎𝚕𝚊𝚝𝚎𝚍 𝚝𝚘 𝚎𝚊𝚌𝚑 𝚘𝚝𝚑𝚎𝚛 𝚕𝚘𝚌𝚊𝚕𝚕𝚢 𝚘𝚗 𝚊𝚗 𝙰𝚗𝚍𝚛𝚘𝚒𝚍 𝚍𝚎𝚟𝚒𝚌𝚎
+
 
 <div align="center">
   
