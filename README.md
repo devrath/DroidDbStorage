@@ -1,6 +1,5 @@
 # DroidDbStorage
-![github-header-image](https://github.com/devrath/DroidDbStorage/assets/1456191/0a0724b6-6203-4cb1-859b-3fed3d061bb0)
-
+![github-header-image](https://github.com/devrath/DroidDbStorage/assets/1456191/35ab467f-769a-4634-861b-b25663b3dd25)
 
 
 <p align="center">
